@@ -8,10 +8,14 @@ Prérequis : copier libSenseHat.a  dans le répertoire /usr/lib/
 Compilation : g++ main.cpp -l SenseHat -o main
 Exécution   : ./main
 
-Vous devriez voir sur votre carte Sense Hat, les deux premières colonnes de led s'allumer
-en rouge et bleu.
+Vous devriez voir sur votre carte Sense Hat, les deux premières colonnes de leds s'allumer
+ progressivement en rouge et bleu.
 
-Ensuite affichage sur le terminal de la température, la pression et l'humidité relative.
+Ensuite affichage sur le terminal de la valeur de la température, 
+
+de la pression en hPa
+
+et l'humidité relative en %.
 
 
 
