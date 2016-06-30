@@ -19,6 +19,8 @@ int main(){
 SenseHat carte;
 int i;
 float pression;
+float temperature;
+float humidite;
 
 carte.Effacer();
 sleep(1);
@@ -30,4 +32,9 @@ for (i=0;i<8;i++){
 pression = carte.ObtenirPression();
 std::cout << "pression : " << pression << " hPa"<< std::endl;
 
+temperature = carte.ObtenirTemperature();
+std::cout << "Température : " << temperature << " °C" << std::endl;
+
+humidite = carte.ObtenirHumidite();
+std::cout << "Humidité : " << humidite << " %" << std::endl;
 }
