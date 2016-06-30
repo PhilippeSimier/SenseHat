@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="SenseHat" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="libSenseHat" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="obj/Debug/" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-Wall" />
+					<Add option="-g" />
+					<Add option="-DHAL_QUIET" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="libSenseHat" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="obj/Release/" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-Wall" />
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-DHAL_QUIET" />
+		</Compiler>
+		<Unit filename="IMUDrivers/RTHumidity.cpp" />
+		<Unit filename="IMUDrivers/RTHumidity.h" />
+		<Unit filename="IMUDrivers/RTHumidityDefs.h" />
+		<Unit filename="IMUDrivers/RTHumidityHTS221.cpp" />
+		<Unit filename="IMUDrivers/RTHumidityHTS221.h" />
+		<Unit filename="IMUDrivers/RTHumidityHTU21D.cpp" />
+		<Unit filename="IMUDrivers/RTHumidityHTU21D.h" />
+		<Unit filename="IMUDrivers/RTIMU.cpp" />
+		<Unit filename="IMUDrivers/RTIMU.h" />
+		<Unit filename="IMUDrivers/RTIMUBMX055.cpp" />
+		<Unit filename="IMUDrivers/RTIMUBMX055.h" />
+		<Unit filename="IMUDrivers/RTIMUBNO055.cpp" />
+		<Unit filename="IMUDrivers/RTIMUBNO055.h" />
+		<Unit filename="IMUDrivers/RTIMUDefs.h" />
+		<Unit filename="IMUDrivers/RTIMUGD20HM303D.cpp" />
+		<Unit filename="IMUDrivers/RTIMUGD20HM303D.h" />
+		<Unit filename="IMUDrivers/RTIMUGD20HM303DLHC.cpp" />
+		<Unit filename="IMUDrivers/RTIMUGD20HM303DLHC.h" />
+		<Unit filename="IMUDrivers/RTIMUGD20M303DLHC.cpp" />
+		<Unit filename="IMUDrivers/RTIMUGD20M303DLHC.h" />
+		<Unit filename="IMUDrivers/RTIMULSM9DS0.cpp" />
+		<Unit filename="IMUDrivers/RTIMULSM9DS0.h" />
+		<Unit filename="IMUDrivers/RTIMULSM9DS1.cpp" />
+		<Unit filename="IMUDrivers/RTIMULSM9DS1.h" />
+		<Unit filename="IMUDrivers/RTIMUMPU9150.cpp" />
+		<Unit filename="IMUDrivers/RTIMUMPU9150.h" />
+		<Unit filename="IMUDrivers/RTIMUMPU9250.cpp" />
+		<Unit filename="IMUDrivers/RTIMUMPU9250.h" />
+		<Unit filename="IMUDrivers/RTIMUNull.cpp" />
+		<Unit filename="IMUDrivers/RTIMUNull.h" />
+		<Unit filename="IMUDrivers/RTPressure.cpp" />
+		<Unit filename="IMUDrivers/RTPressure.h" />
+		<Unit filename="IMUDrivers/RTPressureBMP180.cpp" />
+		<Unit filename="IMUDrivers/RTPressureBMP180.h" />
+		<Unit filename="IMUDrivers/RTPressureDefs.h" />
+		<Unit filename="IMUDrivers/RTPressureLPS25H.cpp" />
+		<Unit filename="IMUDrivers/RTPressureLPS25H.h" />
+		<Unit filename="IMUDrivers/RTPressureMS5611.cpp" />
+		<Unit filename="IMUDrivers/RTPressureMS5611.h" />
+		<Unit filename="IMUDrivers/RTPressureMS5637.cpp" />
+		<Unit filename="IMUDrivers/RTPressureMS5637.h" />
+		<Unit filename="RTFusion.cpp" />
+		<Unit filename="RTFusion.h" />
+		<Unit filename="RTFusionKalman4.cpp" />
+		<Unit filename="RTFusionKalman4.h" />
+		<Unit filename="RTFusionRTQF.cpp" />
+		<Unit filename="RTFusionRTQF.h" />
+		<Unit filename="RTIMUAccelCal.cpp" />
+		<Unit filename="RTIMUAccelCal.h" />
+		<Unit filename="RTIMUCalDefs.h" />
+		<Unit filename="RTIMUHal.cpp" />
+		<Unit filename="RTIMUHal.h" />
+		<Unit filename="RTIMULib.h" />
+		<Unit filename="RTIMULib.pri" />
+		<Unit filename="RTIMULibDefs.h" />
+		<Unit filename="RTIMUMagCal.cpp" />
+		<Unit filename="RTIMUMagCal.h" />
+		<Unit filename="RTIMUSettings.cpp" />
+		<Unit filename="RTIMUSettings.h" />
+		<Unit filename="RTMath.cpp" />
+		<Unit filename="RTMath.h" />
+		<Unit filename="main.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="sensehat.cpp" />
+		<Unit filename="sensehat.h" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<lib_finder disable_auto="1" />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

@@ -1,0 +1,281 @@
+# depslib dependency file v1.0
+1467190354 source:/home/pi/SenseHatCpp/SenseHat/IMUDrivers/RTHumidity.cpp
+	"RTHumidity.h"
+	"RTHumidityHTS221.h"
+	"RTHumidityHTU21D.h"
+
+1467190354 /home/pi/SenseHatCpp/SenseHat/IMUDrivers/RTHumidity.h
+	"RTIMUSettings.h"
+	"RTIMULibDefs.h"
+	"RTHumidityDefs.h"
+
+1467190354 /home/pi/SenseHatCpp/SenseHat/IMUDrivers/RTHumidityDefs.h
+
+1467190354 /home/pi/SenseHatCpp/SenseHat/IMUDrivers/RTHumidityHTS221.h
+	"RTHumidity.h"
+
+1467190354 /home/pi/SenseHatCpp/SenseHat/IMUDrivers/RTHumidityHTU21D.h
+	"RTHumidity.h"
+
+1467190354 source:/home/pi/SenseHatCpp/SenseHat/IMUDrivers/RTHumidityHTS221.cpp
+	"RTHumidityHTS221.h"
+	"RTHumidityDefs.h"
+
+1467190354 source:/home/pi/SenseHatCpp/SenseHat/IMUDrivers/RTHumidityHTU21D.cpp
+	"RTHumidityHTU21D.h"
+	"RTHumidityDefs.h"
+
+1467190354 source:/home/pi/SenseHatCpp/SenseHat/IMUDrivers/RTIMU.cpp
+	"RTIMU.h"
+	"RTFusionKalman4.h"
+	"RTFusionRTQF.h"
+	"RTIMUNull.h"
+	"RTIMUMPU9150.h"
+	"RTIMUMPU9250.h"
+	"RTIMUGD20HM303D.h"
+	"RTIMUGD20M303DLHC.h"
+	"RTIMUGD20HM303DLHC.h"
+	"RTIMULSM9DS0.h"
+	"RTIMULSM9DS1.h"
+	"RTIMUBMX055.h"
+	"RTIMUBNO055.h"
+
+1467190354 /home/pi/SenseHatCpp/SenseHat/IMUDrivers/RTIMU.h
+	"RTMath.h"
+	"RTFusion.h"
+	"RTIMULibDefs.h"
+	"RTIMUSettings.h"
+
+1467190355 /home/pi/SenseHatCpp/SenseHat/IMUDrivers/RTIMUNull.h
+	"RTIMU.h"
+
+1467190355 /home/pi/SenseHatCpp/SenseHat/IMUDrivers/RTIMUMPU9150.h
+	"RTIMU.h"
+
+1467190355 /home/pi/SenseHatCpp/SenseHat/IMUDrivers/RTIMUMPU9250.h
+	"RTIMU.h"
+
+1467190355 /home/pi/SenseHatCpp/SenseHat/IMUDrivers/RTIMUGD20HM303D.h
+	"RTIMU.h"
+
+1467190355 /home/pi/SenseHatCpp/SenseHat/IMUDrivers/RTIMUGD20M303DLHC.h
+	"RTIMU.h"
+
+1467190355 /home/pi/SenseHatCpp/SenseHat/IMUDrivers/RTIMUGD20HM303DLHC.h
+	"RTIMU.h"
+
+1467190355 /home/pi/SenseHatCpp/SenseHat/IMUDrivers/RTIMULSM9DS0.h
+	"RTIMU.h"
+
+1467190355 /home/pi/SenseHatCpp/SenseHat/IMUDrivers/RTIMULSM9DS1.h
+	"RTIMU.h"
+
+1467190354 /home/pi/SenseHatCpp/SenseHat/IMUDrivers/RTIMUBMX055.h
+	"RTIMU.h"
+
+1467190354 /home/pi/SenseHatCpp/SenseHat/IMUDrivers/RTIMUBNO055.h
+	"RTIMU.h"
+
+1467190354 source:/home/pi/SenseHatCpp/SenseHat/IMUDrivers/RTIMUBMX055.cpp
+	"RTIMUBMX055.h"
+	"RTIMUSettings.h"
+
+1467190354 source:/home/pi/SenseHatCpp/SenseHat/IMUDrivers/RTIMUBNO055.cpp
+	"RTIMUBNO055.h"
+	"RTIMUSettings.h"
+
+1467190355 source:/home/pi/SenseHatCpp/SenseHat/IMUDrivers/RTIMUGD20HM303D.cpp
+	"RTIMUGD20HM303D.h"
+	"RTIMUSettings.h"
+
+1467190355 source:/home/pi/SenseHatCpp/SenseHat/IMUDrivers/RTIMUGD20HM303DLHC.cpp
+	"RTIMUGD20HM303DLHC.h"
+	"RTIMUSettings.h"
+
+1467190355 source:/home/pi/SenseHatCpp/SenseHat/IMUDrivers/RTIMUGD20M303DLHC.cpp
+	"RTIMUGD20M303DLHC.h"
+	"RTIMUSettings.h"
+
+1467190355 source:/home/pi/SenseHatCpp/SenseHat/IMUDrivers/RTIMULSM9DS0.cpp
+	"RTIMULSM9DS0.h"
+	"RTIMUSettings.h"
+
+1467190355 source:/home/pi/SenseHatCpp/SenseHat/IMUDrivers/RTIMULSM9DS1.cpp
+	"RTIMULSM9DS1.h"
+	"RTIMUSettings.h"
+
+1467190355 source:/home/pi/SenseHatCpp/SenseHat/IMUDrivers/RTIMUMPU9150.cpp
+	"RTIMUMPU9150.h"
+	"RTIMUSettings.h"
+
+1467190355 source:/home/pi/SenseHatCpp/SenseHat/IMUDrivers/RTIMUMPU9250.cpp
+	"RTIMUMPU9250.h"
+	"RTIMUSettings.h"
+
+1467190355 source:/home/pi/SenseHatCpp/SenseHat/IMUDrivers/RTIMUNull.cpp
+	"RTIMUNull.h"
+	"RTIMUSettings.h"
+
+1467190355 source:/home/pi/SenseHatCpp/SenseHat/IMUDrivers/RTPressure.cpp
+	"RTPressure.h"
+	"RTPressureBMP180.h"
+	"RTPressureLPS25H.h"
+	"RTPressureMS5611.h"
+	"RTPressureMS5637.h"
+
+1467190355 /home/pi/SenseHatCpp/SenseHat/IMUDrivers/RTPressure.h
+	"RTIMUSettings.h"
+	"RTIMULibDefs.h"
+	"RTPressureDefs.h"
+
+1467190355 /home/pi/SenseHatCpp/SenseHat/IMUDrivers/RTPressureDefs.h
+
+1467190355 /home/pi/SenseHatCpp/SenseHat/IMUDrivers/RTPressureBMP180.h
+	"RTPressure.h"
+
+1467190355 /home/pi/SenseHatCpp/SenseHat/IMUDrivers/RTPressureLPS25H.h
+	"RTPressure.h"
+
+1467190355 /home/pi/SenseHatCpp/SenseHat/IMUDrivers/RTPressureMS5611.h
+	"RTPressure.h"
+
+1467190355 /home/pi/SenseHatCpp/SenseHat/IMUDrivers/RTPressureMS5637.h
+	"RTPressure.h"
+
+1467190355 source:/home/pi/SenseHatCpp/SenseHat/IMUDrivers/RTPressureBMP180.cpp
+	"RTPressureBMP180.h"
+
+1467190355 source:/home/pi/SenseHatCpp/SenseHat/IMUDrivers/RTPressureLPS25H.cpp
+	"RTPressureLPS25H.h"
+	"RTPressureDefs.h"
+
+1467190355 source:/home/pi/SenseHatCpp/SenseHat/IMUDrivers/RTPressureMS5611.cpp
+	"RTPressureMS5611.h"
+
+1467190355 source:/home/pi/SenseHatCpp/SenseHat/IMUDrivers/RTPressureMS5637.cpp
+	"RTPressureMS5637.h"
+
+1467190354 source:/home/pi/SenseHatCpp/SenseHat/RTFusion.cpp
+	"RTFusion.h"
+	"RTIMUHal.h"
+
+1467190354 /home/pi/SenseHatCpp/SenseHat/RTFusion.h
+	"RTIMULibDefs.h"
+
+1467190354 /home/pi/SenseHatCpp/SenseHat/RTIMULibDefs.h
+	"RTMath.h"
+	"IMUDrivers/RTIMUDefs.h"
+
+1467190354 /home/pi/SenseHatCpp/SenseHat/RTMath.h
+	"RTIMUHal.h"
+
+1467190354 /home/pi/SenseHatCpp/SenseHat/RTIMUHal.h
+	<stdio.h>
+	<math.h>
+	<stdint.h>
+	<fcntl.h>
+	<string.h>
+	<stdlib.h>
+	<sys/ioctl.h>
+	<linux/i2c-dev.h>
+	<unistd.h>
+	<sys/time.h>
+
+1467190355 /home/pi/SenseHatCpp/SenseHat/IMUDrivers/RTIMUDefs.h
+
+1467190354 source:/home/pi/SenseHatCpp/SenseHat/RTFusionKalman4.cpp
+	"RTFusionKalman4.h"
+	"RTIMUSettings.h"
+
+1467190354 /home/pi/SenseHatCpp/SenseHat/RTFusionKalman4.h
+	"RTFusion.h"
+
+1467190354 /home/pi/SenseHatCpp/SenseHat/RTIMUSettings.h
+	"RTMath.h"
+	"RTIMUHal.h"
+
+1467190354 source:/home/pi/SenseHatCpp/SenseHat/RTFusionRTQF.cpp
+	"RTFusionRTQF.h"
+	"RTIMUSettings.h"
+
+1467190354 /home/pi/SenseHatCpp/SenseHat/RTFusionRTQF.h
+	"RTFusion.h"
+
+1467190354 source:/home/pi/SenseHatCpp/SenseHat/RTIMUAccelCal.cpp
+	"RTIMUAccelCal.h"
+
+1467190354 /home/pi/SenseHatCpp/SenseHat/RTIMUAccelCal.h
+	"RTIMUCalDefs.h"
+	"RTIMULib.h"
+
+1467190354 /home/pi/SenseHatCpp/SenseHat/RTIMUCalDefs.h
+
+1467190354 /home/pi/SenseHatCpp/SenseHat/RTIMULib.h
+	"RTIMULibDefs.h"
+	"RTMath.h"
+	"RTFusion.h"
+	"RTFusionKalman4.h"
+	"RTIMUHal.h"
+	"IMUDrivers/RTIMU.h"
+	"IMUDrivers/RTIMUNull.h"
+	"IMUDrivers/RTIMUMPU9150.h"
+	"IMUDrivers/RTIMUGD20HM303D.h"
+	"IMUDrivers/RTIMUGD20M303DLHC.h"
+	"IMUDrivers/RTIMULSM9DS0.h"
+	"IMUDrivers/RTPressure.h"
+	"IMUDrivers/RTPressureBMP180.h"
+	"IMUDrivers/RTPressureLPS25H.h"
+	"IMUDrivers/RTPressureMS5611.h"
+	"IMUDrivers/RTHumidity.h"
+	"IMUDrivers/RTHumidityHTS221.h"
+	"RTIMUSettings.h"
+
+1467190354 source:/home/pi/SenseHatCpp/SenseHat/RTIMUHal.cpp
+	"IMUDrivers/RTIMU.h"
+	<linux/spi/spidev.h>
+
+1467190354 source:/home/pi/SenseHatCpp/SenseHat/RTIMUMagCal.cpp
+	"RTIMUMagCal.h"
+
+1467190354 /home/pi/SenseHatCpp/SenseHat/RTIMUMagCal.h
+	"RTIMUCalDefs.h"
+	"RTIMULib.h"
+
+1467190354 source:/home/pi/SenseHatCpp/SenseHat/RTIMUSettings.cpp
+	"RTIMUSettings.h"
+	"IMUDrivers/RTIMUMPU9150.h"
+	"IMUDrivers/RTIMUMPU9250.h"
+	"IMUDrivers/RTIMUGD20HM303D.h"
+	"IMUDrivers/RTIMUGD20M303DLHC.h"
+	"IMUDrivers/RTIMUGD20HM303DLHC.h"
+	"IMUDrivers/RTIMULSM9DS0.h"
+	"IMUDrivers/RTIMULSM9DS1.h"
+	"IMUDrivers/RTIMUBMX055.h"
+	"IMUDrivers/RTPressureBMP180.h"
+	"IMUDrivers/RTPressureLPS25H.h"
+	"IMUDrivers/RTHumidityHTS221.h"
+	"IMUDrivers/RTHumidityHTU21D.h"
+
+1467190354 source:/home/pi/SenseHatCpp/SenseHat/RTMath.cpp
+	"RTMath.h"
+	<qdatetime.h>
+	<qdatetime.h>
+
+1467190354 source:/home/pi/SenseHatCpp/SenseHat/sensehat.cpp
+	"sensehat.h"
+
+1467190354 /home/pi/SenseHatCpp/SenseHat/sensehat.h
+	<stdio.h>
+	<stdlib.h>
+	<stdint.h>
+	<dirent.h>
+	<linux/fb.h>
+	<sys/mman.h>
+	<sys/ioctl.h>
+	<string.h>
+	<fcntl.h>
+	<unistd.h>
+	<termios.h>
+	<linux/input.h>
+	"RTIMULib.h"
+

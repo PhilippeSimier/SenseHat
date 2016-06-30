@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_layout_file>
+	<ActiveTarget name="Debug" />
+	<File name="sensehat.cpp" open="1" top="0" tabpos="1">
+		<Cursor position="2935" topLine="140" />
+	</File>
+	<File name="sensehat.h" open="1" top="0" tabpos="2">
+		<Cursor position="1128" topLine="37" />
+	</File>
+</CodeBlocks_layout_file>
