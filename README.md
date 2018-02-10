@@ -39,7 +39,7 @@ et de l'humidité relative en %.
 
 **30/06/2016 : ** Distribution et organisation originale du repository **SenseHat**. 
 
-**10/02/2017 : ** Ajout de la documentation . 
+**10/02/2018 : ** Ajout de la documentation . 
 
 > **Notes :**
 
