@@ -10,7 +10,7 @@ Ce dépôt propose une classe C++ pour le SenseHat sur Raspberry pi.
 
 # Installation
 
-main.cpp  : Programme  de démonstration de  la classe **SenseHat**
+
 **Prérequis** : copier **libSenseHat.a**  dans le répertoire /usr/lib/
 
     cp libSenseHat.a /usr/lib/libSenseHat.a
@@ -21,7 +21,8 @@ puis copier **SenseHat.h**      dans le répertoire /usr/include/
 
     cp SenseHat.h  /usr/include/SenseHat.h
 
-Compilation du programme  de démonstration main.pp : 
+**main.cpp**  est un programme  de démonstration de  la classe **SenseHat**
+Compilation de main.pp : 
 
     g++ main.cpp -l SenseHat -o main
 
