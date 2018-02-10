@@ -1,21 +1,52 @@
-# SenseHat
-Class C++ pour SenseHat sur Raspberry
+﻿# SenseHat
 
-Sujet  : Programme démo  la class SenseHat
-Prérequis : copier libSenseHat.a  dans le répertoire /usr/lib/
-          : et     SensHat.h      dans le répertoire /usr/include/
+# Description
+« **Sense-Hat** » est une carte d'extension pour le Raspberry-Pi. Elle lui
+permet d'être sensible à un certain nombre d'éléments et d'afficher des
+informations en utilisant sa matrice d'affichage LED 8x8.
 
-Compilation : g++ main.cpp -l SenseHat -o main
-Exécution   : ./main
+Ce dépôt propose une classe C++ pour le SenseHat sur Raspberry pi.
 
-Vous devriez voir sur votre carte Sense Hat, les deux premières colonnes de leds s'allumer
- progressivement en rouge et bleu.
 
-Ensuite affichage sur le terminal de la valeur de la température, 
+# Installation
 
-de la pression en hPa
+main.cpp  : Programme  de démonstration de  la classe **SenseHat**
+**Prérequis** : copier **libSenseHat.a**  dans le répertoire /usr/lib/
 
-et l'humidité relative en %.
+    cp libSenseHat.a /usr/lib/libSenseHat.a
+     
 
+puis copier **SenseHat.h**      dans le répertoire /usr/include/
+	
+
+    cp SenseHat.h  /usr/include/SenseHat.h
+
+Compilation du programme  de démonstration main.pp : 
+
+    g++ main.cpp -l SenseHat -o main
+
+Exécution   du programme de démonstration: 
+
+    ./main
+
+Vous devriez voir sur votre carte Sense-hat, les deux premières colonnes de leds s'allumer  progressivement en rouge et bleu.
+
+ Puis sur le terminal affichage de la valeur de la température, de la pression en hPa
+et de l'humidité relative en %.
+
+# Changelog
+
+**30/06/2016 : ** Distribution et organisation originale du repository **SenseHat**. 
+
+**10/02/2017 : ** Ajout de la documentation . 
+
+> **Notes :**
+
+
+> - Licence : **licence publique générale** ![enter image description here](https://img.shields.io/badge/licence-GPL-green.svg)
+<!-- TOOLBOX 
+
+Génération des badges : https://shields.io/
+Génération de ce fichier : https://stackedit.io/editor#
 
 
