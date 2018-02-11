@@ -236,12 +236,19 @@ float SenseHat::ObtenirHumidite()
 
 void SenseHat::ObtenirOrientation(float &pitch, float &roll, float &yaw)
 {
+	RTIMU_DATA imuData = imu->getIMUData();
+	pitch = imuData.gyro.x();
+	roll  = imuData.gyro.y();
+	yaw	  = imuData.gyro.z();
 
 }
 
-void SenseHat::ObtenirAcceleration(float &pitch, float &roll, float &yaw)
+void SenseHat::ObtenirAcceleration(float &x, float &y, float &z)
 {
-
+	RTIMU_DATA imuData = imu->getIMUData();
+	x = imuData.accel.x();
+	y = imuData.accel.y();
+	z = imuData.accel.z();
 }
 
 void SenseHat::InitialiserLeds()
