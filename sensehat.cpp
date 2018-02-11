@@ -1,3 +1,19 @@
+/*
+	Classe SenseHat 
+	compilation : g++ -c sensehat.cpp   -->  on obtient sensehat.o
+	
+	Pour convertir le fichier objet sensehat.o en une librairie statique libSenseHat.a
+	ar cr libSenseHat.a sensehat.o		
+	
+	ar s libSenseHat.a             ou la ligne suivante
+	ranlib libSenseHat.a
+
+	puis copier les fichiers
+	cp libSenseHat.a /usr/lib/libSenseHat.a
+	cp SenseHat.h    /usr/include/SenseHat.h
+
+*/
+
 #include "sensehat.h"
 
 
