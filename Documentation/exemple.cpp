@@ -21,10 +21,10 @@
 //  OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 //  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 /*
-file 			http://raspberrypi.pagesperso-orange.fr/dossiers/27-01.htm
-file			https://github.com/RTIMULib/RTIMULib2/blob/master/Linux/RTIMULibDrive11/RTIMULibDrive11.cpp
-Compilation 	g++ -o RTIMULibDrive11 RTIMULibDrive11.cpp -l RTIMULib 
-Exécution 		./RTIMULibDrive11
+file 		http://raspberrypi.pagesperso-orange.fr/dossiers/27-01.htm
+file		https://github.com/RTIMULib/RTIMULib2/blob/master/Linux/RTIMULibDrive11/RTIMULibDrive11.cpp
+Compilation 	g++ -o exemple exemple.cpp -l RTIMULib
+Exécution 	./exemple
 
 
 

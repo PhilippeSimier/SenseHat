@@ -1,16 +1,16 @@
 /*
-	Classe SenseHat 
+	Classe SenseHat
 	compilation : g++ -c sensehat.cpp   -->  on obtient sensehat.o
-	
+
 	Pour convertir le fichier objet sensehat.o en une librairie statique libSenseHat.a
-	ar cr libSenseHat.a sensehat.o		
-	
+	ar cr libSenseHat.a sensehat.o
+
 	ar s libSenseHat.a             ou la ligne suivante
 	ranlib libSenseHat.a
 
 	puis copier les fichiers
 	cp libSenseHat.a /usr/lib/libSenseHat.a
-	cp SenseHat.h    /usr/include/SenseHat.h
+	cp sensehat.h    /usr/include/SenseHat.h
 
 */
 
@@ -130,12 +130,15 @@ SenseHat::SenseHat()
         exit(1);
     }
     imu->IMUInit();
-
+    imu->setSlerpPower(0.02);
+    imu->setGyroEnable(true);
+    imu->setAccelEnable(true);
+    imu->setCompassEnable(true);
     InitialiserLeds();
     InitialiserJoystik();
     InitialiserHumidite();
     InitialiserPression();
-    InitialiserTempearture();
+    InitialiserTemperature();
 
 }
 
@@ -252,19 +255,22 @@ float SenseHat::ObtenirHumidite()
 
 void SenseHat::ObtenirOrientation(float &pitch, float &roll, float &yaw)
 {
+    while (imu->IMURead()){
 	RTIMU_DATA imuData = imu->getIMUData();
 	pitch = imuData.gyro.x();
 	roll  = imuData.gyro.y();
-	yaw	  = imuData.gyro.z();
-
+	yaw   = imuData.gyro.z();
+    }
 }
 
 void SenseHat::ObtenirAcceleration(float &x, float &y, float &z)
 {
+    while (imu->IMURead()){
 	RTIMU_DATA imuData = imu->getIMUData();
 	x = imuData.accel.x();
 	y = imuData.accel.y();
 	z = imuData.accel.z();
+    }
 }
 
 void SenseHat::InitialiserLeds()
@@ -297,7 +303,7 @@ void SenseHat::InitialiserJoystik()
     joystick = open_evdev("Raspberry Pi Sense HAT Joystick");
 }
 
-void SenseHat::InitialiserTempearture()
+void SenseHat::InitialiserTemperature()
 {
 
 }
@@ -331,8 +337,8 @@ void SenseHat::InitialiserOrientation()
 
 }
 
-void SenseHat::InitailiserAcceleration()
+void SenseHat::InitialiserAcceleration()
 {
-
+    imu->setAccelEnable(true);
 }
 

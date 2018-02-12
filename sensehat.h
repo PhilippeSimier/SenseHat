@@ -59,17 +59,17 @@ public:
     float ObtenirPression();
     float ObtenirHumidite();
     void  ObtenirOrientation(float &pitch, float &roll, float & yaw);
+    void InitialiserAcceleration();
     void  ObtenirAcceleration(float &pitch, float &roll, float & yaw);
     void  Version();
 
 private:
     void InitialiserLeds();
     void InitialiserJoystik();
-    void InitialiserTempearture();
+    void InitialiserTemperature();
     void InitialiserPression();
     void InitialiserHumidite();
     void InitialiserOrientation();
-    void InitailiserAcceleration();
 
 
     struct fb_t *fb;
