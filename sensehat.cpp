@@ -273,6 +273,16 @@ void SenseHat::ObtenirAcceleration(float &x, float &y, float &z)
     }
 }
 
+void SenseHat::ObtenirMagnetisme(float &x, float &y, float &z)
+{
+    while (imu->IMURead()){
+        RTIMU_DATA imuData = imu->getIMUData();
+        x = imuData.compass.x();
+        y = imuData.compass.y();
+        z = imuData.compass.z();
+    }
+}
+
 void SenseHat::InitialiserLeds()
 {
     int fbfd ;

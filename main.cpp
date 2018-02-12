@@ -21,7 +21,7 @@ int i;
 float pression;
 float temperature;
 float humidite;
-float x,y,z;
+float xa,ya,za,xm,ym,zm;
 float pitch,roll,yaw;
 
 
@@ -34,21 +34,26 @@ float pitch,roll,yaw;
    	sleep(1);
     }
     while(1){
-    	pression = carte.ObtenirPression();
-    	std::cout << "pression : " << pression << " hPa"<< std::endl;
-
+    	pression    = carte.ObtenirPression();
 	temperature = carte.ObtenirTemperature();
-	std::cout << "Température : " << temperature << " °C" << std::endl;
+	humidite    = carte.ObtenirHumidite();
 
-	humidite = carte.ObtenirHumidite();
-	std::cout << "Humidité : " << humidite << " %" << std::endl;
+	usleep(20*1000);
+	carte.ObtenirAcceleration(xa,ya,za);
 
-	carte.ObtenirAcceleration(x,y,z);
-	std::cout << "accélération x : " << x << "(g) y : " << y << "(g) z : " << z << "(g)" << std::endl;
-
+	usleep(20*1000);
 	carte.ObtenirOrientation(pitch,roll,yaw);
-	std::cout << "orientation pitch : " << pitch << " roll : " << roll << " yaw : " << yaw << std::endl;
-    	sleep(1);
-	system("clear"); 
+
+	usleep(20*1000);
+	carte.ObtenirMagnetisme(xm,ym,zm);
+	system("clear");
+	std::cout << "pression : " << pression << " hPa"<< std::endl;
+	std::cout << "Température : " << temperature << " °C" << std::endl;
+	std::cout << "Humidité : " << humidite << " %" << std::endl;
+	std::cout << "accélération x : " << xa << "(g) y : " << ya << "(g) z : " << za << "(g)" << std::endl;
+        std::cout << "orientation pitch : " << pitch << " roll : " << roll << " yaw : " << yaw << std::endl;
+	std::cout << "magnétisme x : " << xm << "(microT) y : " << ym << "(microT) z : " << zm << "(microT)" << std::endl;
+
+    	usleep(500*1000); 
     }
 }

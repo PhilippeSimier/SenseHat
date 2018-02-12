@@ -59,8 +59,9 @@ public:
     float ObtenirPression();
     float ObtenirHumidite();
     void  ObtenirOrientation(float &pitch, float &roll, float & yaw);
-    void InitialiserAcceleration();
+    void  InitialiserAcceleration();
     void  ObtenirAcceleration(float &pitch, float &roll, float & yaw);
+    void  ObtenirMagnetisme(float &x, float &y, float &z);
     void  Version();
 
 private:
