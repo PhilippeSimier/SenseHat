@@ -52,7 +52,7 @@ float pitch,roll,yaw;
 	std::cout << "Humidité : " << humidite << " %" << std::endl;
 	std::cout << "accélération x : " << xa << "(g) y : " << ya << "(g) z : " << za << "(g)" << std::endl;
         std::cout << "orientation pitch : " << pitch << " roll : " << roll << " yaw : " << yaw << std::endl;
-	std::cout << "magnétisme x : " << xm << "(microT) y : " << ym << "(microT) z : " << zm << "(microT)" << std::endl;
+	std::cout << "magnétisme x : " << xm << "(µT) y : " << ym << "(µT) z : " << zm << "(µT)" << std::endl;
 
     	usleep(500*1000); 
     }
