@@ -27,10 +27,7 @@ int x,y;
 	carte.ObtenirAcceleration(xa,ya,za);
 
 	system("clear");
-	carte.AllumerPixel(x  ,y  ,NOIR);
-	carte.AllumerPixel(x+1,y  ,NOIR);
-	carte.AllumerPixel(x  ,y+1,NOIR);
-	carte.AllumerPixel(x+1,y+1,NOIR);
+	carte.Effacer();
 
 	y = (int)(xa * -30.0 + 4);
 	x = (int)(ya * -30.0 + 4);
