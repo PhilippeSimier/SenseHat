@@ -12,29 +12,43 @@ Ce dépôt propose une classe C++ pour le SenseHat sur Raspberry pi.
 # Installation
 
 
-**Prérequis** : copier **libSenseHat.a**  dans le répertoire /usr/lib/
+**Prérequis** : 
+Cloner le dépot
 
-    cp libSenseHat.a /usr/lib/libSenseHat.a
+    pi@raspberry:~ $ git clone https://github.com/PhilippeSimier/SenseHat.git
+    pi@raspberry:~ $ cd SenseHat/
+
+Compiler la classe
+
+    pi@raspberry:~/SenseHat $ gcc -c sensehat.cpp
+    pi@raspberry:~/SenseHat $ ar cr libSenseHat.a sensehat.o
+    pi@raspberry:~/SenseHat $ ar s libSenseHat.a
+
+copier **libSenseHat.a**  dans le répertoire /usr/lib/
+
+    pi@raspberry:~/SenseHat $ sudo cp libSenseHat.a /usr/lib/libSenseHat.a
      
 
 puis copier **SenseHat.h**      dans le répertoire /usr/include/
 	
+    pi@raspberry:~/SenseHat $ sudo cp sensehat.h    /usr/include/SenseHat.h
 
-    cp SenseHat.h  /usr/include/SenseHat.h
+**exemple.cpp**  est un programme  de démonstration de  la classe **SenseHat**
+Compilation de exemple.cpp : 
 
-**main.cpp**  est un programme  de démonstration de  la classe **SenseHat**
-Compilation de main.pp : 
-
-    g++ main.cpp -l SenseHat -o main
+    pi@raspberry:~/SenseHat $ g++ exemple.cpp -l SenseHat -o exemple
 
 Exécution   du programme de démonstration: 
 
-    ./main
+    ./exemple
 
 Vous devriez voir sur votre carte Sense-hat, les deux premières colonnes de leds s'allumer  progressivement en rouge et bleu.
 
  Puis sur le terminal affichage de la valeur de la température, de la pression en hPa
 et de l'humidité relative en %.
+les coordonnées x,y,z de l'accélération en g 
+les coordonnées de l'orientation en radian
+les coordonnées du champs magnétiques en microTesla
 
 # Changelog
 
