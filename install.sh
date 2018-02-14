@@ -7,5 +7,6 @@ echo Installation de Sensehat
 sudo cp libSenseHat.a /usr/lib/libSenseHat.a
 sudo cp SenseHat.h    /usr/include/SenseHat.h
 echo Compilation des exemples
+cd Exemples
 g++ exemple.cpp -l SenseHat -o exemple
 g++ niveau.cpp -l SenseHat -o niveau
