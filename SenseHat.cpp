@@ -147,7 +147,7 @@ SenseHat::~SenseHat()
 
 void SenseHat::Version()
 {
-    printf("\nSenseHat PCT Version 1.0\n");
+    printf("\nSenseHat PCT & PSR Version 1.1\n");
 }
 
 void SenseHat::AfficherMessage(char *message, int vitesseDefilement, uint16_t CouleurTexte, uint16_t couleurFond)
@@ -232,23 +232,34 @@ uint16_t SenseHat::ConvertirRGB565(uint8_t couleur[])
 
 float SenseHat::ObtenirTemperature()
 {
-    RTIMU_DATA imuData = imu->getIMUData();
-    pressure->pressureRead(imuData);
-    return imuData.temperature;;
+    RTIMU_DATA data;
+    pressure->pressureRead(data);
+    return data.temperature;;
 }
 
+// Méthode pour obtenir la pression
 float SenseHat::ObtenirPression()
 {
-    RTIMU_DATA imuData = imu->getIMUData();
-    pressure->pressureRead(imuData);
-    return imuData.pressure;
+    RTIMU_DATA data;
+    float pression = nan("");  // initialise la valeur à Not-A-Number
+    if (pressure->pressureRead(data)){
+    	if (data.pressureValid){
+    	    pression = data.pressure;
+        }
+    }
+    return pression;
 }
-
+// Méthode pour obtenir l'humidité
 float SenseHat::ObtenirHumidite()
 {
-    RTIMU_DATA imuData = imu->getIMUData();
-    humidite->humidityRead(imuData);
-    return imuData.humidity;
+    RTIMU_DATA data;
+    float humidi = nan("");  // initialise la valeur à Not-A-Number
+    if (humidite->humidityRead(data)){
+	if (data.humidityValid){
+	    humidi = data.humidity;
+	}
+    }
+    return humidi;
 }
 
 void SenseHat::ObtenirOrientation(float &pitch, float &roll, float &yaw)
