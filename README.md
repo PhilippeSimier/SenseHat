@@ -20,8 +20,8 @@ Cloner le dépot
 
 Compiler la classe
 
-    pi@raspberry:~/SenseHat $ gcc -c sensehat.cpp
-    pi@raspberry:~/SenseHat $ ar cr libSenseHat.a sensehat.o
+    pi@raspberry:~/SenseHat $ gcc -c SenseHat.cpp
+    pi@raspberry:~/SenseHat $ ar cr libSenseHat.a SenseHat.o
     pi@raspberry:~/SenseHat $ ar s libSenseHat.a
 
 copier **libSenseHat.a**  dans le répertoire /usr/lib/
@@ -31,7 +31,7 @@ copier **libSenseHat.a**  dans le répertoire /usr/lib/
 
 puis copier **SenseHat.h**      dans le répertoire /usr/include/
 	
-    pi@raspberry:~/SenseHat $ sudo cp sensehat.h    /usr/include/SenseHat.h
+    pi@raspberry:~/SenseHat $ sudo cp SenseHat.h    /usr/include/SenseHat.h
 
 **exemple.cpp**  est un programme  de démonstration de  la classe **SenseHat**
 Compilation de exemple.cpp : 
@@ -46,9 +46,13 @@ Vous devriez voir sur votre carte Sense-hat, les deux premières colonnes de led
 
  Puis sur le terminal affichage de la valeur de la température, de la pression en hPa
 et de l'humidité relative en %.
-les coordonnées x,y,z de l'accélération en g 
-les coordonnées de l'orientation en radian
-les coordonnées du champs magnétiques en microTesla
+
+les coordonnées x,y,z du vecteur accélération en g (z=1g si la carte est en position horizontale
+ 
+les coordonnées de l'orientation en radian/s
+
+les coordonnées du vecteur champs magnétique terreste en µT 
+
 
 # Changelog
 

@@ -31,9 +31,11 @@ int x,y;
 
 	y = (int)(xa * -30.0 + 4);
 	x = (int)(ya * -30.0 + 4);
-	if (x<0) x=0; if (x>6) x=6;
-	if (y<0) y=0; if (y>6) y=6;
-	std::cout << "x : " << x << " y : " << y << std::endl;
+	if (x<0) x=0;
+	if (x>6) x=6;
+	if (y<0) y=0;
+	if (y>6) y=6;
+//	std::cout << "x : " << x << " y : " << y << std::endl;
 
 	carte.AllumerPixel(x  ,y  ,BLEU);
 	carte.AllumerPixel(x+1,y  ,BLEU);
