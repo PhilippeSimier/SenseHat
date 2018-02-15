@@ -17,32 +17,16 @@ Cloner le dépot
 
     pi@raspberry:~ $ git clone https://github.com/PhilippeSimier/SenseHat.git
     pi@raspberry:~ $ cd SenseHat/
+    pi@raspberry:~ $ ./install.sh
 
-Compiler la classe
 
-    pi@raspberry:~/SenseHat $ gcc -c SenseHat.cpp
-    pi@raspberry:~/SenseHat $ ar cr libSenseHat.a SenseHat.o
-    pi@raspberry:~/SenseHat $ ar s libSenseHat.a
+Exécution des programmes de démonstration:
+ 
+    pi@raspberry:~ $ cd /Exemples
+    pi@PI3002:~/SenseHat/Exemples $ ./exemple
+    pi@raspberry:~/SenseHat/Exemples $ ./niveau
 
-copier **libSenseHat.a**  dans le répertoire /usr/lib/
-
-    pi@raspberry:~/SenseHat $ sudo cp libSenseHat.a /usr/lib/libSenseHat.a
-     
-
-puis copier **SenseHat.h**      dans le répertoire /usr/include/
-	
-    pi@raspberry:~/SenseHat $ sudo cp SenseHat.h    /usr/include/SenseHat.h
-
-**exemple.cpp**  est un programme  de démonstration de  la classe **SenseHat**
-Compilation de exemple.cpp : 
-
-    pi@raspberry:~/SenseHat $ g++ exemple.cpp -l SenseHat -o exemple
-
-Exécution   du programme de démonstration: 
-
-    ./exemple
-
-Vous devriez voir sur votre carte Sense-hat, les deux premières colonnes de leds s'allumer  progressivement en rouge et bleu.
+Vous devriez voir sur votre carte Sense-hat, les trois premières colonnes de leds s'allumer  progressivement en rouge bleu et vert.
 
  Puis sur le terminal affichage de la valeur de la température, de la pression en hPa
 et de l'humidité relative en %.
@@ -53,12 +37,15 @@ les coordonnées de l'orientation en radian/s
 
 les coordonnées du vecteur champs magnétique terreste en µT 
 
+Le programme niveau simule un niveau à bulle.
 
 # Changelog
 
 **30/06/2016 : ** Distribution et organisation originale du repository **SenseHat**. 
 
-**10/02/2018 : ** Ajout de la documentation . 
+**10/02/2018 : ** Ajout de la documentation.
+
+**15/02/2018 : ** Ajout de la procédure de calibration. 
 
 > **Notes :**
 
