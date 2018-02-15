@@ -7,7 +7,7 @@ informations en utilisant sa matrice d'affichage LED 8x8.
 
 Ce dépôt propose une classe C++ pour le SenseHat sur Raspberry pi.
 
-<img src="https://github.com/PhilippeSimier/SenseHat/blob/master/Documentation/Sense-HAT.jpg">
+<img src="https://github.com/PhilippeSimier/SenseHat/blob/master/Documentation/Sense-HAT.png">
 
 # Installation
 
