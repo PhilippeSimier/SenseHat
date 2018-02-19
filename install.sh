@@ -8,5 +8,6 @@ sudo cp libSenseHat.a /usr/lib/libSenseHat.a
 sudo cp SenseHat.h    /usr/include/SenseHat.h
 echo Compilation des exemples
 cd Exemples
-g++ exemple.cpp -l SenseHat -o exemple
-g++ niveau.cpp -l SenseHat -o niveau
+g++ exemple.cpp -l SenseHat -l RTIMULib -o exemple
+g++ niveau.cpp  -l SenseHat -l RTIMULib -o niveau
+g++ text.cpp    -l SenseHat -l RTIMULib -o text

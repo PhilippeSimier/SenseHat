@@ -1,4 +1,4 @@
-/*
+/* 
 	Classe SenseHat
 	compilation : g++ -c sensehat.cpp   -->  on obtient sensehat.o
 
@@ -14,6 +14,7 @@
 */
 
 #include "SenseHat.h"
+#include "font.h"
 
 
 static int is_framebuffer_device(const struct dirent *dir)
@@ -150,15 +151,13 @@ void SenseHat::Version()
     printf("\nSenseHat PCT & PSR Version 1.1\n");
 }
 
-void SenseHat::AfficherMessage(char *message, int vitesseDefilement, uint16_t CouleurTexte, uint16_t couleurFond)
-{
 
+void SenseHat::AfficherLettre(char lettre, uint16_t couleurTexte, uint16_t couleurFond) {
+	uint16_t chr[8][8];
+	ConvertirCaractereEnMotif(lettre,chr,couleurTexte,couleurFond);
+	AfficherMotif(chr);
 }
 
-void SenseHat::AfficherLettre(char lettre, uint16_t couleurTexte, uint16_t couleurFond)
-{
-
-}
 
 void SenseHat::AllumerPixel(int ligne, int colonne, uint16_t couleur)
 {
@@ -249,6 +248,7 @@ float SenseHat::ObtenirPression()
     }
     return pression;
 }
+
 // Méthode pour obtenir l'humidité
 float SenseHat::ObtenirHumidite()
 {
@@ -357,3 +357,120 @@ void SenseHat::InitialiserAcceleration()
     imu->setAccelEnable(true);
 }
 
+void SenseHat::ConvertirCaractereEnMotif(char c,uint16_t image[8][8],uint16_t couleurTexte, uint16_t couleurFond) {
+	int i=0;
+	int j,k;
+	int tailleTableDeConvertion=sizeof(font)/sizeof(Tfont);
+
+	// Recherche si le caractere existe dans la table de convertion (cf font.h)
+    while(c!=font[i].caractere && i < tailleTableDeConvertion )
+		i++;
+
+	// Si le caractere est dans la table on le converti
+	if(i < tailleTableDeConvertion)
+	{
+		for (j=0;j<8;j++)
+		{
+			for(k=0;k<8;k++)
+			{
+				if(font[i].motifbinaire[j][k])
+					image[j][k]=couleurTexte;
+				else
+					image[j][k]=couleurFond;
+			}
+		}
+	}
+	else // caractère inexistant on le remplace par un '?'
+		ConvertirCaractereEnMotif('?',image,couleurTexte,couleurFond);
+}
+
+
+bool SenseHat::ColonneVide(int numColonne,uint16_t image[8][8],uint16_t couleurFond) {
+	int i=0;
+	for(i=0;i<8;i++)
+		if(image[i][numColonne]!=couleurFond)
+			return false;
+	return true;
+
+}
+
+
+void SenseHat::TassementDeLimage(int numColonne,uint16_t image[][8][8], int taille) {
+	int i=0,j=0,k=0,l=0,isuivant,ksuivant;
+	int nombredecolonnes=taille*8; //8 colonnes par motif
+
+	for(l=numColonne;l<nombredecolonnes-1;l++)
+	{
+		i=l/8;
+		k=l%8;
+		isuivant=(l+1)/8;
+		ksuivant=(l+1)%8;
+		for(j=0;j<8;j++)
+			image[i][j][k]=image[isuivant][j][ksuivant];
+	}
+}
+
+
+void SenseHat::AfficherMessage(std::string message, int vitesseDefilement, uint16_t couleurTexte, uint16_t couleurFond) {
+	int taille=message.length();
+	uint16_t chaine[taille][8][8]; /* Le tableau de motif (image/caractère) à afficher */
+	int i=0,j=0,k=0,l=0,nombreDeColonneVide=0;
+	int isuivant=0,ksuivant=0,nombreDeColonnes=0;
+
+	/* Convertion de tout le message en tableau de motif
+	 * format caractères: 1 colonne vide + 5 colonnes reelement utilisees
+	 * + 2 colonnes vides */
+	for( i=0;i<taille;i++)
+	{
+		ConvertirCaractereEnMotif(message[i],chaine[i],couleurTexte,couleurFond);
+	}
+
+	nombreDeColonnes=taille*8-2;
+	// Parcours de toutes les colonnes de tous les motifs qui compose
+	// la chaine de caractères à afficher pour supprimer les colonnes vides sauf celle
+	// qui sépare les motifs (caractères). + gestion du caractère espace.
+	for( l=0;l<nombreDeColonnes;l++)
+	{
+		i=l/8;
+		k=l%8;
+
+		if(ColonneVide(k,chaine[i],couleurFond)) // Une colonne Vide avant chaque caractère à ne pas supprimer
+		{
+			isuivant=(++l)/8;
+			ksuivant=(l)%8;
+			nombreDeColonneVide=1;
+
+			// compter les colonnes vide après la première afin de les supprimer
+			// si plus de 4 c'est le caractère espace que l'on doit garder
+			while(ColonneVide(ksuivant,chaine[isuivant],couleurFond) && nombreDeColonneVide++ < 4)
+			{
+				TassementDeLimage(l,chaine,taille);
+				nombreDeColonnes--;
+			}
+
+		}
+	}
+
+	// Parcours detoutes les colonnes de tous les motifs qui compose
+	// la chaine de caractères à afficher (sans les colonnes vides de trop).
+	for( l=0;l<nombreDeColonnes;l++)
+	{
+		// Decalage des colonnes vers la gauche sur l'image Numero 0 (celle qu'on affiche sur la matrice de LED
+		for( i=0;i<taille;i++)
+		{
+			// Cas Normal, les colonnes sont sur le même motif
+			for(j=0;j<8;j++)
+			{
+				for(k=0;k<7;k++)
+					chaine[i][j][k]=chaine[i][j][k+1];
+
+			}
+			// Cas où l'on doit changer de motif
+			for(j=0;j<8;j++)
+				chaine[i][j][7]=chaine[i+1][j][0];
+		}
+		usleep(1000*vitesseDefilement);
+		AfficherMotif(chaine[0]);
+	}
+
+}

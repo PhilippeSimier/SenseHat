@@ -26,6 +26,7 @@
 #include <sys/mman.h>
 #include <sys/ioctl.h>
 #include <string.h>
+#include <string>
 #include <fcntl.h>
 #include <unistd.h>
 #include <termios.h>
@@ -44,8 +45,10 @@ public:
     SenseHat();
     ~SenseHat();
 
-    void AfficherMessage(char *message,int vitesseDefilement=1000,uint16_t CouleurTexte = BLEU,uint16_t couleurFond = NOIR);
+    void AfficherMessage(std::string message, int vitesseDefilement = 100, uint16_t CouleurTexte = BLEU, uint16_t couleurFond = NOIR);
+
     void AfficherLettre(char lettre, uint16_t couleurTexte = BLEU, uint16_t couleurFond = NOIR);
+
     void AllumerPixel(int ligne, int colonne, uint16_t couleur);
     uint16_t ObtenirPixel(int ligne, int colonne);
     void AfficherMotif(uint16_t motif[][8]);
@@ -71,6 +74,13 @@ private:
     void InitialiserHumidite();
     void InitialiserOrientation();
 
+
+    // Converti un caractère en Motif affichable sur la matrice de leds - Fait par Grilo Christophe
+    void ConvertirCaractereEnMotif(char c, uint16_t image[8][8], uint16_t couleurTexte, uint16_t couleurFond);
+    // Permet de savoir si une colonne de leds est vide - Fait par Grilo Christophe
+    bool ColonneVide(int numColonne, uint16_t image[8][8], uint16_t couleurFond);
+    // Permet de supprimer une colonne sur un ensemble de motif (image) - Fait par Grilo Christophe
+    void TassementDeLimage(int numColonne, uint16_t image[][8][8], int taille);
 
     struct fb_t *fb;
     int joystick;
