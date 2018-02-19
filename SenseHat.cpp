@@ -11,6 +11,7 @@
 	cp libSenseHat.a /usr/lib/libSenseHat.a
 	cp sensehat.h    /usr/include/SenseHat.h
 
+	Author : Philippe CRUCHER -  Philippe SIMIER -  Christophe GRILO
 */
 
 #include "SenseHat.h"

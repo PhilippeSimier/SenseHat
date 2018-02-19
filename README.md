@@ -45,7 +45,9 @@ Le programme niveau simule un niveau à bulle.
 
 **10/02/2018 : ** Ajout de la documentation.
 
-**15/02/2018 : ** Ajout de la procédure de calibration. 
+**15/02/2018 : ** Ajout de la procédure de calibration.
+
+**19/02/2018 : ** Ajout de la méthode AfficherMessage() proposée par Christophe GRILO (Merci à lui pour sa contribution) 
 
 > **Notes :**
 
