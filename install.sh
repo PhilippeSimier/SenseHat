@@ -11,3 +11,4 @@ cd Exemples
 g++ exemple.cpp -l SenseHat -l RTIMULib -o exemple
 g++ niveau.cpp  -l SenseHat -l RTIMULib -o niveau
 g++ text.cpp    -l SenseHat -l RTIMULib -o text
+g++ caractere.cpp -l SenseHat -l RTIMULib -o caractere

@@ -11,7 +11,7 @@
 	cp libSenseHat.a /usr/lib/libSenseHat.a
 	cp sensehat.h    /usr/include/SenseHat.h
 
-	Author : Philippe CRUCHER -  Philippe SIMIER -  Christophe GRILO
+	Author : Philippe CRUCHET (PCT) -  Philippe SIMIER (PSR) -  Christophe GRILO (CGO)
 */
 
 #include "SenseHat.h"
@@ -149,7 +149,7 @@ SenseHat::~SenseHat()
 
 void SenseHat::Version()
 {
-    printf("\nSenseHat PCT & PSR Version 1.1\n");
+    printf("\nSenseHat PCT,PSR,CGO Version 1.2\n");
 }
 
 
