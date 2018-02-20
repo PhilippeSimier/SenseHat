@@ -16,10 +16,11 @@ Documentation : http://en.cppreference.com/w/cpp/io/manip/put_time
 
 using namespace std;
 
+
 string ObtenirHeure()
 {
     /* L'heure courante */
-    time_t  t = std::time(nullptr);
+    time_t  t = time(nullptr);
 
     /* Creer une chaine  HH:MM */
     stringstream ss;
