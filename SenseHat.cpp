@@ -1,22 +1,22 @@
-/* 
-	Classe SenseHat
-	compilation : g++ -c sensehat.cpp   -->  on obtient sensehat.o
+/*
+    Classe SenseHat
+    compilation : g++ -c sensehat.cpp   -->  on obtient sensehat.o
 
-	Pour convertir le fichier objet sensehat.o en une librairie statique libSenseHat.a
-	ar cr libSenseHat.a sensehat.o
+    Pour convertir le fichier objet sensehat.o en une librairie statique libSenseHat.a
+    ar cr libSenseHat.a sensehat.o
 
-	ar s libSenseHat.a
+    ar s libSenseHat.a
 
-	puis copier les fichiers
-	cp libSenseHat.a /usr/lib/libSenseHat.a
-	cp sensehat.h    /usr/include/SenseHat.h
+    puis copier les fichiers
+    cp libSenseHat.a /usr/lib/libSenseHat.a
+    cp sensehat.h    /usr/include/SenseHat.h
 
-	Author : Philippe CRUCHET (PCT) -  Philippe SIMIER (PSR) -  Christophe GRILO (CGO)
+    Author : Philippe CRUCHET (PCT) -  Philippe SIMIER (PSR) -  Christophe GRILO (CGO)
 */
 
 #include "SenseHat.h"
 #include "font.h"
-
+#include <iostream>
 
 static int is_framebuffer_device(const struct dirent *dir)
 {
@@ -153,7 +153,8 @@ void SenseHat::Version()
 }
 
 
-void SenseHat::AfficherLettre(char lettre, uint16_t couleurTexte, uint16_t couleurFond) {
+void SenseHat::AfficherLettre(char lettre, uint16_t couleurTexte, uint16_t couleurFond)
+{
 	uint16_t chr[8][8];
 	ConvertirCaractereEnMotif(lettre,chr,couleurTexte,couleurFond);
 	AfficherMotif(chr);
@@ -341,7 +342,7 @@ void SenseHat::InitialiserHumidite()
     humidite = RTHumidity::createHumidity(settings);
     if(humidite == NULL)
     {
-        printf("Pas de mesure humidité\n");
+        printf("Pas de mesure de l'humidité\n");
         exit(1);
     }
     humidite->humidityInit();
@@ -358,75 +359,86 @@ void SenseHat::InitialiserAcceleration()
     imu->setAccelEnable(true);
 }
 
-void SenseHat::ConvertirCaractereEnMotif(char c,uint16_t image[8][8],uint16_t couleurTexte, uint16_t couleurFond) {
-	int i=0;
-	int j,k;
-	int tailleTableDeConvertion=sizeof(font)/sizeof(Tfont);
+void SenseHat::ConvertirCaractereEnMotif(char c,uint16_t image[8][8],uint16_t couleurTexte, uint16_t couleurFond)
+{
+    int i=0;
+    int j,k;
+    int tailleTableDeConvertion=sizeof(font)/sizeof(Tfont);
 
-	// Recherche si le caractere existe dans la table de convertion (cf font.h)
+
+    // Recherche si le caractere existe dans la table de convertion (cf font.h)
     while(c!=font[i].caractere && i < tailleTableDeConvertion )
-		i++;
+	i++;
 
-	// Si le caractere est dans la table on le converti
-	if(i < tailleTableDeConvertion)
+    // Si le caractere est dans la table on le converti
+    if(i < tailleTableDeConvertion)
+    {
+	for (j=0;j<8;j++)
 	{
-		for (j=0;j<8;j++)
-		{
-			for(k=0;k<8;k++)
-			{
-				if(font[i].motifbinaire[j][k])
-					image[j][k]=couleurTexte;
-				else
-					image[j][k]=couleurFond;
-			}
-		}
+            for(k=0;k<8;k++)
+	    {
+		if(font[i].motifbinaire[j][k])
+		    image[j][k]=couleurTexte;
+		else
+		    image[j][k]=couleurFond;
+	    }
 	}
-	else // caractère inexistant on le remplace par un '?'
-		ConvertirCaractereEnMotif('?',image,couleurTexte,couleurFond);
+    }
+    else // caractère inexistant on le remplace par un glyphe inconnu
+	ConvertirCaractereEnMotif(255,image,couleurTexte,couleurFond);
 }
 
 
-bool SenseHat::ColonneVide(int numColonne,uint16_t image[8][8],uint16_t couleurFond) {
-	int i=0;
-	for(i=0;i<8;i++)
-		if(image[i][numColonne]!=couleurFond)
-			return false;
-	return true;
-
+bool SenseHat::ColonneVide(int numColonne,uint16_t image[8][8],uint16_t couleurFond)
+{
+    int i=0;
+    for(i=0;i<8;i++)
+	if(image[i][numColonne]!=couleurFond)
+ 	   return false;
+    return true;
 }
 
 
-void SenseHat::TassementDeLimage(int numColonne,uint16_t image[][8][8], int taille) {
-	int i=0,j=0,k=0,l=0,isuivant,ksuivant;
-	int nombredecolonnes=taille*8; //8 colonnes par motif
+void SenseHat::TassementDeLimage(int numColonne,uint16_t image[][8][8], int taille)
+{
+    int i=0,j=0,k=0,l=0,isuivant,ksuivant;
+    int nombredecolonnes=taille*8; //8 colonnes par motif
 
-	for(l=numColonne;l<nombredecolonnes-1;l++)
-	{
-		i=l/8;
-		k=l%8;
-		isuivant=(l+1)/8;
-		ksuivant=(l+1)%8;
-		for(j=0;j<8;j++)
-			image[i][j][k]=image[isuivant][j][ksuivant];
-	}
+    for(l=numColonne;l<nombredecolonnes-1;l++)
+    {
+	i=l/8;
+	k=l%8;
+	isuivant=(l+1)/8;
+	ksuivant=(l+1)%8;
+	for(j=0;j<8;j++)
+		image[i][j][k]=image[isuivant][j][ksuivant];
+    }
 }
 
 
-void SenseHat::AfficherMessage(std::string message, int vitesseDefilement, uint16_t couleurTexte, uint16_t couleurFond) {
-	int taille=message.length();
-	uint16_t chaine[taille][8][8]; /* Le tableau de motif (image/caractère) à afficher */
-	int i=0,j=0,k=0,l=0,nombreDeColonneVide=0;
-	int isuivant=0,ksuivant=0,nombreDeColonnes=0;
+void SenseHat::AfficherMessage(std::string message, int vitesseDefilement, uint16_t couleurTexte, uint16_t couleurFond)
+{
+    int taille=message.length();
+    uint16_t chaine[taille][8][8]; /* Le tableau de motif (image/caractère) à afficher */
+    int i=0,j=0,k=0,l=0,nombreDeColonneVide=0;
+    int isuivant=0,ksuivant=0,nombreDeColonnes=0;
 
-	/* Convertion de tout le message en tableau de motif
-	 * format caractères: 1 colonne vide + 5 colonnes reelement utilisees
-	 * + 2 colonnes vides */
-	for( i=0;i<taille;i++)
+    /* Convertion de tout le message en tableau de motifs
+     * format caractère : 1 colonne vide + 5 colonnes réellement utilisées
+     * + 2 colonnes vides */
+    for( i=0,j=0; i<taille; i++,j++)
+    {
+	//std::cout << (int)message[i] << std::endl;
+	if(message[i]==195)  // les lettres accentuées sont codées sur deux octets  (195 167 pour ç)
 	{
-		ConvertirCaractereEnMotif(message[i],chaine[i],couleurTexte,couleurFond);
+	    i++;
+	    k++;
 	}
-
-	nombreDeColonnes=taille*8-2;
+	ConvertirCaractereEnMotif(message[i],chaine[j],couleurTexte,couleurFond);
+    }
+	taille = taille - k;
+	nombreDeColonnes=(taille)*8-2;
+	k = 0;
 	// Parcours de toutes les colonnes de tous les motifs qui compose
 	// la chaine de caractères à afficher pour supprimer les colonnes vides sauf celle
 	// qui sépare les motifs (caractères). + gestion du caractère espace.
