@@ -18,7 +18,8 @@ Cloner le dépot
     pi@raspberry:~ $ git clone https://github.com/PhilippeSimier/SenseHat.git
     pi@raspberry:~ $ cd SenseHat/
 
-Installation
+Installation de la bibliothèque SenseHat
+
     pi@raspberry:~/SenseHat $ make
     pi@raspberry:~/SenseHat $ sudo make install
     pi@raspberry:~/SenseHat $ make clean
