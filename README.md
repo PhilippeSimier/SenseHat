@@ -17,13 +17,16 @@ Cloner le dépot
 
     pi@raspberry:~ $ git clone https://github.com/PhilippeSimier/SenseHat.git
     pi@raspberry:~ $ cd SenseHat/
-    pi@raspberry:~ $ ./install.sh
 
+Installation
+    pi@raspberry:~/SenseHat $ make
+    pi@raspberry:~/SenseHat $ sudo make install
+    pi@raspberry:~/SenseHat $ make clean
 
-Exécution des programmes de démonstration:
+Installation des programmes de démonstration:
  
-    pi@raspberry:~ $ cd /Exemples
-    pi@PI3002:~/SenseHat/Exemples $ ./exemple
+    pi@raspberry:~/SenseHat $ cd /Exemples
+    pi@raspberry:~/SenseHat/Exemples $ make
     pi@raspberry:~/SenseHat/Exemples $ ./niveau
 
 Vous devriez voir sur votre carte Sense-hat, les trois premières colonnes de leds s'allumer  progressivement en rouge bleu et vert.
@@ -37,7 +40,7 @@ les coordonnées de l'orientation en radian/s
 
 les coordonnées du vecteur champs magnétique terreste en µT 
 
-Le programme niveau simule un niveau à bulle.
+
 
 # Changelog
 

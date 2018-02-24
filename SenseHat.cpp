@@ -342,7 +342,7 @@ void SenseHat::InitialiserHumidite()
     humidite = RTHumidity::createHumidity(settings);
     if(humidite == NULL)
     {
-        printf("Pas de mesure de l'humidité\n");
+        printf("Pas de mesure d'humidité\n");
         exit(1);
     }
     humidite->humidityInit();
@@ -428,12 +428,14 @@ void SenseHat::AfficherMessage(std::string message, int vitesseDefilement, uint1
      * + 2 colonnes vides */
     for( i=0,j=0; i<taille; i++,j++)
     {
-	//std::cout << (int)message[i] << std::endl;
+
 	if(message[i]==195)  // les lettres accentuées sont codées sur deux octets  (195 167 pour ç)
 	{
 	    i++;
 	    k++;
 	}
+  	// ligne suivante à décommenter pour obtenir le code des caractères UTF8
+	// std::cout << "code : " << (int)message[i] << std::endl;
 	ConvertirCaractereEnMotif(message[i],chaine[j],couleurTexte,couleurFond);
     }
 	taille = taille - k;

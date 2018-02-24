@@ -39,7 +39,7 @@ int main(){
    while(1){
 
    	maintenant = ObtenirHeure();
-   	carte.AfficherMessage(maintenant, 100, ORANGE, NOIR);
+   	carte.AfficherMessage(maintenant, 80, ORANGE);
 	carte.Effacer();
 	sleep(1);
    }

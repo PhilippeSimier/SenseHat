@@ -11,6 +11,6 @@ int main() {
 
     carte.Effacer();
     while(1)
-    	carte.AfficherMessage("(àâ) {éèê} [ç\\] £$", 90, ORANGE);
+    	carte.AfficherMessage(" ù é è $", 90, ORANGE);
     return 0;
 }
