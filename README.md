@@ -11,27 +11,26 @@ Ce dépôt propose une classe C++ pour le SenseHat sur Raspberry pi.
 
 # Installation 
 
- ![description](https://img.shields.io/badge/built-passing-green.svg) l'installation a été testé sur RASPBIAN STRETCH WITH DESKTOP version Novembre 2017 
+ ![description](https://img.shields.io/badge/build-passing-green.svg) l'installation a été testée sur **Raspbian Stretch**  version Novembre 2017 
 
-**Prérequis** : 
-Cloner le dépot
+**Prérequis** : Cloner le dépôt
 
     pi@raspberry:~ $ git clone https://github.com/PhilippeSimier/SenseHat.git
     pi@raspberry:~ $ cd SenseHat/
 
-**Installation** : de la bibliothèque SenseHat
+**Compilation & installation** : de la bibliothèque SenseHat
 
     pi@raspberry:~/SenseHat $ make
     pi@raspberry:~/SenseHat $ sudo make install
     pi@raspberry:~/SenseHat $ make clean
 
-**Installation** : des programmes de démonstration:
+**Compilation & exécution** : des programmes de démonstration:
  
     pi@raspberry:~/SenseHat $ cd /Exemples
     pi@raspberry:~/SenseHat/Exemples $ make
     pi@raspberry:~/SenseHat/Exemples $ ./exemple
 
-Vous devriez voir sur votre carte Sense-hat, les trois premières lignees de leds s'allumer  progressivement en rouge bleu et vert.
+Vous devriez voir sur votre carte Sense-hat, les trois premières lignes de leds s'allumer  progressivement en rouge bleu et vert.
 
 Puis sur le terminal affichage de la valeur de la température, de la pression en hPa
 et de l'humidité relative en %.
@@ -42,11 +41,12 @@ les coordonnées de l'orientation en radian/s
 
 les coordonnées du vecteur champs magnétique terreste en µT 
 
-Les programmes :
- niveau simule un niveau à bulle, inclinez votre raspberry pour observer son déplacement.
- text et text2 affiche des messages qui défile.
- clock affiche l'heure
- secouer : l'écran devient bleu lorsque la raspberry est déplacée ou secouée. 
+# Les programmes exemples
+
+ **niveau** simule un niveau à bulle, inclinez votre raspberry pour observer son déplacement.
+ **text**  affiche un message qui défile en boucle.
+ **clock** affiche l'heure
+ **secouer** : l'écran devient bleu lorsque la raspberry est déplacée ou secouée. 
 
 # Changelog
 
