@@ -9,8 +9,9 @@ Ce dépôt propose une classe C++ pour le SenseHat sur Raspberry pi.
 
 <img src="https://github.com/PhilippeSimier/SenseHat/blob/master/Documentation/Sense-HAT.png">
 
-# Installation
+# Installation 
 
+ ![description](https://img.shields.io/badge/built-passing-green.svg) l'installation a été testé sur RASPBIAN STRETCH WITH DESKTOP version Novembre 2017 
 
 **Prérequis** : 
 Cloner le dépot
@@ -18,21 +19,21 @@ Cloner le dépot
     pi@raspberry:~ $ git clone https://github.com/PhilippeSimier/SenseHat.git
     pi@raspberry:~ $ cd SenseHat/
 
-Installation de la bibliothèque SenseHat
+**Installation** : de la bibliothèque SenseHat
 
     pi@raspberry:~/SenseHat $ make
     pi@raspberry:~/SenseHat $ sudo make install
     pi@raspberry:~/SenseHat $ make clean
 
-Installation des programmes de démonstration:
+**Installation** : des programmes de démonstration:
  
     pi@raspberry:~/SenseHat $ cd /Exemples
     pi@raspberry:~/SenseHat/Exemples $ make
-    pi@raspberry:~/SenseHat/Exemples $ ./niveau
+    pi@raspberry:~/SenseHat/Exemples $ ./exemple
 
-Vous devriez voir sur votre carte Sense-hat, les trois premières colonnes de leds s'allumer  progressivement en rouge bleu et vert.
+Vous devriez voir sur votre carte Sense-hat, les trois premières lignees de leds s'allumer  progressivement en rouge bleu et vert.
 
- Puis sur le terminal affichage de la valeur de la température, de la pression en hPa
+Puis sur le terminal affichage de la valeur de la température, de la pression en hPa
 et de l'humidité relative en %.
 
 les coordonnées x,y,z du vecteur accélération en g (z=1g si la carte est en position horizontale
@@ -41,7 +42,11 @@ les coordonnées de l'orientation en radian/s
 
 les coordonnées du vecteur champs magnétique terreste en µT 
 
-
+Les programmes :
+ niveau simule un niveau à bulle, inclinez votre raspberry pour observer son déplacement.
+ text et text2 affiche des messages qui défile.
+ clock affiche l'heure
+ secouer : l'écran devient bleu lorsque la raspberry est déplacée ou secouée. 
 
 # Changelog
 
