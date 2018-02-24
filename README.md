@@ -44,8 +44,11 @@ les coordonnées du vecteur champs magnétique terreste en µT
 # Les programmes exemples
 
  **niveau** simule un niveau à bulle, inclinez votre raspberry pour observer son déplacement.
+
  **text**  affiche un message qui défile en boucle.
+
  **clock** affiche l'heure
+
  **secouer** : l'écran devient bleu lorsque la raspberry est déplacée ou secouée. 
 
 # Changelog
