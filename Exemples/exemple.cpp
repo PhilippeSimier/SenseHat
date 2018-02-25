@@ -1,11 +1,11 @@
 /**********************************************************************
-Author : Philippe SIMIER
-Date   : 12/02/2018
-Sujet  : Programme démo  la class SenseHat
-Prérequis : copier libSenseHat.a  dans /usr/lib/
-          : et     SensHat.h      dans /usr/include/
+    \file   : exemple.cpp
+    \author : Philippe SIMIER (Touchard Washington Le Mans)
+    \date   : 12/02/2018
+    \brief  : Programme démonstration de la class SenseHat
 
-Compilation : g++ main.cpp -l SenseHat -o main
+
+    \Compilation : g++ exemple.cpp -l SenseHat -l RTIMULib -o exemple
 
 ***********************************************************************/
 
@@ -16,23 +16,25 @@ Compilation : g++ main.cpp -l SenseHat -o main
 
 int main(){
 
-SenseHat carte;
-int i;
-float pression;
-float temperature;
-float humidite;
-float xa,ya,za,xm,ym,zm;
-float pitch,roll,yaw;
+    SenseHat carte;
 
+    float pression;
+    float temperature;
+    float humidite;
+    float xa,ya,za,xm,ym,zm;
+    float pitch,roll,yaw;
 
     carte.Effacer();
+    COULEUR vert = carte.ConvertirRGB565(0,64,0);
+    COULEUR rouge = carte.ConvertirRGB565(64,0,0);
 
-    for (i=0;i<8;i++){
-   	carte.AllumerPixel(1,i,BLEU);
-   	carte.AllumerPixel(0,i,ROUGE);
-   	carte.AllumerPixel(2,i,VERT);
+    for (int i=0; i<8; i++){
+   	carte.AllumerPixel(1, i, BLEU);
+   	carte.AllumerPixel(0, i, rouge);
+   	carte.AllumerPixel(2, i, vert);
    	sleep(1);
     }
+
     while(1){
     	pression    = carte.ObtenirPression();
 	temperature = carte.ObtenirTemperature();
@@ -46,6 +48,7 @@ float pitch,roll,yaw;
 
 	usleep(20*1000);
 	carte.ObtenirMagnetisme(xm,ym,zm);
+
 	system("clear");
 	std::cout << "pression : " << pression << " hPa"<< std::endl;
 	std::cout << "Température : " << temperature << " °C" << std::endl;

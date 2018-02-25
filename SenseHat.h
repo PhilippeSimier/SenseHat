@@ -7,6 +7,8 @@
 #define DEV_INPUT_EVENT "/dev/input"
 #define EVENT_DEV_NAME "event"
 
+#define COULEUR uint16_t
+
 #define ROUGE   0xF800
 #define BLEU    0x001F
 #define VERT    0x07E0
@@ -54,8 +56,8 @@ public:
     void AfficherMotif(uint16_t motif[][8]);
     void PivoterMotif(int rotation);
     char ScannerJoystick();
-    uint16_t ConvertirRGB565(uint8_t rouge, uint8_t vert,uint8_t bleu);
-    uint16_t ConvertirRGB565(uint8_t couleur[]);
+    COULEUR ConvertirRGB565(uint8_t rouge, uint8_t vert,uint8_t bleu);
+    COULEUR ConvertirRGB565(uint8_t couleur[]);
     void Effacer(uint16_t couleur=NOIR);
 
     float ObtenirTemperature();
