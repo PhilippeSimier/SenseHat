@@ -1,18 +1,31 @@
-/*
+/***********************************************************************************
+/*!
+    \file         text.cpp
+    \author    	  Philippe SIMIER (Touchard Wahington le Mans)
+    \license      GPL2 (see license.txt)
+    \date         25 février 2018
+    \brief        Programme exemple pour l'affichage d'un message
+    \details      Mise en oeuvre de la méthode AfficherMessage()
+    \compilation: g++ text.cpp -l SenseHat -l RTIMULib -o text
+    \version      v1.0
+/***********************************************************************************/
 
-Compilation : g++ text.cpp -l SenseHat -l RTIMULib -o text
-
-
-*/
 #include <SenseHat.h>
+#include <iostream>
+#include <string>
+
+using namespace std;
 
 int main() {
 
     SenseHat carte;
+    string message;
 
     carte.Effacer();
-    while(1){
-    	carte.AfficherMessage(" Bonjour 9876543210 !");
-	sleep(1);
-    }
+    cout << "Entrer votre message : ";
+    getline(cin, message);
+
+    while(1)
+    	carte.AfficherMessage(message, 80, ORANGE);
+    return 0;
 }

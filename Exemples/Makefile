@@ -13,7 +13,7 @@ SOURCES += caractere.cpp clock.cpp exemple.cpp niveau.cpp secouer.cpp text.cpp t
 #List of object files
 OBJECTS += $(SOURCES:.cpp=.o)
 
-all: caractere clock exemple niveau secouer text text2
+all: caractere clock exemple niveau secouer text
 
 #Compile all of the source files
 %.o: %.cpp
@@ -47,12 +47,6 @@ secouer: secouer.o
 
 #Building text executable
 text: text.o
-	@echo Building target file: $@.
-	g++ -L$(LIBRARY_PATH) -o $@ $^ -l SenseHat -l RTIMULib
-	@echo
-
-#Building text2 executable
-text2: text2.o
 	@echo Building target file: $@.
 	g++ -L$(LIBRARY_PATH) -o $@ $^ -l SenseHat -l RTIMULib
 	@echo
