@@ -1,5 +1,5 @@
 /**********************************************************************
-    \file   : exemple.cpp
+    \file   : compass.cpp
     \author : Philippe SIMIER (Touchard Washington Le Mans)
     \date   : 12/02/2018
     \brief  : Programme démonstration de la class SenseHat
