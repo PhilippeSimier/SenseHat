@@ -313,6 +313,21 @@ void SenseHat::ObtenirMagnetisme(float &x, float &y, float &z)
     }
 }
 
+/* Renvoie la valeur du vecteur champ magnétique en coordonnées sphérique
+        teta l'angle mesuré depuis l'axe des X
+        si teta = 0 alors l'axe X est dirigé vers le nord magnétique
+	si teta = 180 ou -180 alors l'axe des X est dirigé vers le sud
+*/
+void SenseHat::ObtenirMagnetismeSpherique(float &ro, float &teta, float &delta)
+{
+    float x,y,z;
+
+    ObtenirMagnetisme(x,y,z);
+    teta = atan2 (y,x) * 180/PI;
+    ro   = sqrt(x*x + y*y + z*z);
+    delta =  atan2 (z,sqrt(x*x + y*y)) * 180/PI;
+}
+
 void SenseHat::InitialiserLeds()
 {
     int fbfd ;

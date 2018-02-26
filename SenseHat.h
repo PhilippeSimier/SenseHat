@@ -8,6 +8,7 @@
 #define EVENT_DEV_NAME "event"
 
 #define COULEUR uint16_t
+#define PI 3.14159265
 
 #define ROUGE   0xF800
 #define BLEU    0x001F
@@ -34,7 +35,7 @@
 #include <termios.h>
 #include <linux/input.h>
 #include <sstream>
-
+#include <math.h>
 #include "RTIMULib.h"
 
 struct fb_t {
@@ -68,18 +69,19 @@ public:
     float ObtenirPression();
     float ObtenirHumidite();
     void  ObtenirOrientation(float &pitch, float &roll, float & yaw);
-    void  InitialiserAcceleration();
-    void  ObtenirAcceleration(float &pitch, float &roll, float & yaw);
+
+    void  ObtenirAcceleration(float &x, float &y, float &z);
     void  ObtenirMagnetisme(float &x, float &y, float &z);
+    void  ObtenirMagnetismeSpherique(float &ro, float &teta, float &delta);
     void  Version();
 
 private:
-    void InitialiserLeds();
-    void InitialiserJoystik();
-    void InitialiserPression();
-    void InitialiserHumidite();
-    void InitialiserOrientation();
-
+    void  InitialiserLeds();
+    void  InitialiserJoystik();
+    void  InitialiserPression();
+    void  InitialiserHumidite();
+    void  InitialiserOrientation();
+    void  InitialiserAcceleration();
 
     // Converti un caractère en Motif affichable sur la matrice de leds - Fait par Grilo Christophe
     void ConvertirCaractereEnMotif(char c, uint16_t image[8][8], uint16_t couleurTexte, uint16_t couleurFond);
