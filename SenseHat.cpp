@@ -149,7 +149,7 @@ SenseHat::~SenseHat()
 
 void SenseHat::Version()
 {
-    printf("\nSenseHat PCT,PSR,CGO Version 1.2\n");
+    printf("\nSenseHat PCT,PSR,CGO Version 1.1.0\n");
 }
 
 
@@ -229,6 +229,25 @@ uint16_t SenseHat::ConvertirRGB565(uint8_t rouge, uint8_t vert, uint8_t bleu)
 uint16_t SenseHat::ConvertirRGB565(uint8_t couleur[])
 {
     return ConvertirRGB565(couleur[1],couleur[2],couleur[3]);
+}
+
+COULEUR SenseHat::ConvertirRGB565(std::string hexCode)
+{
+   int r, g, b;
+
+   // Retire le hashtag ...
+   if(hexCode.at(0) == '#') {
+      hexCode = hexCode.erase(0, 1);
+   }
+
+   // puis extraction des valeurs r g b.
+   std::istringstream(hexCode.substr(0,2)) >> std::hex >> r;
+   std::istringstream(hexCode.substr(2,2)) >> std::hex >> g;
+   std::istringstream(hexCode.substr(4,2)) >> std::hex >> b;
+
+   return ConvertirRGB565(r,g,b);
+
+
 }
 
 float SenseHat::ObtenirTemperature()

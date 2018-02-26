@@ -33,6 +33,7 @@
 #include <unistd.h>
 #include <termios.h>
 #include <linux/input.h>
+#include <sstream>
 
 #include "RTIMULib.h"
 
@@ -56,8 +57,11 @@ public:
     void AfficherMotif(uint16_t motif[][8]);
     void PivoterMotif(int rotation);
     char ScannerJoystick();
+
     COULEUR ConvertirRGB565(uint8_t rouge, uint8_t vert,uint8_t bleu);
     COULEUR ConvertirRGB565(uint8_t couleur[]);
+    COULEUR ConvertirRGB565(std::string couleur);
+
     void Effacer(uint16_t couleur=NOIR);
 
     float ObtenirTemperature();

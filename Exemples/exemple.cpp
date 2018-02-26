@@ -25,8 +25,8 @@ int main(){
     float pitch,roll,yaw;
 
     carte.Effacer();
-    COULEUR vert = carte.ConvertirRGB565(0,64,0);
-    COULEUR rouge = carte.ConvertirRGB565(64,0,0);
+    COULEUR vert  = carte.ConvertirRGB565("#009900");
+    COULEUR rouge = carte.ConvertirRGB565(255,0,0);
 
     for (int i=0; i<8; i++){
    	carte.AllumerPixel(1, i, BLEU);
