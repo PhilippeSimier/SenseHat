@@ -523,3 +523,8 @@ void SenseHat::AfficherMessage(std::string message, int vitesseDefilement, uint1
 	}
 
 }
+
+void SenseHat::operator<<(const std::string &message)
+{
+    AfficherMessage(message);
+}

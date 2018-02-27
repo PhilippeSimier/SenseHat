@@ -13,21 +13,24 @@
 #include <SenseHat.h>
 #include <iostream>
 #include <string>
-
+#include <sstream>
 
 using namespace std;
 
 int main() {
 
     SenseHat carte;
-    string message;
+    string message, message1;
     COULEUR jaunePale =  carte.ConvertirRGB565(50,50,0);
 
     carte.Effacer();
     cout << "Entrer votre message : ";
     getline(cin, message);
+    message1 = " Message : ";
 
-    while(1)
-    	carte.AfficherMessage(message, 80, jaunePale);
+    while(1){
+	carte << message1;
+	carte << message;
+    }
     return 0;
 }

@@ -51,6 +51,11 @@ public:
 
     void AfficherMessage(std::string message, int vitesseDefilement = 100, uint16_t CouleurTexte = BLEU, uint16_t couleurFond = NOIR);
 
+    // définition de l'opérateur <<
+    void  operator<<(const std::string &message);
+
+
+
     void AfficherLettre(char lettre, uint16_t couleurTexte = BLEU, uint16_t couleurFond = NOIR);
 
     void AllumerPixel(int ligne, int colonne, uint16_t couleur);
@@ -97,5 +102,6 @@ private:
     RTPressure *pressure;
     RTHumidity *humidite;
 };
+
 
 #endif // SENSEHAT_H
