@@ -39,8 +39,8 @@ int main(){
    while(1){
 
    	maintenant = ObtenirHeure();
-   	carte.AfficherMessage(maintenant, 80, ORANGE);
-	carte.Effacer();
+   	//carte.AfficherMessage(maintenant, 80, ORANGE);
+        carte << maintenant;
 	sleep(1);
    }
 }

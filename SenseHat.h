@@ -36,7 +36,8 @@
 #include <linux/input.h>
 #include <sstream>
 #include <math.h>
-#include "RTIMULib.h"
+#include <RTIMULib.h>
+#include <iostream>
 
 struct fb_t {
 	uint16_t pixel[8][8];
@@ -49,13 +50,15 @@ public:
     SenseHat();
     ~SenseHat();
 
-    void AfficherMessage(std::string message, int vitesseDefilement = 100, uint16_t CouleurTexte = BLEU, uint16_t couleurFond = NOIR);
-
-    // définition de l'opérateur <<
-    void  operator<<(const std::string &message);
-
-
-
+    void AfficherMessage(const std::string message, int vitesseDefilement = 100, uint16_t CouleurTexte = BLEU, uint16_t couleurFond = NOIR);
+/*
+    // définition de l'opérateur de flux << pour string
+    void operator<<(const std::string &message);
+    // définition de l'opérateur de flux << pour int
+    void operator<<(const int valeur);
+    // définition de l'opérateur de flux << pour double
+    void operator<<(const double valeur);
+*/
     void AfficherLettre(char lettre, uint16_t couleurTexte = BLEU, uint16_t couleurFond = NOIR);
 
     void AllumerPixel(int ligne, int colonne, uint16_t couleur);
@@ -102,6 +105,16 @@ private:
     RTPressure *pressure;
     RTHumidity *humidite;
 };
+
+// définition de l'opérateur de flux << pour string
+SenseHat& operator<<(SenseHat &carte, const std::string &message);
+
+// définition de l'opérateur de flux << pour int
+SenseHat& operator<<(SenseHat &carte, const int valeur);
+
+// définition de l'opérateur de flux << pour double
+SenseHat& operator<<(SenseHat &carte, const double valeur);
+
 
 
 #endif // SENSEHAT_H

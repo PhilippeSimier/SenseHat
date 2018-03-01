@@ -450,7 +450,7 @@ void SenseHat::TassementDeLimage(int numColonne,uint16_t image[][8][8], int tail
 }
 
 
-void SenseHat::AfficherMessage(std::string message, int vitesseDefilement, uint16_t couleurTexte, uint16_t couleurFond)
+void SenseHat::AfficherMessage(const std::string message, int vitesseDefilement, uint16_t couleurTexte, uint16_t couleurFond)
 {
     int taille=message.length();
     uint16_t chaine[taille][8][8]; /* Le tableau de motif (image/caractère) à afficher */
@@ -523,8 +523,39 @@ void SenseHat::AfficherMessage(std::string message, int vitesseDefilement, uint1
 	}
 
 }
+/*
 
-void SenseHat::operator<<(const std::string &message)
+
+void SenseHat::operator<<(const int valeur)
 {
-    AfficherMessage(message);
+    std::string message = " " + std::to_string(valeur) + " "; 
+    AfficherMessage(message, 80, ORANGE);
 }
+
+void SenseHat::operator<<(const double valeur)
+{
+    std::string message = " " + std::to_string(valeur) + " ";
+    AfficherMessage(message, 80, ORANGE);
+}
+*/
+
+SenseHat& operator<<(SenseHat &carte, const std::string &message)
+{
+    carte.AfficherMessage(message, 80, ORANGE);
+    return carte;
+}
+
+SenseHat& operator<<(SenseHat &carte, const int valeur)
+{
+    std::string message = " " + std::to_string(valeur) + " ";
+    carte.AfficherMessage(message, 80, ORANGE);
+    return carte;
+}
+
+SenseHat& operator<<(SenseHat &carte, const double valeur)
+{
+    std::string message = " " + std::to_string(valeur) + " ";
+    carte.AfficherMessage(message, 80, ORANGE);
+    return carte;
+}
+
