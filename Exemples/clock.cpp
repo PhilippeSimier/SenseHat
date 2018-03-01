@@ -33,14 +33,9 @@ string ObtenirHeure()
 int main(){
 
    SenseHat carte;
-   string maintenant;
-
 
    while(1){
-
-   	maintenant = ObtenirHeure();
-   	//carte.AfficherMessage(maintenant, 80, ORANGE);
-        carte << maintenant;
+        carte << ObtenirHeure();
 	sleep(1);
    }
 }
