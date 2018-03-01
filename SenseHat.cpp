@@ -502,7 +502,7 @@ void SenseHat::AfficherMessage(const std::string message, int vitesseDefilement,
 
 	// Parcours detoutes les colonnes de tous les motifs qui compose
 	// la chaine de caractères à afficher (sans les colonnes vides de trop).
-	for( l=0;l<nombreDeColonnes;l++)
+	for( l=0; l<=nombreDeColonnes; l++)
 	{
 		// Decalage des colonnes vers la gauche sur l'image Numero 0 (celle qu'on affiche sur la matrice de LED
 		for( i=0;i<taille;i++)
