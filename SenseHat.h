@@ -51,14 +51,6 @@ public:
     ~SenseHat();
 
     void AfficherMessage(const std::string message, int vitesseDefilement = 100, uint16_t CouleurTexte = BLEU, uint16_t couleurFond = NOIR);
-/*
-    // définition de l'opérateur de flux << pour string
-    void operator<<(const std::string &message);
-    // définition de l'opérateur de flux << pour int
-    void operator<<(const int valeur);
-    // définition de l'opérateur de flux << pour double
-    void operator<<(const double valeur);
-*/
     void AfficherLettre(char lettre, uint16_t couleurTexte = BLEU, uint16_t couleurFond = NOIR);
 
     void AllumerPixel(int ligne, int colonne, uint16_t couleur);
