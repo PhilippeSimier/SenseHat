@@ -1,5 +1,5 @@
 /*
-Author : Philippe CRUCHET -  Philippe SIMIER -  Christophe GRILO
+Author : Philippe SIMIER
 Compilation : g++ caractere.cpp -l SenseHat -l RTIMULib -o caractere
 */
 
@@ -8,21 +8,18 @@ Compilation : g++ caractere.cpp -l SenseHat -l RTIMULib -o caractere
 int main() {
 
     SenseHat carte;
-    char lettre;
 
     carte.Effacer();
     while(1){
-    	for (lettre='A'; lettre <= 'Z'; lettre++){
+    	for (char lettre='A'; lettre <= 'Z'; lettre++){
     	   carte.AfficherLettre(lettre);
 	   sleep(1);
     	}
-    	for (lettre='a'; lettre <= 'z'; lettre++){
-            carte.AfficherLettre(lettre);
-            sleep(1);
+    	for (char lettre='a'; lettre <= 'z'; lettre++){
+            carte << lettre;
     	}
-        for (lettre='0'; lettre <= '9'; lettre++){
-            carte.AfficherLettre(lettre);
-            sleep(1);
+        for (char chiffre='0'; chiffre <= '9'; chiffre++){
+            carte << chiffre;
         }
     }
 }

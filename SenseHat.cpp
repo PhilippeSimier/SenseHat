@@ -500,9 +500,9 @@ void SenseHat::AfficherMessage(const std::string message, int vitesseDefilement,
 		}
 	}
 
-	// Parcours detoutes les colonnes de tous les motifs qui compose
-	// la chaine de caractères à afficher (sans les colonnes vides de trop).
-	for( l=0; l<=nombreDeColonnes; l++)
+	// Parcours de toutes les colonnes de tous les motifs qui composent
+	// la chaine de caractères à afficher (sans les colonnes vides superflues).
+	for( l=0; l<nombreDeColonnes; l++)
 	{
 		// Decalage des colonnes vers la gauche sur l'image Numero 0 (celle qu'on affiche sur la matrice de LED
 		for( i=0;i<taille;i++)
@@ -523,21 +523,7 @@ void SenseHat::AfficherMessage(const std::string message, int vitesseDefilement,
 	}
 
 }
-/*
 
-
-void SenseHat::operator<<(const int valeur)
-{
-    std::string message = " " + std::to_string(valeur) + " "; 
-    AfficherMessage(message, 80, ORANGE);
-}
-
-void SenseHat::operator<<(const double valeur)
-{
-    std::string message = " " + std::to_string(valeur) + " ";
-    AfficherMessage(message, 80, ORANGE);
-}
-*/
 
 SenseHat& operator<<(SenseHat &carte, const std::string &message)
 {
@@ -559,3 +545,10 @@ SenseHat& operator<<(SenseHat &carte, const double valeur)
     return carte;
 }
 
+SenseHat& operator<<(SenseHat &carte, char caractere)
+{
+   std::string message = std::string(1, caractere);
+   message = " " + message + " ";
+   carte.AfficherMessage(message, 80, ORANGE);
+   return carte;
+}

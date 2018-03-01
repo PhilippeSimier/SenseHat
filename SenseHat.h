@@ -107,6 +107,8 @@ SenseHat& operator<<(SenseHat &carte, const int valeur);
 // définition de l'opérateur de flux << pour double
 SenseHat& operator<<(SenseHat &carte, const double valeur);
 
+// Définition de l'opérateur de flux << par char
+SenseHat& operator<<(SenseHat &carte, char caractere);
 
 
 #endif // SENSEHAT_H

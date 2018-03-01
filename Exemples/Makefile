@@ -8,7 +8,7 @@ HEADERS_PATH = /usr/include
 LIBRARY_PATH = /usr/lib
 
 # List of source files
-SOURCES += caractere.cpp clock.cpp exemple.cpp niveau.cpp secouer.cpp text.cpp text2.cpp
+SOURCES += caractere.cpp clock.cpp exemple.cpp niveau.cpp secouer.cpp text.cpp
 
 #List of object files
 OBJECTS += $(SOURCES:.cpp=.o)
