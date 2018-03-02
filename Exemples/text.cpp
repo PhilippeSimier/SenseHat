@@ -29,7 +29,8 @@ int main() {
     getline(cin, message);
 
     while(1){
-	carte << "Votre message : " << message << i++ << 'E';
+	//carte << endl;
+	carte << "Votre message : " << message << i++ << 'E' << endl;
     }
     return 0;
 }

@@ -50,6 +50,7 @@ public:
     SenseHat();
     ~SenseHat();
 
+    SenseHat& operator<<(SenseHat& (*)(SenseHat&));
     void AfficherMessage(const std::string message, int vitesseDefilement = 100, uint16_t CouleurTexte = BLEU, uint16_t couleurFond = NOIR);
     void AfficherLettre(char lettre, uint16_t couleurTexte = BLEU, uint16_t couleurFond = NOIR);
 
@@ -75,6 +76,7 @@ public:
     void  ObtenirMagnetismeSpherique(float &ro, float &teta, float &delta);
     void  Version();
 
+    std::string buffer;
 private:
     void  InitialiserLeds();
     void  InitialiserJoystik();
@@ -110,5 +112,7 @@ SenseHat& operator<<(SenseHat &carte, const double valeur);
 // Définition de l'opérateur de flux << par char
 SenseHat& operator<<(SenseHat &carte, char caractere);
 
+//SenseHat& operator<<(SenseHat& (*m)(SenseHat&));
 
+SenseHat& endl(SenseHat& os);
 #endif // SENSEHAT_H

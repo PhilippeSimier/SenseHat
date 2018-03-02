@@ -139,12 +139,17 @@ SenseHat::SenseHat()
     InitialiserJoystik();
     InitialiserHumidite();
     InitialiserPression();
-
+    buffer="";
 }
 
 SenseHat::~SenseHat()
 {
     delete settings;
+}
+
+SenseHat& SenseHat::operator<<(SenseHat& (*m)(SenseHat&))
+{
+      return (*m)(*this);
 }
 
 void SenseHat::Version()
@@ -527,21 +532,24 @@ void SenseHat::AfficherMessage(const std::string message, int vitesseDefilement,
 
 SenseHat& operator<<(SenseHat &carte, const std::string &message)
 {
-    carte.AfficherMessage(message, 80, ORANGE);
+    //carte.AfficherMessage(message, 80, ORANGE);
+    carte.buffer += message;
     return carte;
 }
 
 SenseHat& operator<<(SenseHat &carte, const int valeur)
 {
     std::string message = " " + std::to_string(valeur) + " ";
-    carte.AfficherMessage(message, 80, ORANGE);
+    //carte.AfficherMessage(message, 80, ORANGE);
+    carte.buffer += message;
     return carte;
 }
 
 SenseHat& operator<<(SenseHat &carte, const double valeur)
 {
     std::string message = " " + std::to_string(valeur) + " ";
-    carte.AfficherMessage(message, 80, ORANGE);
+    //carte.AfficherMessage(message, 80, ORANGE);
+    carte.buffer += message;
     return carte;
 }
 
@@ -549,6 +557,17 @@ SenseHat& operator<<(SenseHat &carte, char caractere)
 {
    std::string message = std::string(1, caractere);
    message = " " + message + " ";
-   carte.AfficherMessage(message, 80, ORANGE);
+   //carte.AfficherMessage(message, 80, ORANGE);
+   carte.buffer += message;
+   return carte;
+}
+
+
+// Modificator endl
+// Affiche le buffer puis le vide
+SenseHat& endl(SenseHat& carte)
+{
+   carte.AfficherMessage(carte.buffer, 80, ORANGE);
+   carte.buffer = "";
    return carte;
 }
