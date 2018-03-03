@@ -16,10 +16,11 @@ int main() {
 	   sleep(1);
     	}
     	for (char lettre='a'; lettre <= 'z'; lettre++){
-            carte << lettre;
+            carte << lettre << endl;
     	}
         for (char chiffre='0'; chiffre <= '9'; chiffre++){
             carte << chiffre;
         }
+	carte << flush;
     }
 }

@@ -135,7 +135,7 @@ SenseHat::SenseHat()
     InitialiserJoystik();
     InitialiserHumidite();
     InitialiserPression();
-    buffer="";
+    buffer=" ";
 }
 
 SenseHat::~SenseHat()
@@ -553,8 +553,9 @@ SenseHat& operator<<(SenseHat &carte, char caractere)
 // Méthode Flush() Affiche le buffer puis le vide
 void SenseHat::Flush()
 {
+    buffer += " ";
     AfficherMessage(buffer, 80, ORANGE);
-    buffer = "";
+    buffer = " ";
 }
 
 // Modificator endl
@@ -568,7 +569,6 @@ SenseHat& endl(SenseHat& carte)
 
 SenseHat& flush(SenseHat& os)
 {
-
     os.Flush();
     return os;
 }
