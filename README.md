@@ -51,25 +51,24 @@ les coordonnées du vecteur champs magnétique terreste en µT
 
  **secouer** : l'écran devient bleu lorsque la raspberry est déplacée ou secouée. 
 
-**SenseHat et le flux de sortie** :
+# SenseHat et le flux de sortie :
 
-Le flux de sortie de la classe SenseHat permet d'effectuer des opération d'affichage sur la matrice de leds de manière simplifiée.
-L'opérateur << a été surchargé pour les types de données suivantes : 
+Le flux de sortie de la classe SenseHat permet d'effectuer des opérations d'affichage sur la matrice de leds de manière simplifiée.
+L'opérateur **<<** a été surchargé pour les types de données suivantes : 
  
- **string** pour les chaînes de caratères
+ **string**  **double**  **int**  **char**
 
- **double** pour les nombres réels
+De plus, SenseHat définie ce que l'on appelle des manipulateurs permettant de réaliser des opérations simples.
 
- **int** pour les nombres entiers
-
- **char** pour les caractères
-
-Exemple d'utilisation :
+ **endl** **flush**
+ 
+L'utilisation de l'opérateur << sur ce flux se résume donc à la syntaxe suivante :
 
     SenseHat carte;
     carte << "message " << 3.1415 << 58 << 'E' << endl;
 
-Le manipulateur **endl** ou **flush** doit être insérer en fin de ligne.  
+Comme on le voit, il est possible d'effectuer plusieurs sortie successivement sur un même flux.
+Le manipulateur **endl** ou **flush** doit être inséré en fin de flux.  
 
 
 # Changelog
