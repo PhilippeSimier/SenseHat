@@ -566,3 +566,9 @@ SenseHat& endl(SenseHat& carte)
 }
 
 
+SenseHat& flush(SenseHat& os)
+{
+
+    os.Flush();
+    return os;
+}

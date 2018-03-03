@@ -30,7 +30,7 @@ int main() {
     getline(cin, message);
 
     while(1){
-	carte << message << ' ' << i++ << 'E' << endl;
+	carte << message << ' ' << i++ << 'E' << flush;
     }
     return 0;
 }

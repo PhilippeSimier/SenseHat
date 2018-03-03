@@ -109,6 +109,6 @@ private:
 
 // surcharge des manipulators pour SenseHat
 SenseHat& endl(SenseHat& os);
-
+SenseHat& flush(SenseHat& os);
 
 #endif // SENSEHAT_H
