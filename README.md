@@ -67,8 +67,8 @@ L'utilisation de l'opérateur << sur ce flux se résume donc à la syntaxe suiva
     SenseHat carte;
     carte << "message " << 3.1415 << 58 << 'E' << endl;
 
-Comme on le voit, il est possible d'effectuer plusieurs sortie successivement sur un même flux.
-Le manipulateur **endl** ou **flush** doit être inséré en fin de flux.  
+Comme on le voit, il est possible d'effectuer plusieurs sorties successivement sur un même flux.
+Le manipulateur **endl** ou **flush** doit être inséré en fin de flux pour obtenir l'affichage.  
 
 
 # Changelog
