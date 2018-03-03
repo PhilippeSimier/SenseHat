@@ -75,8 +75,14 @@ public:
     void  ObtenirMagnetisme(float &x, float &y, float &z);
     void  ObtenirMagnetismeSpherique(float &ro, float &teta, float &delta);
     void  Version();
+    void  Flush();
 
-    std::string buffer;
+    friend SenseHat& operator<<(SenseHat &carte, const std::string &message);
+    friend SenseHat& operator<<(SenseHat &carte, const int valeur);
+    friend SenseHat& operator<<(SenseHat &carte, const double valeur);
+    friend SenseHat& operator<<(SenseHat &carte, char caractere);
+
+
 private:
     void  InitialiserLeds();
     void  InitialiserJoystik();
@@ -98,21 +104,11 @@ private:
     RTIMU *imu;
     RTPressure *pressure;
     RTHumidity *humidite;
+    std::string buffer;
 };
 
-// définition de l'opérateur de flux << pour string
-SenseHat& operator<<(SenseHat &carte, const std::string &message);
-
-// définition de l'opérateur de flux << pour int
-SenseHat& operator<<(SenseHat &carte, const int valeur);
-
-// définition de l'opérateur de flux << pour double
-SenseHat& operator<<(SenseHat &carte, const double valeur);
-
-// Définition de l'opérateur de flux << par char
-SenseHat& operator<<(SenseHat &carte, char caractere);
-
-//SenseHat& operator<<(SenseHat& (*m)(SenseHat&));
-
+// surcharge des manipulators pour SenseHat
 SenseHat& endl(SenseHat& os);
+
+
 #endif // SENSEHAT_H

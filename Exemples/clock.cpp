@@ -35,7 +35,7 @@ int main(){
    SenseHat carte;
 
    while(1){
-        carte << ObtenirHeure();
+        carte << ObtenirHeure() << endl;
 	sleep(1);
    }
 }

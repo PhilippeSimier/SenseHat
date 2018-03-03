@@ -1,15 +1,8 @@
 /*
     Classe SenseHat
-    compilation : g++ -c sensehat.cpp   -->  on obtient sensehat.o
+    compilation : make
+    installation : make install
 
-    Pour convertir le fichier objet sensehat.o en une librairie statique libSenseHat.a
-    ar cr libSenseHat.a sensehat.o
-
-    ar s libSenseHat.a
-
-    puis copier les fichiers
-    cp libSenseHat.a /usr/lib/libSenseHat.a
-    cp sensehat.h    /usr/include/SenseHat.h
 
     Author : Philippe CRUCHET (PCT) -  Philippe SIMIER (PSR) -  Christophe GRILO (CGO)
 */
@@ -22,9 +15,8 @@ static int is_framebuffer_device(const struct dirent *dir)
 {
     return strncmp(FB_DEV_NAME, dir->d_name,
                    strlen(FB_DEV_NAME)-1) == 0;
-
-
 }
+
 
 static int open_fbdev(const char *dev_name)
 {
@@ -58,11 +50,13 @@ static int open_fbdev(const char *dev_name)
     return fd;
 }
 
+
 static int is_event_device(const struct dirent *dir)
 {
     return strncmp(EVENT_DEV_NAME, dir->d_name,
                    strlen(EVENT_DEV_NAME)-1) == 0;
 }
+
 
 static int open_evdev(const char *dev_name)
 {
@@ -101,6 +95,7 @@ static int open_evdev(const char *dev_name)
     return fd;
 }
 
+
 uint16_t handle_events(int evfd)
 {
     struct input_event ev;
@@ -120,6 +115,7 @@ uint16_t handle_events(int evfd)
     }
     return retour;
 }
+
 
 SenseHat::SenseHat()
 {
@@ -532,42 +528,41 @@ void SenseHat::AfficherMessage(const std::string message, int vitesseDefilement,
 
 SenseHat& operator<<(SenseHat &carte, const std::string &message)
 {
-    //carte.AfficherMessage(message, 80, ORANGE);
     carte.buffer += message;
     return carte;
 }
 
 SenseHat& operator<<(SenseHat &carte, const int valeur)
 {
-    std::string message = " " + std::to_string(valeur) + " ";
-    //carte.AfficherMessage(message, 80, ORANGE);
-    carte.buffer += message;
+    carte.buffer += std::to_string(valeur);
     return carte;
 }
 
 SenseHat& operator<<(SenseHat &carte, const double valeur)
 {
-    std::string message = " " + std::to_string(valeur) + " ";
-    //carte.AfficherMessage(message, 80, ORANGE);
-    carte.buffer += message;
+    carte.buffer += std::to_string(valeur);
     return carte;
 }
 
 SenseHat& operator<<(SenseHat &carte, char caractere)
 {
-   std::string message = std::string(1, caractere);
-   message = " " + message + " ";
-   //carte.AfficherMessage(message, 80, ORANGE);
-   carte.buffer += message;
+   carte.buffer += std::string(1, caractere);
    return carte;
 }
 
+// Méthode Flush() Affiche le buffer puis le vide
+void SenseHat::Flush()
+{
+    AfficherMessage(buffer, 80, ORANGE);
+    buffer = "";
+}
 
 // Modificator endl
-// Affiche le buffer puis le vide
+// (endl manipulator) effectue un flush du buffer
 SenseHat& endl(SenseHat& carte)
 {
-   carte.AfficherMessage(carte.buffer, 80, ORANGE);
-   carte.buffer = "";
+   carte.Flush();
    return carte;
 }
+
+

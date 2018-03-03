@@ -7,6 +7,7 @@
     \brief        Programme exemple pour l'affichage d'un message
     \details      Mise en oeuvre de l'opérateur de flux <<
 		  pour afficher des messages sur une carte SenseHat
+
     \compilation: g++ text.cpp -l SenseHat -l RTIMULib -o text
     \version      v1.0
 /***********************************************************************************/
@@ -29,9 +30,8 @@ int main() {
     getline(cin, message);
 
     while(1){
-	//carte << endl;
-	carte << "Votre message : " << message << i++ << 'E' << endl;
+	carte << message << ' ' << i++ << 'E' << endl;
     }
     return 0;
 }
- 
+
