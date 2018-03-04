@@ -1,11 +1,11 @@
-/*
-    Classe SenseHat
-    compilation : make
-    installation : make install
+/**
+ * @file SenseHat.cpp
+ * @date 4 mars 2018
+ * @version 1.2
+ * @authors Philippe SIMIER Philippe CRUCHET Christophe GRILLO
+ * @details Classe SenseHat : Gestion de la carte SenseHat
+ */
 
-
-    Author : Philippe CRUCHET (PCT) -  Philippe SIMIER (PSR) -  Christophe GRILO (CGO)
-*/
 
 #include "SenseHat.h"
 #include "font.h"
@@ -116,6 +116,11 @@ uint16_t handle_events(int evfd)
     return retour;
 }
 
+/**
+ * @brief SenseHat::SenseHat
+ * @details Constructeur de la classe, initialise les attributs
+ *          par défaut imu, leds, Joystick, buffer.
+ */
 
 SenseHat::SenseHat()
 {
@@ -138,21 +143,43 @@ SenseHat::SenseHat()
     buffer=" ";
 }
 
+/**
+ * @brief SenseHat::~SenseHat
+ * @details Destructeur de la classe
+ */
+
 SenseHat::~SenseHat()
 {
     delete settings;
 }
+
+/**
+ * @brief SenseHat::operator<<
+ * @details surcharge de l'opérateur << pour les modificateurs endl et flush
+ */
 
 SenseHat& SenseHat::operator<<(SenseHat& (*m)(SenseHat&))
 {
       return (*m)(*this);
 }
 
+/**
+ * @brief SenseHat::Version
+ * @details affiche la version de la classe
+ */
+
 void SenseHat::Version()
 {
-    printf("\nSenseHat PCT,PSR,CGO Version 1.1.0\n");
+    printf("\nSenseHat PCT,PSR,CGO Version 1.2.0\n");
 }
 
+/**
+ * @brief SenseHat::AfficherLettre
+ * @param lettre char
+ * @param couleurTexte  uint16_t une couleur au format 565
+ * @param couleurFond   uint16_t une couleur au format 565
+ * @details affiche un caractère (lettre ponctuation signe) sur l'afficheur
+ */
 
 void SenseHat::AfficherLettre(char lettre, uint16_t couleurTexte, uint16_t couleurFond)
 {
@@ -161,22 +188,49 @@ void SenseHat::AfficherLettre(char lettre, uint16_t couleurTexte, uint16_t coule
 	AfficherMotif(chr);
 }
 
-
+/**
+ * @brief SenseHat::AllumerPixel
+ * @param int indice de la ligne
+ * @param int indice de la colonne
+ * @param couleur   uint16_t une couleur au format 565
+ * @details fixe la couleur d'un pixel désigné par ses coordonnées
+ */
 void SenseHat::AllumerPixel(int ligne, int colonne, uint16_t couleur)
 {
     fb->pixel[ligne%8][colonne%8]=couleur;
 }
 
+
+/**
+ * @brief SenseHat::ObtenirPixel
+ * @param int indice de la ligne
+ * @param int indice de la colonne
+ * @return uint16_t une couleur au format 565
+ * @details  retourne, sous la forme d'un entier sur 16 bits non signé, la couleur du pixel
+ *           dont les coordonnées sont passées à la fonction.
+ */
 uint16_t SenseHat::ObtenirPixel(int ligne, int colonne)
 {
 
     return fb->pixel[ligne%8][colonne%8] ;
 }
 
+/**
+ * @brief SenseHat::AfficherMotif
+ * @param tableau 8*8 de uint16_t
+ * @details Affiche le tableau de pixel sur l'afficheur
+ */
 void SenseHat::AfficherMotif(uint16_t motif[][8])
 {
     memcpy(fb,motif,128);
 }
+
+/**
+ * @brief SenseHat::PivoterMotif
+ * @param int angle de rotation 90,180 ou 270
+ * @details Fait pivoter le motif afficher autour du milieu d'un angle de
+ *          rotation seul les valeurs 90, 180 ou 270 sont permises.
+ */
 
 void SenseHat::PivoterMotif(int rotation)
 {
@@ -207,15 +261,37 @@ void SenseHat::PivoterMotif(int rotation)
     AfficherMotif(tabAux);
 }
 
+/**
+ * @brief SenseHat::Effacer
+ * @param uint16_t une couleur au format 565
+ * @details Affiche la couleur sur l'ensemble de l'afficheur à leds
+ *          une couleur Noir éteind l'écran
+ */
 void SenseHat::Effacer(uint16_t couleur)
 {
     memset(fb, couleur, 128);
 }
 
+/**
+ * @brief SenseHat::ScannerJoystick
+ * @return le code équivalent aux touches du clavier enter,
+ * fleche droite, gauche, haut et bas.
+ */
 char SenseHat::ScannerJoystick()
 {
     return handle_events(joystick);
 }
+
+/**
+ * @brief SenseHat::ConvertirRGB565
+ * @param uint8_t composante rouge
+ * @param uint8_t composante verte
+ * @param uint8_t composante bleu
+ * @return uint16_t une couleur codée en RGB565
+ * @details permet de convertir une couleur exprimer sous la forme
+ *          de trois entiers non signés sur 8 bits en un entier
+ *          représentant la couleur codée en RGB565
+ */
 
 uint16_t SenseHat::ConvertirRGB565(uint8_t rouge, uint8_t vert, uint8_t bleu)
 {
@@ -227,10 +303,28 @@ uint16_t SenseHat::ConvertirRGB565(uint8_t rouge, uint8_t vert, uint8_t bleu)
    return ((rouge<<8) + (vert<<3) + (bleu>>3));
 }
 
+/**
+ * @brief surcharge de SenseHat::ConvertirRGB565
+ * @param un tableau de trois uint8_t
+ * @return uint16_t une couleur codée en RGB565
+ * @details permet de convertir une couleur exprimer sous la forme
+ *          d'un tableaude  trois entiers non signés sur 8 bits en un entier
+ *          représentant la couleur codée en RGB565
+ */
+
 uint16_t SenseHat::ConvertirRGB565(uint8_t couleur[])
 {
     return ConvertirRGB565(couleur[1],couleur[2],couleur[3]);
 }
+
+/**
+ * @brief surcharge de SenseHat::ConvertirRGB565
+ * @param string chaine de caratère représentant une couleur au format hexa
+ * @return uint16_t une couleur codée en RGB565
+ * @details permet de convertir une couleur exprimer sous la forme
+ *          d'une chaîne de caractère au format hexa en un entier
+ *          représentant la couleur codée en RGB565
+ */
 
 COULEUR SenseHat::ConvertirRGB565(std::string hexCode)
 {
@@ -240,16 +334,19 @@ COULEUR SenseHat::ConvertirRGB565(std::string hexCode)
    if(hexCode.at(0) == '#') {
       hexCode = hexCode.erase(0, 1);
    }
-
    // puis extraction des valeurs r g b.
    std::istringstream(hexCode.substr(0,2)) >> std::hex >> r;
    std::istringstream(hexCode.substr(2,2)) >> std::hex >> g;
    std::istringstream(hexCode.substr(4,2)) >> std::hex >> b;
 
    return ConvertirRGB565(r,g,b);
-
-
 }
+
+/**
+ * @brief SenseHat::ObtenirTemperature
+ * @return float la valeur de la température exprimée en °C,
+ */
+
 
 float SenseHat::ObtenirTemperature()
 {
@@ -258,7 +355,12 @@ float SenseHat::ObtenirTemperature()
     return data.temperature;;
 }
 
-// Méthode pour obtenir la pression
+/**
+ * @brief SenseHat::ObtenirPression
+ * @return float la valeur de la Pression exprimée en hPa,
+ * @detail la valeur correspond à la valeur brute mesurée à l'altitude du capteur
+ *         elle doit donc être convertie pour être ramenée au niveau de la mer
+ */
 float SenseHat::ObtenirPression()
 {
     RTIMU_DATA data;
@@ -271,7 +373,10 @@ float SenseHat::ObtenirPression()
     return pression;
 }
 
-// Méthode pour obtenir l'humidité
+/**
+ * @brief SenseHat::ObtenirHumidite
+ * @return float la valeur de l'humidité relative exprimée en %,
+ */
 float SenseHat::ObtenirHumidite()
 {
     RTIMU_DATA data;
@@ -284,6 +389,12 @@ float SenseHat::ObtenirHumidite()
     return humidi;
 }
 
+/**
+ * @brief SenseHat::ObtenirOrientation
+ * @return float la valeur de l'accélération angulaire suivant pitch roll et yaw
+ * @detail la valeur est exprimée en rd/s
+ *
+ */
 void SenseHat::ObtenirOrientation(float &pitch, float &roll, float &yaw)
 {
     while (imu->IMURead()){
@@ -294,6 +405,12 @@ void SenseHat::ObtenirOrientation(float &pitch, float &roll, float &yaw)
     }
 }
 
+/**
+ * @brief SenseHat::ObtenirAcceleration
+ * @return float la valeur de l'accélération linéaire suivant X,Y,Z
+ * @detail la valeur est exprimée en m/s*s
+ *
+ */
 void SenseHat::ObtenirAcceleration(float &x, float &y, float &z)
 {
     while (imu->IMURead()){
@@ -303,6 +420,13 @@ void SenseHat::ObtenirAcceleration(float &x, float &y, float &z)
 	z = imuData.accel.z();
     }
 }
+
+/**
+ * @brief SenseHat::ObtenirMagnétisme
+ * @return float la valeur du champ magnétique terrestre suivant X,Y,Z 
+ * @detail la valeur est exprimée en micro Tesla
+ *
+ */
 
 void SenseHat::ObtenirMagnetisme(float &x, float &y, float &z)
 {
@@ -314,11 +438,13 @@ void SenseHat::ObtenirMagnetisme(float &x, float &y, float &z)
     }
 }
 
-/* Renvoie la valeur du vecteur champ magnétique en coordonnées sphérique
-        teta l'angle mesuré depuis l'axe des X
-        si teta = 0 alors l'axe X est dirigé vers le nord magnétique
-	si teta = 180 ou -180 alors l'axe des X est dirigé vers le sud
-*/
+/**
+ * @brief SenseHat::ObtenirMagnetismeSpherique
+ * @return la valeur du vecteur champ magnétique en coordonnées sphérique
+ * @detail teta l'angle mesuré depuis l'axe des X
+ *      si teta = 0 alors l'axe X est dirigé vers le nord magnétique
+ *	si teta = 180 ou -180 alors l'axe des X est dirigé vers le sud
+ */
 void SenseHat::ObtenirMagnetismeSpherique(float &ro, float &teta, float &delta)
 {
     float x,y,z;
@@ -328,6 +454,11 @@ void SenseHat::ObtenirMagnetismeSpherique(float &ro, float &teta, float &delta)
     ro   = sqrt(x*x + y*y + z*z);
     delta =  atan2 (z,sqrt(x*x + y*y)) * 180/PI;
 }
+
+/**
+ * @brief  SenseHat::InitialiserLeds
+ * @detail initialise de framebuffer
+ */
 
 void SenseHat::InitialiserLeds()
 {
@@ -354,11 +485,20 @@ void SenseHat::InitialiserLeds()
     memset(fb, 0, 128);
 }
 
+/**
+ * @brief  SenseHat::InitialiserJoystik
+ * @detail initialise le Joystick
+ */
+
 void SenseHat::InitialiserJoystik()
 {
     joystick = open_evdev("Raspberry Pi Sense HAT Joystick");
 }
 
+/**
+ * @brief  SenseHat::InitialiserPression
+ * @detail initialise le capteur de pression
+ */
 
 void SenseHat::InitialiserPression()
 {
@@ -371,6 +511,11 @@ void SenseHat::InitialiserPression()
     }
     pressure->pressureInit();
 }
+
+/**
+ * @brief  SenseHat::InitialiserHumidite
+ * @detail initialise le capteur d'humidité
+ */
 
 void SenseHat::InitialiserHumidite()
 {
@@ -394,12 +539,17 @@ void SenseHat::InitialiserAcceleration()
     imu->setAccelEnable(true);
 }
 
+
+/**
+ * @brief  SenseHat::ConvertirCaractereEnMotif
+ * @detail Converti un caractère en Motif affichable sur la matrice de leds
+ * - Fait par Grilo Christophe
+ */
 void SenseHat::ConvertirCaractereEnMotif(char c,uint16_t image[8][8],uint16_t couleurTexte, uint16_t couleurFond)
 {
     int i=0;
     int j,k;
     int tailleTableDeConvertion=sizeof(font)/sizeof(Tfont);
-
 
     // Recherche si le caractere existe dans la table de convertion (cf font.h)
     while(c!=font[i].caractere && i < tailleTableDeConvertion )

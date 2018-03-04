@@ -1,3 +1,10 @@
+/**
+ * @file SenseHat.h
+ * @date 4 mars 2018
+ * @version 1.2
+ * @authors Philippe SIMIER Philippe CRUCHET Christophe GRILLO
+ * @details Classe SenseHat : Gestion de la carte SenseHat
+ */
 #ifndef SENSEHAT_H
 #define SENSEHAT_H
 
@@ -91,11 +98,9 @@ private:
     void  InitialiserOrientation();
     void  InitialiserAcceleration();
 
-    // Converti un caractère en Motif affichable sur la matrice de leds - Fait par Grilo Christophe
+
     void ConvertirCaractereEnMotif(char c, uint16_t image[8][8], uint16_t couleurTexte, uint16_t couleurFond);
-    // Permet de savoir si une colonne de leds est vide - Fait par Grilo Christophe
     bool ColonneVide(int numColonne, uint16_t image[8][8], uint16_t couleurFond);
-    // Permet de supprimer une colonne sur un ensemble de motif (image) - Fait par Grilo Christophe
     void TassementDeLimage(int numColonne, uint16_t image[][8][8], int taille);
 
     struct fb_t *fb;
@@ -107,7 +112,7 @@ private:
     std::string buffer;
 };
 
-// surcharge des manipulators pour SenseHat
+// surcharge des manipulators
 SenseHat& endl(SenseHat& os);
 SenseHat& flush(SenseHat& os);
 
