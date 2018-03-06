@@ -51,6 +51,7 @@ struct fb_t {
 };
 
 
+
 class SenseHat
 {
 public:
@@ -116,5 +117,9 @@ private:
 // surcharge des manipulators
 SenseHat& endl(SenseHat& os);
 SenseHat& flush(SenseHat& os);
-SenseHat& flush(SenseHat& os, int couleur);
+
+struct _Setw { int _M_n; };
+
+_Setw setw(int __n);
+SenseHat&  operator<<(SenseHat& os, _Setw __f);
 #endif // SENSEHAT_H

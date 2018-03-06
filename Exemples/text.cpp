@@ -31,8 +31,8 @@ int main() {
     getline(cin, message);
 
     while(1){
-	carte << message << ' ' << i++ << 'E' << flush;
-	carte << a << endl;
+	carte << message << ' ' << i++ << 'E';
+	carte << setw(5);
     }
     return 0;
 }

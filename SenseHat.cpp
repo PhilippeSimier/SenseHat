@@ -158,9 +158,9 @@ SenseHat::~SenseHat()
  * @details surcharge de l'opérateur << pour les modificateurs endl et flush
  */
 
-SenseHat& SenseHat::operator<<(SenseHat& (*m)(SenseHat&))
+SenseHat& SenseHat::operator<<(SenseHat& (*fp)(SenseHat&))
 {
-      return (*m)(*this);
+      return (*fp)(*this);
 }
 
 
@@ -689,31 +689,31 @@ void SenseHat::AfficherMessage(const std::string message, int vitesseDefilement,
 SenseHat& SenseHat::operator<<(const std::string &message)
 {
     buffer += message;
-    return (*this);
+    return *this;
 }
 
 SenseHat& SenseHat::operator<<(const int valeur)
 {
     buffer += std::to_string(valeur);
-    return (*this);
+    return *this;
 }
 
 SenseHat& SenseHat::operator<<(const double valeur)
 {
     buffer += std::to_string(valeur);
-    return (*this);
+    return *this;
 }
 
 SenseHat& SenseHat::operator<<(char caractere)
 {
    buffer += std::string(1, caractere);
-   return (*this);
+   return *this;
 }
 
 SenseHat& SenseHat::operator<<(bool valeur)
 {
    buffer +=  std::to_string(valeur);
-   return (*this);
+   return *this;
 }
 // Méthode Flush() Affiche le buffer puis le vide
 void SenseHat::Flush()
@@ -725,10 +725,10 @@ void SenseHat::Flush()
 
 // Modificator endl
 // (endl manipulator) effectue un flush du buffer
-SenseHat& endl(SenseHat& carte)
+SenseHat& endl(SenseHat& os)
 {
-   carte.Flush();
-   return carte;
+   os.Flush();
+   return os;
 }
 
 
@@ -738,8 +738,17 @@ SenseHat& flush(SenseHat& os)
     return os;
 }
 
-SenseHat& flush(SenseHat& os, int couleur)
+
+_Setw setw(int __n)
 {
-    os.AfficherLettre('A');
+    return { __n };
+}
+
+
+SenseHat&  operator<<(SenseHat& os, _Setw __f)
+{
+    os.Flush();
+    std::cout << __f._M_n << std::endl;
+    //os.width(__f._M_n);
     return os;
 }
