@@ -33,7 +33,7 @@ string ObtenirHeure()
 int main(){
 
    SenseHat carte;
-
+   carte << setcouleur(JAUNE);
    while(1){
         carte << ObtenirHeure() << endl;
 	sleep(1);

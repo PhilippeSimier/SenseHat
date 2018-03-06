@@ -141,6 +141,7 @@ SenseHat::SenseHat()
     InitialiserHumidite();
     InitialiserPression();
     buffer=" ";
+    couleur=BLEU;
 }
 
 /**
@@ -172,6 +173,11 @@ SenseHat& SenseHat::operator<<(SenseHat& (*fp)(SenseHat&))
 void SenseHat::Version()
 {
     printf("\nSenseHat PCT,PSR,CGO Version 1.2.0\n");
+}
+
+void SenseHat::FixerCouleur(uint16_t _couleur)
+{
+   couleur = _couleur;
 }
 
 /**
@@ -719,7 +725,7 @@ SenseHat& SenseHat::operator<<(bool valeur)
 void SenseHat::Flush()
 {
     buffer += " ";
-    AfficherMessage(buffer, 80, ORANGE);
+    AfficherMessage(buffer, 80, couleur);
     buffer = " ";
 }
 
@@ -739,16 +745,14 @@ SenseHat& flush(SenseHat& os)
 }
 
 
-_Setw setw(int __n)
+_SetCouleur setcouleur(int n)
 {
-    return { __n };
+    return { n };
 }
 
 
-SenseHat&  operator<<(SenseHat& os, _Setw __f)
+SenseHat&  operator<<(SenseHat& os, _SetCouleur couleur)
 {
-    os.Flush();
-    std::cout << __f._M_n << std::endl;
-    //os.width(__f._M_n);
+    os.FixerCouleur(couleur.val);
     return os;
 }

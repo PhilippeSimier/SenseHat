@@ -91,6 +91,7 @@ public:
     void  ObtenirMagnetismeSpherique(float &ro, float &teta, float &delta);
     void  Version();
     void  Flush();
+    void  FixerCouleur(uint16_t);
 
 private:
     void  InitialiserLeds();
@@ -112,14 +113,16 @@ private:
     RTPressure *pressure;
     RTHumidity *humidite;
     std::string buffer;
+    uint16_t couleur;
 };
 
 // surcharge des manipulators
 SenseHat& endl(SenseHat& os);
 SenseHat& flush(SenseHat& os);
 
-struct _Setw { int _M_n; };
+// surcharge du manipulateur setcouleur
+struct _SetCouleur { int val; };
+_SetCouleur setcouleur(int n);
+SenseHat&  operator<<(SenseHat& os, _SetCouleur couleur);
 
-_Setw setw(int __n);
-SenseHat&  operator<<(SenseHat& os, _Setw __f);
 #endif // SENSEHAT_H

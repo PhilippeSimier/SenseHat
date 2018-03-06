@@ -24,15 +24,14 @@ int main() {
     SenseHat carte;
     string message;
     int i=0;
-    bool a = true;
 
     carte.Effacer();
     cout << "Entrer votre message : ";
     getline(cin, message);
 
     while(1){
-	carte << message << ' ' << i++ << 'E';
-	carte << setw(5);
+	carte << setcouleur(ORANGE);
+	carte << message << ' ' << i++ << 'E' << flush;
     }
     return 0;
 }
