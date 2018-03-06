@@ -163,6 +163,7 @@ SenseHat& SenseHat::operator<<(SenseHat& (*m)(SenseHat&))
       return (*m)(*this);
 }
 
+
 /**
  * @brief SenseHat::Version
  * @details affiche la version de la classe
@@ -197,7 +198,12 @@ void SenseHat::AfficherLettre(char lettre, uint16_t couleurTexte, uint16_t coule
  */
 void SenseHat::AllumerPixel(int ligne, int colonne, uint16_t couleur)
 {
-    fb->pixel[ligne%8][colonne%8]=couleur;
+    if(ligne < 0)
+	ligne = 0;
+    if(colonne < 0)
+	colonne = 0;
+
+    fb->pixel[ligne%8][colonne%8] = couleur;
 }
 
 
@@ -211,6 +217,10 @@ void SenseHat::AllumerPixel(int ligne, int colonne, uint16_t couleur)
  */
 uint16_t SenseHat::ObtenirPixel(int ligne, int colonne)
 {
+    if(ligne < 0)
+        ligne = 0;
+    if(colonne < 0)
+        colonne = 0;
 
     return fb->pixel[ligne%8][colonne%8] ;
 }
@@ -676,30 +686,35 @@ void SenseHat::AfficherMessage(const std::string message, int vitesseDefilement,
 }
 
 
-SenseHat& operator<<(SenseHat &carte, const std::string &message)
+SenseHat& SenseHat::operator<<(const std::string &message)
 {
-    carte.buffer += message;
-    return carte;
+    buffer += message;
+    return (*this);
 }
 
-SenseHat& operator<<(SenseHat &carte, const int valeur)
+SenseHat& SenseHat::operator<<(const int valeur)
 {
-    carte.buffer += std::to_string(valeur);
-    return carte;
+    buffer += std::to_string(valeur);
+    return (*this);
 }
 
-SenseHat& operator<<(SenseHat &carte, const double valeur)
+SenseHat& SenseHat::operator<<(const double valeur)
 {
-    carte.buffer += std::to_string(valeur);
-    return carte;
+    buffer += std::to_string(valeur);
+    return (*this);
 }
 
-SenseHat& operator<<(SenseHat &carte, char caractere)
+SenseHat& SenseHat::operator<<(char caractere)
 {
-   carte.buffer += std::string(1, caractere);
-   return carte;
+   buffer += std::string(1, caractere);
+   return (*this);
 }
 
+SenseHat& SenseHat::operator<<(bool valeur)
+{
+   buffer +=  std::to_string(valeur);
+   return (*this);
+}
 // Méthode Flush() Affiche le buffer puis le vide
 void SenseHat::Flush()
 {
@@ -720,5 +735,11 @@ SenseHat& endl(SenseHat& carte)
 SenseHat& flush(SenseHat& os)
 {
     os.Flush();
+    return os;
+}
+
+SenseHat& flush(SenseHat& os, int couleur)
+{
+    os.AfficherLettre('A');
     return os;
 }

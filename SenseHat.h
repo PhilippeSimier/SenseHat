@@ -58,6 +58,13 @@ public:
     ~SenseHat();
 
     SenseHat& operator<<(SenseHat& (*)(SenseHat&));
+    SenseHat& operator<<(const std::string&);
+    SenseHat& operator<<(const int);
+    SenseHat& operator<<(const double);
+    SenseHat& operator<<(char);
+    SenseHat& operator<<(bool);
+
+
     void AfficherMessage(const std::string message, int vitesseDefilement = 100, uint16_t CouleurTexte = BLEU, uint16_t couleurFond = NOIR);
     void AfficherLettre(char lettre, uint16_t couleurTexte = BLEU, uint16_t couleurFond = NOIR);
 
@@ -84,12 +91,6 @@ public:
     void  Version();
     void  Flush();
 
-    friend SenseHat& operator<<(SenseHat &carte, const std::string &message);
-    friend SenseHat& operator<<(SenseHat &carte, const int valeur);
-    friend SenseHat& operator<<(SenseHat &carte, const double valeur);
-    friend SenseHat& operator<<(SenseHat &carte, char caractere);
-
-
 private:
     void  InitialiserLeds();
     void  InitialiserJoystik();
@@ -115,5 +116,5 @@ private:
 // surcharge des manipulators
 SenseHat& endl(SenseHat& os);
 SenseHat& flush(SenseHat& os);
-
+SenseHat& flush(SenseHat& os, int couleur);
 #endif // SENSEHAT_H

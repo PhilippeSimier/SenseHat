@@ -24,6 +24,7 @@ int main() {
     SenseHat carte;
     string message;
     int i=0;
+    bool a = true;
 
     carte.Effacer();
     cout << "Entrer votre message : ";
@@ -31,6 +32,7 @@ int main() {
 
     while(1){
 	carte << message << ' ' << i++ << 'E' << flush;
+	carte << a << endl;
     }
     return 0;
 }
