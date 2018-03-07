@@ -68,7 +68,7 @@ L'utilisation de l'opérateur << sur ce flux se résume donc à la syntaxe suiva
     carte << setcouleur(ORANGE) << "message " << 3.1415 << 58 << 'E' << endl;
 
 Comme on le voit, il est possible d'effectuer plusieurs sorties successivement sur un même flux.
-Le manipulateur **endl** ou **flush** doit être inséré en fin de flux pour obtenir la sortie. Le gestionnaire stocke ce qu'on lui passe dans une mémoire tampon et n'écrit réellement que lors d'un appel à std::flush, à std::endl,  
+Le manipulateur **endl** ou **flush** doit être inséré en fin de flux pour obtenir la sortie. Le gestionnaire stocke ce qu'on lui passe dans une mémoire tampon et n'écrit réellement que lors d'un appel à flush ou endl,  
 Le manipulateur **setcouleur** permet de définir la couleur du text.
 
 # Changelog
