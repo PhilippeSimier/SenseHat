@@ -56,20 +56,20 @@ les coordonnées du vecteur champs magnétique terreste en µT
 Le flux de sortie de la classe SenseHat permet d'effectuer des opérations d'affichage sur la matrice de leds de manière simplifiée.
 L'opérateur **<<** a été surchargé pour les types de données suivantes : 
  
- **string**  **double**  **int**  **char**
+ **string**  **double**  **int**  **char** et **bool**
 
-De plus, SenseHat définie ce que l'on appelle des manipulateurs permettant de réaliser des opérations simples.
+De plus, SenseHat définie ce que l'on appelle des manipulateurs de flux permettant de réaliser des opérations simples.
 
- **endl** **flush**
+ **endl** **flush** **setcouleur**
  
 L'utilisation de l'opérateur << sur ce flux se résume donc à la syntaxe suivante :
 
     SenseHat carte;
-    carte << "message " << 3.1415 << 58 << 'E' << endl;
+    carte << setcouleur(ORANGE) << "message " << 3.1415 << 58 << 'E' << endl;
 
 Comme on le voit, il est possible d'effectuer plusieurs sorties successivement sur un même flux.
-Le manipulateur **endl** ou **flush** doit être inséré en fin de flux pour obtenir l'affichage.  
-
+Le manipulateur **endl** ou **flush** doit être inséré en fin de flux pour obtenir la sortie. Le gestionnaire stocke ce qu'on lui passe dans une mémoire tampon et n'écrit réellement que lors d'un appel à std::flush, à std::endl,  
+Le manipulateur **setcouleur** permet de définir la couleur du text.
 
 # Changelog
 
@@ -81,6 +81,7 @@ Le manipulateur **endl** ou **flush** doit être inséré en fin de flux pour ob
 
 **19/02/2018 : ** Ajout de la méthode AfficherMessage() proposée par Christophe GRILO (Merci à lui pour sa contribution) 
 
+**07/03/2018 : ** Ajout de la gestion du flux de sortie  via l'opérateur <<
 > **Notes :**
 
 
