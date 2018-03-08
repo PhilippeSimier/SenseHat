@@ -243,33 +243,36 @@ void SenseHat::AfficherMotif(uint16_t motif[][8])
 
 /**
  * @brief SenseHat::PivoterMotif
- * @param int angle de rotation 90,180 ou 270
+ * @param int angle de rotation 90, 180, 270, -90, -180, -270
  * @details Fait pivoter le motif afficher autour du milieu d'un angle de
- *          rotation seul les valeurs 90, 180 ou 270 sont permises.
+ *          rotation.
  */
 
 void SenseHat::PivoterMotif(int rotation)
 {
-    int ligne;
-    int colonne;
+
     uint16_t tabAux[8][8];
 
-
-    for(ligne=0; ligne <8 ; ligne++)
+    for(int ligne=0; ligne <8 ; ligne++)
     {
-        for(colonne=0 ; colonne <8 ; colonne++)
+        for(int colonne=0 ; colonne <8 ; colonne++)
         {
             switch(rotation)
             {
-            case 90:
+            case   90:
+	    case -270:
                 tabAux[7 - colonne][ligne] = fb->pixel[ligne][colonne];
                 break;
-            case 180:
+            case  180:
+	    case -180:
                 tabAux[7 - ligne][7 - colonne] = fb->pixel[ligne][colonne];
                 break;
-            case 270:
-                tabAux[colonne][ligne] = fb->pixel[ligne][colonne];
+            case  270:
+	    case  -90:
+                tabAux[colonne][7 - ligne] = fb->pixel[ligne][colonne];
                 break;
+	    default:
+		tabAux[ligne][colonne] = fb->pixel[ligne][colonne];
             }
         }
     }
