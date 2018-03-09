@@ -33,9 +33,23 @@ string ObtenirHeure()
 int main(){
 
    SenseHat carte;
+   float x,y,z;
+
    carte << setcouleur(ORANGE);
+
    while(1){
-        carte << ObtenirHeure() << endl;
+	carte.ObtenirAcceleration(x,y,z);
+       	if (x < -0.8)
+          carte.FixerRotation(270);
+        if (x > +0.8)
+          carte.FixerRotation(+90);
+        if (y < -0.8)
+          carte.FixerRotation(180);
+	if (y > 0.8)
+	  carte.FixerRotation(0);
+
+	carte << ObtenirHeure() << endl;
+
 	sleep(1);
    }
 }

@@ -142,6 +142,7 @@ SenseHat::SenseHat()
     InitialiserPression();
     buffer=" ";
     couleur=BLEU;
+    rotation = 0;
 }
 
 /**
@@ -175,10 +176,18 @@ void SenseHat::Version()
     printf("\nSenseHat PCT,PSR,CGO Version 1.2.0\n");
 }
 
+
 void SenseHat::FixerCouleur(uint16_t _couleur)
 {
    couleur = _couleur;
 }
+
+
+void SenseHat::FixerRotation(uint16_t _rotation)
+{
+   rotation = _rotation;
+}
+
 
 /**
  * @brief SenseHat::AfficherLettre
@@ -235,11 +244,35 @@ uint16_t SenseHat::ObtenirPixel(int ligne, int colonne)
  * @brief SenseHat::AfficherMotif
  * @param tableau 8*8 de uint16_t
  * @details Affiche le tableau de pixel sur l'afficheur
+ *          en tenant compte de l'angle de rotation
  */
 void SenseHat::AfficherMotif(uint16_t motif[][8])
 {
-    memcpy(fb,motif,128);
+    for(int ligne=0; ligne <8 ; ligne++)
+    {
+        for(int colonne=0 ; colonne <8 ; colonne++)
+        {
+            switch(this->rotation)
+            {
+            case   90:
+	    case -270:
+                fb->pixel[7 - colonne][ligne] = motif[ligne][colonne];
+                break;
+            case  180:
+	    case -180:
+                fb->pixel[7 - ligne][7 - colonne] = motif[ligne][colonne];
+                break;
+            case  270:
+	    case  -90:
+                fb->pixel[colonne][7 - ligne] = motif[ligne][colonne];
+                break;
+	    default:
+		fb->pixel[ligne][colonne] = motif[ligne][colonne];
+            }
+        }
+    }
 }
+
 
 /**
  * @brief SenseHat::PivoterMotif
@@ -248,7 +281,7 @@ void SenseHat::AfficherMotif(uint16_t motif[][8])
  *          rotation.
  */
 
-void SenseHat::PivoterMotif(int rotation)
+void SenseHat::PivoterMotif(int angle)
 {
 
     uint16_t tabAux[8][8];
@@ -257,7 +290,7 @@ void SenseHat::PivoterMotif(int rotation)
     {
         for(int colonne=0 ; colonne <8 ; colonne++)
         {
-            switch(rotation)
+            switch(angle)
             {
             case   90:
 	    case -270:

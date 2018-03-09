@@ -92,6 +92,7 @@ public:
     void  Version();
     void  Flush();
     void  FixerCouleur(uint16_t);
+    void  FixerRotation(uint16_t);
 
 private:
     void  InitialiserLeds();
@@ -114,6 +115,7 @@ private:
     RTHumidity *humidite;
     std::string buffer;
     uint16_t couleur;
+    int rotation;
 };
 
 // surcharge des manipulators
