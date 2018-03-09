@@ -14,22 +14,22 @@ Ce dépôt propose une classe C++ pour le SenseHat sur Raspberry pi.
  ![description](https://img.shields.io/badge/build-passing-green.svg) l'installation a été testée sur **Raspbian Stretch**  version Novembre 2017 
 
 **Prérequis** : Cloner le dépôt
-
+```bash
     pi@raspberry:~ $ git clone https://github.com/PhilippeSimier/SenseHat.git
     pi@raspberry:~ $ cd SenseHat/
-
+```
 **Compilation & installation** : de la bibliothèque SenseHat
-
+```bash
     pi@raspberry:~/SenseHat $ make
     pi@raspberry:~/SenseHat $ sudo make install
     pi@raspberry:~/SenseHat $ make clean
-
+```
 **Compilation & exécution** : des programmes de démonstration:
- 
+```bash 
     pi@raspberry:~/SenseHat $ cd /Exemples
     pi@raspberry:~/SenseHat/Exemples $ make
     pi@raspberry:~/SenseHat/Exemples $ ./exemple
-
+```
 Vous devriez voir sur votre carte Sense-hat, les trois premières lignes de leds s'allumer  progressivement en rouge bleu et vert.
 
 Puis sur le terminal affichage de la valeur de la température, de la pression en hPa
@@ -63,10 +63,10 @@ De plus, SenseHat définie ce que l'on appelle des manipulateurs de flux permett
  **endl** **flush** **setcouleur** **setrotation**
  
 L'utilisation de l'opérateur << sur ce flux se résume donc à la syntaxe suivante :
-
+```cpp
     SenseHat carte;
     carte << setcouleur(ORANGE) << setrotation(90) << "message " << 3.1415 << 58 << 'E' << endl;
-
+```
 Comme on le voit, il est possible d'effectuer plusieurs sorties successivement sur un même flux.
 Le manipulateur **endl** ou **flush** doit être inséré en fin de flux pour obtenir la sortie. Le gestionnaire stocke ce qu'on lui passe dans une mémoire tampon et n'écrit réellement que lors d'un appel à flush ou endl,  
 Le manipulateur **setcouleur** permet de définir la couleur du text.
