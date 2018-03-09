@@ -74,15 +74,15 @@ Le manipulateur **setrotation** permet d'effectuer une rotation de l'afficheur �
 
 # Changelog
 
-**30/06/2016 : ** Distribution et organisation originale du repository **SenseHat**. 
+ **30/06/2016 : ** Distribution et organisation originale du repository **SenseHat**. 
 
-**10/02/2018 : ** Ajout de la documentation.
+ **10/02/2018 : ** Ajout de la documentation.
 
-**15/02/2018 : ** Ajout de la procédure de calibration.
+ **15/02/2018 : ** Ajout de la procédure de calibration.
 
-**19/02/2018 : ** Ajout de la méthode AfficherMessage() proposée par Christophe GRILO (Merci à lui pour sa contribution) 
+ **19/02/2018 : ** Ajout de la méthode AfficherMessage() proposée par Christophe GRILO (Merci à lui pour sa contribution) 
 
-**09/03/2018 : ** Ajout de la gestion du flux de sortie  via l'opérateur <<
+ **09/03/2018 : ** Ajout de la gestion du flux de sortie  via l'opérateur <<
 > **Notes :**
 
 
