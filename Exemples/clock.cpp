@@ -50,7 +50,7 @@ int main(){
 
    carte << setcouleur(ORANGE);
 
-   while(1){
+   do{
 	carte.ObtenirAcceleration(x,y,z);
        	if (x < -0.8)
             angle = 270;
@@ -64,7 +64,8 @@ int main(){
 	carte << setrotation(angle) << ObtenirHeure() << endl;
 
 	sleep(1);
-   }
+
+   }while(z > -0.5);
 
    return 0;
 }
