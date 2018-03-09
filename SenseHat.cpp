@@ -173,7 +173,7 @@ SenseHat& SenseHat::operator<<(SenseHat& (*fp)(SenseHat&))
 
 void SenseHat::Version()
 {
-    printf("\nSenseHat PCT,PSR,CGO Version 1.2.0\n");
+    std::cout << "SenseHat PCT,PSR,CGO Version 1.2.0" << std::endl;
 }
 
 
@@ -790,5 +790,17 @@ _SetCouleur setcouleur(int n)
 SenseHat&  operator<<(SenseHat& os, _SetCouleur couleur)
 {
     os.FixerCouleur(couleur.val);
+    return os;
+}
+
+_SetRotation setrotation(int n)
+{
+    return { n };
+}
+
+
+SenseHat&  operator<<(SenseHat& os, _SetRotation rotation)
+{
+    os.FixerRotation(rotation.val);
     return os;
 }

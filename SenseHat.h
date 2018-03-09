@@ -35,7 +35,6 @@
 #include <linux/fb.h>
 #include <sys/mman.h>
 #include <sys/ioctl.h>
-#include <string.h>
 #include <string>
 #include <fcntl.h>
 #include <unistd.h>
@@ -127,4 +126,8 @@ struct _SetCouleur { int val; };
 _SetCouleur setcouleur(int n);
 SenseHat&  operator<<(SenseHat& os, _SetCouleur couleur);
 
+// surcharge du manipulateur setrotation
+struct _SetRotation { int val; };
+_SetRotation setrotation(int n);
+SenseHat&  operator<<(SenseHat& os, _SetRotation rotation);
 #endif // SENSEHAT_H

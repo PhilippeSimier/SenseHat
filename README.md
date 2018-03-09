@@ -47,7 +47,7 @@ les coordonnées du vecteur champs magnétique terreste en µT
 
  **text**  affiche un message qui défile en boucle.
 
- **clock** affiche l'heure
+ **clock** affiche l'heure (La rotation de l'affichage est automatique).  
 
  **secouer** : l'écran devient bleu lorsque la raspberry est déplacée ou secouée. 
 
@@ -60,16 +60,17 @@ L'opérateur **<<** a été surchargé pour les types de données suivantes :
 
 De plus, SenseHat définie ce que l'on appelle des manipulateurs de flux permettant de réaliser des opérations simples.
 
- **endl** **flush** **setcouleur**
+ **endl** **flush** **setcouleur** **setrotation**
  
 L'utilisation de l'opérateur << sur ce flux se résume donc à la syntaxe suivante :
 
     SenseHat carte;
-    carte << setcouleur(ORANGE) << "message " << 3.1415 << 58 << 'E' << endl;
+    carte << setcouleur(ORANGE) << setrotation(90) << "message " << 3.1415 << 58 << 'E' << endl;
 
 Comme on le voit, il est possible d'effectuer plusieurs sorties successivement sur un même flux.
 Le manipulateur **endl** ou **flush** doit être inséré en fin de flux pour obtenir la sortie. Le gestionnaire stocke ce qu'on lui passe dans une mémoire tampon et n'écrit réellement que lors d'un appel à flush ou endl,  
 Le manipulateur **setcouleur** permet de définir la couleur du text.
+Le manipulateur **setrotation** permet d'effectuer une rotation de l'afficheur à 90°, 180°ou 270°.
 
 # Changelog
 
@@ -81,7 +82,7 @@ Le manipulateur **setcouleur** permet de définir la couleur du text.
 
 **19/02/2018 : ** Ajout de la méthode AfficherMessage() proposée par Christophe GRILO (Merci à lui pour sa contribution) 
 
-**07/03/2018 : ** Ajout de la gestion du flux de sortie  via l'opérateur <<
+**09/03/2018 : ** Ajout de la gestion du flux de sortie  via l'opérateur <<
 > **Notes :**
 
 

@@ -30,7 +30,7 @@ int main() {
     getline(cin, message);
 
     while(1){
-	carte << setcouleur(ORANGE);
+	carte << setcouleur(ORANGE) << setrotation(270);
 	carte << message << ' ' << i++ << 'E' << flush;
     }
     return 0;
