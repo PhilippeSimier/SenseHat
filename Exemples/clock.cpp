@@ -1,11 +1,11 @@
-/**********************************************************************
-Author : Philippe SIMIER
-Date   : 20/02/2018
-Sujet  : Programme clock pour afficher l'heure
-Compilation : g++ clock.cpp -l SenseHat -l RTIMULib -o clock
+/**
+ * @file    clock.cpp
+ * @author  Philippe SIMIER
+ * @date    20/02/2018
+ * @brief   Programme clock pour afficher l'heure
+ * @detail  Compilation : g++ clock.cpp -l SenseHat -l RTIMULib -o clock
 
-Documentation : http://en.cppreference.com/w/cpp/io/manip/put_time
-***********************************************************************/
+*/
 
 #include <SenseHat.h>
 #include <iostream>
@@ -16,42 +16,57 @@ Documentation : http://en.cppreference.com/w/cpp/io/manip/put_time
 
 using namespace std;
 
-
+/**
+ * @brief ObtenirHeure
+ * @return std::string
+ * @details retourne une chaine de caratères représentant l'heure courante
+ *          au fornat hh:mm
+ */
 string ObtenirHeure()
 {
-    /* L'heure courante */
+    /* L'heure courante au format time_t*/
     time_t  t = time(nullptr);
 
-    /* Creer une chaine  HH:MM */
+    /* Cration d'une chaine  HH:MM à l'aide des flux sur chaînes*/
     stringstream ss;
     ss  <<  put_time( localtime(&t), "  %H:%M" );
 
-    /* retourner la chaine */
+    /* retourne le flux converti en string */
     return ss.str();
 }
+
+/**
+ * @brief main
+ * @return int 0
+ * @details Affiche sur l'écran de la sense-hat l'heure courante en boucle.
+ *          La rotation de l'affichage s'adapte à la position du raspberry.
+ */
 
 int main(){
 
    SenseHat carte;
    float x,y,z;
+   int angle;
 
    carte << setcouleur(ORANGE);
 
    while(1){
 	carte.ObtenirAcceleration(x,y,z);
        	if (x < -0.8)
-          carte.FixerRotation(270);
+            angle = 270;
         if (x > +0.8)
-          carte.FixerRotation(+90);
+            angle = 90;
         if (y < -0.8)
-          carte.FixerRotation(180);
+            angle = 180;
 	if (y > 0.8)
-	  carte.FixerRotation(0);
+	    angle = 0;
 
-	carte << ObtenirHeure() << endl;
+	carte << setrotation(angle) << ObtenirHeure() << endl;
 
 	sleep(1);
    }
+
+   return 0;
 }
 
 
