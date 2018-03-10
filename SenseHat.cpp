@@ -746,13 +746,19 @@ SenseHat& SenseHat::operator<<(const double valeur)
     return *this;
 }
 
-SenseHat& SenseHat::operator<<(char caractere)
+SenseHat& SenseHat::operator<<(const char caractere)
 {
    buffer += std::string(1, caractere);
    return *this;
 }
 
-SenseHat& SenseHat::operator<<(bool valeur)
+SenseHat& SenseHat::operator<<(const char * message)
+{
+   buffer += std::string(message);
+   return *this;
+}
+
+SenseHat& SenseHat::operator<<(const bool valeur)
 {
    buffer +=  std::to_string(valeur);
    return *this;

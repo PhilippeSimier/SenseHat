@@ -27,11 +27,12 @@ int main() {
 
     carte.Effacer();
     cout << "Entrer votre message : ";
-    getline(cin, message);
+//    getline(cin, message);
 
+    carte << setcouleur(carte.ConvertirRGB565(84,84,0)) << setrotation(270);
     while(1){
-	carte << setcouleur(ORANGE) << setrotation(270);
-	carte << message << ' ' << i++ << 'E' << flush;
+
+	carte << " message " << flush;
     }
     return 0;
 }

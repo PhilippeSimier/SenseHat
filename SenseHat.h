@@ -5,6 +5,7 @@
  * @authors Philippe SIMIER Philippe CRUCHET Christophe GRILLO
  * @details Classe SenseHat : Gestion de la carte SenseHat
  */
+
 #ifndef SENSEHAT_H
 #define SENSEHAT_H
 
@@ -61,8 +62,9 @@ public:
     SenseHat& operator<<(const std::string&);
     SenseHat& operator<<(const int);
     SenseHat& operator<<(const double);
-    SenseHat& operator<<(char);
-    SenseHat& operator<<(bool);
+    SenseHat& operator<<(const char);
+    SenseHat& operator<<(const char *);
+    SenseHat& operator<<(const bool);
 
 
     void AfficherMessage(const std::string message, int vitesseDefilement = 100, uint16_t CouleurTexte = BLEU, uint16_t couleurFond = NOIR);
