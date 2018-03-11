@@ -45,6 +45,7 @@
 #include <math.h>
 #include <RTIMULib.h>
 #include <iostream>
+#include <iomanip>
 
 struct fb_t {
 	uint16_t pixel[8][8];

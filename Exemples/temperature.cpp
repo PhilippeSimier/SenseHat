@@ -1,6 +1,6 @@
  /***********************************************************************************
 /*!
-    \file         text.cpp
+    \file         temperature.cpp
     \author    	  Philippe SIMIER (Touchard Wahington le Mans)
     \license      GPL2 (see license.txt)
     \date         25 février 2018
@@ -8,7 +8,7 @@
     \details      Mise en oeuvre de l'opérateur de flux <<
 		  pour afficher des messages sur une carte SenseHat
 
-    \compilation: g++ text.cpp -l SenseHat -l RTIMULib -o text
+    \compilation: g++ temperature.cpp -l SenseHat -l RTIMULib -o temperature
     \version      v1.0
 /***********************************************************************************/
 
@@ -22,16 +22,14 @@ using namespace std;
 int main() {
 
     SenseHat carte;
-    string message;
+    double valeur;
 
     carte.Effacer();
-    cout << "Entrer votre message : ";
-    getline(cin, message);
+    carte << setcouleur(carte.ConvertirRGB565(64,84,0)) << setrotation(270);
 
-    carte << setcouleur(carte.ConvertirRGB565(84,84,0)) << setrotation(270);
     while(1){
-
-	carte << "'" << message << "'" << flush;
+        valeur = carte.ObtenirTemperature();
+	carte << "Temp inside : " << valeur << "'" << flush;
 	sleep(1);
     }
     return 0;

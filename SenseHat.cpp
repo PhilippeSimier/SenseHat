@@ -742,7 +742,9 @@ SenseHat& SenseHat::operator<<(const int valeur)
 
 SenseHat& SenseHat::operator<<(const double valeur)
 {
-    buffer += std::to_string(valeur);
+    std::stringstream ss;
+    ss << std::fixed << std::setprecision(2) << valeur;
+    buffer += ss.str();
     return *this;
 }
 
