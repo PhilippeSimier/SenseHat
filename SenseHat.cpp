@@ -694,7 +694,7 @@ void SenseHat::AfficherMessage(const std::string message, int vitesseDefilement,
 
 			// compter les colonnes vide après la première afin de les supprimer
 			// si plus de 4 c'est le caractère espace que l'on doit garder
-			while(ColonneVide(ksuivant,chaine[isuivant],couleurFond) && nombreDeColonneVide++ < 4)
+			while(ColonneVide(ksuivant,chaine[isuivant],couleurFond) && nombreDeColonneVide++ < 6)
 			{
 				TassementDeLimage(l,chaine,taille);
 				nombreDeColonnes--;
@@ -768,7 +768,7 @@ SenseHat& SenseHat::operator<<(const bool valeur)
 // Méthode Flush() Affiche le buffer puis le vide
 void SenseHat::Flush()
 {
-    buffer += " ";
+    buffer += "  ";
     AfficherMessage(buffer, 80, couleur);
     buffer = " ";
 }
