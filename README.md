@@ -1,95 +1,110 @@
-﻿# SenseHat
+# SenseHat
 
 # Description
-« **Sense-Hat** » est une carte d'extension pour le Raspberry-Pi. Elle lui
-permet d'être sensible à un certain nombre d'éléments et d'afficher des
-informations en utilisant sa matrice d'affichage LED 8x8.
+« **Sense-Hat** » is an expansion card for the Raspberry-Pi. It allows it to be sensitive to a number of elements and display information using its 8x8 LED display matrix.
 
-Ce dépôt propose une classe C++ pour le SenseHat sur Raspberry pi.
+This repository offers a C ++ class for the SenseHat on Raspberry pi.
 
 <img src="https://github.com/PhilippeSimier/SenseHat/blob/master/Documentation/Sense-HAT.png">
 
-# Installation 
+# Installation
 
- ![description](https://img.shields.io/badge/build-passing-green.svg) l'installation a été testée sur **Raspbian Stretch**  version Novembre 2017 
+ ![description](https://img.shields.io/badge/build-passing-green.svg) the installation has been tested on  **Raspbian Stretch**  version Novembre 2017
 
-**Prérequis** : Cloner le dépôt
+**Prérequis** : Clone the Repository
 ```bash
-    pi@raspberry:~ $ git clone https://github.com/PhilippeSimier/SenseHat.git
+    pi@raspberry:~ $ git clone https://github.com/jdellaria/SenseHat.git
     pi@raspberry:~ $ cd SenseHat/
 ```
-**Compilation & installation** : de la bibliothèque SenseHat
+**Compilation & installation** : SenseHat Library
 ```bash
     pi@raspberry:~/SenseHat $ make
     pi@raspberry:~/SenseHat $ sudo make install
     pi@raspberry:~/SenseHat $ make clean
 ```
-**Compilation & exécution** : des programmes de démonstration:
-```bash 
+**Compilation & execution** : Demonstration Programs:
+```bash
     pi@raspberry:~/SenseHat $ cd /Exemples
     pi@raspberry:~/SenseHat/Exemples $ make
     pi@raspberry:~/SenseHat/Exemples $ ./exemple
 ```
-Vous devriez voir sur votre carte Sense-hat, les trois premières lignes de leds s'allumer  progressivement en rouge bleu et vert.
+You should see on your Sense-hat card, the first three lines of leds gradually light up in red blue and green.
 
-Puis sur le terminal affichage de la valeur de la température, de la pression en hPa
-et de l'humidité relative en %.
+Then the display shows the value of the temperature, the pressure in hPa and the relative humidity in%.
 
-les coordonnées x,y,z du vecteur accélération en g (z=1g si la carte est en position horizontale
- 
-les coordonnées de l'orientation en radian/s
+the x, y, z coordinates of the acceleration vector in g (z = 1g if the map is in horizontal position
 
-les coordonnées du vecteur champs magnétique terreste en µT 
+the coordinates of the orientation in radian / s
 
-# Les programmes exemples
+the coordinates of the terrestrial magnetic field vector in μT
 
- **niveau** simule un niveau à bulle, inclinez votre raspberry pour observer son déplacement.
+# Sample programs
 
- **text**  affiche un message qui défile en boucle.
+ **niveau** level simulates a spirit level, tilt your raspberry to observe its movement.
 
- **clock** affiche l'heure (La rotation de l'affichage est automatique).  
+ **text**  displays a message that scrolls in a loop.
 
- **secouer** : l'écran devient bleu lorsque la raspberry est déplacée ou secouée. 
+ **clock** clock displays the time (The rotation of the display is automatic).  
 
-# SenseHat et le flux de sortie :
+ **secouer** : the screen turns blue when the raspberry is moved or shaken.
 
-Le flux de sortie de la classe SenseHat permet d'effectuer des opérations d'affichage sur la matrice de leds de manière simplifiée.
-L'opérateur **<<** a été surchargé pour les types de données suivantes : 
- 
+# SenseHat and the output stream :
+
+The output stream of the SenseHat class makes it possible to perform display operations on the LED matrix in a simplified manner. The **<<**  operator has been overloaded for the following data types:
+
  **string**  **double**  **int**  **char** et **bool**
 
-De plus, SenseHat définie ce que l'on appelle des manipulateurs de flux permettant de réaliser des opérations simples.
+ In addition, SenseHat defines so-called flow manipulators to perform simple operations.
 
  **endl** **flush** **setcouleur** **setrotation**
- 
-L'utilisation de l'opérateur << sur ce flux se résume donc à la syntaxe suivante :
+
+ The use of the << operator on this stream is therefore summarized in the following syntax:
+
 ```cpp
     SenseHat carte;
     carte << setcouleur(ORANGE) << setrotation(90) << "message " << 3.1415 << 58 << 'E' << endl;
 ```
-Comme on le voit, il est possible d'effectuer plusieurs sorties successivement sur un même flux.
-Le manipulateur **endl** ou **flush** doit être inséré en fin de flux pour obtenir la sortie. Le gestionnaire stocke ce qu'on lui passe dans une mémoire tampon et n'écrit réellement que lors d'un appel à flush ou endl,  
+As can be seen, it is possible to make several outputs successively on the same stream.
+
+
+
+The **endl**  or **flush** manipulator must be inserted at the end of the flow to get the output. The class stores what is passed to it in a buffer and actually writes only during a call to flush or endl.
+
 Le manipulateur **setcouleur** permet de définir la couleur du text.
-Le manipulateur **setrotation** permet d'effectuer une rotation de l'afficheur à 90°, 180°ou 270°.
+The **setcouleur** manipulator is used to set the color of the text.
+
+The **setrotation** manipulator is used to rotate the display at 90 °, 180 ° or 270 °.
+
+To start the measureToDB application automatically from boot. copy measureDB script from the Examples directory to /etc/init.d
+
+> - sudo cp measureDB /etc/init.d
+
+> - sudo cd /etc/rc3.d
+
+> - sudo ln -s /etc/init.d/measureDB S99measureDB
+
+> - sudo cd /etc/rc5.d
+
+> - sudo ln -s /etc/init.d/measureDB S99measureDB
 
 # Changelog
 
- **30/06/2016 : ** Distribution et organisation originale du repository **SenseHat**. 
+ **30/06/2016 : ** Distribution et organisation originale du repository **SenseHat**.
 
  **10/02/2018 : ** Ajout de la documentation.
 
  **15/02/2018 : ** Ajout de la procédure de calibration.
 
- **19/02/2018 : ** Ajout de la méthode AfficherMessage() proposée par Christophe GRILO (Merci à lui pour sa contribution) 
+ **19/02/2018 : ** Ajout de la méthode AfficherMessage() proposée par Christophe GRILO (Merci à lui pour sa contribution)
 
  **09/03/2018 : ** Ajout de la gestion du flux de sortie  via l'opérateur <<
+
+ **30/07/2019 : ** Translation to English and bug fixes started by Jon Dellaria <<
 > **Notes :**
 
 
 > - Licence : **licence publique générale** ![enter image description here](https://img.shields.io/badge/licence-GPL-green.svg)
-<!-- TOOLBOX 
+<!-- TOOLBOX
 
 Génération des badges : https://shields.io/
 Génération de ce fichier : https://stackedit.io/editor#
-
-
