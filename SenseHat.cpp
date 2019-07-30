@@ -4,12 +4,19 @@
  * @version 1.2
  * @authors Philippe SIMIER Philippe CRUCHET Christophe GRILLO
  * @details Classe SenseHat : Gestion de la carte SenseHat
+ * @version 1.3
+ * @date 30 July 2019
+ * @authors Jon Dellaria bug fixes, method translation to English and Temperature Measurement adjustments required for the Raspberry for a true temperature reading.
  */
 
 
 #include "SenseHat.h"
 #include "font.h"
 #include <iostream>
+#include <stdio.h>
+#include <fcntl.h>
+
+#define NUMBER_OF_TRIES_BEFORE_FAILURE 1000
 
 static int is_framebuffer_device(const struct dirent *dir)
 {
@@ -60,14 +67,30 @@ static int is_event_device(const struct dirent *dir)
 
 static int open_evdev(const char *dev_name)
 {
+  int tries;
     struct dirent **namelist;
     int i, ndev;
     int fd = -1;
     int sortie = false;
 
-    ndev = scandir(DEV_INPUT_EVENT, &namelist, is_event_device, versionsort);
-    if (ndev <= 0)
+    tries = 0;
+    while(true)
+    {
+      ndev = scandir(DEV_INPUT_EVENT, &namelist, is_event_device, versionsort);
+      if (ndev <= 0)
+      {
+        tries++;
+        usleep(100);
+      }
+      else
+      {
+        break;
+      }
+      if (tries > NUMBER_OF_TRIES_BEFORE_FAILURE)
+      {
         exit (EXIT_FAILURE);
+      }
+    }
 
     i=0;
     do
@@ -78,9 +101,24 @@ static int open_evdev(const char *dev_name)
         snprintf(fname, sizeof(fname),
                  "%s/%s", DEV_INPUT_EVENT, namelist[i++]->d_name);
 
-        fd = open(fname, O_RDONLY );
-        if (fd < 0)
+        tries = 0;
+        while(true)
+        {
+          fd = open(fname, O_RDONLY );
+          if (fd < 0)
+          {
+            tries++;
+            usleep(100);
+          }
+          else
+          {
+            break;
+          }
+          if (tries > NUMBER_OF_TRIES_BEFORE_FAILURE)
+          {
             exit (EXIT_FAILURE);
+          }
+        }
 
         ioctl(fd, EVIOCGNAME(sizeof(name)), name);
 
@@ -124,25 +162,40 @@ uint16_t handle_events(int evfd)
 
 SenseHat::SenseHat()
 {
-    settings = new RTIMUSettings("RTIMULib");
+  int tries;
+  settings = new RTIMUSettings("RTIMULib");
+
+  tries = 0;
+  while(true)
+  {
     imu = RTIMU::createIMU(settings);
     if ((imu == NULL) || (imu->IMUType() == RTIMU_TYPE_NULL))
     {
-        printf("Pas d'IMU trouvé \n");
-        exit(1);
+      tries++;
+      usleep(100);
     }
-    imu->IMUInit();
-    imu->setSlerpPower(0.02);
-    imu->setGyroEnable(true);
-    imu->setAccelEnable(true);
-    imu->setCompassEnable(true);
-    InitialiserLeds();
-    InitialiserJoystik();
-    InitialiserHumidite();
-    InitialiserPression();
-    buffer=" ";
-    couleur=BLEU;
-    rotation = 0;
+    else
+    {
+      break;
+    }
+    if (tries > NUMBER_OF_TRIES_BEFORE_FAILURE)
+    {
+      exit (EXIT_FAILURE);
+    }
+  }
+
+  imu->IMUInit();
+  imu->setSlerpPower(0.02);
+  imu->setGyroEnable(true);
+  imu->setAccelEnable(true);
+  imu->setCompassEnable(true);
+  InitializeLeds();
+  InitializeJoystick();
+  InitializeHumidity();
+  InitializePressure();
+  buffer=" ";
+  couleur=BLEU;
+  rotation = 0;
 }
 
 /**
@@ -176,14 +229,22 @@ void SenseHat::Version()
     std::cout << "SenseHat PCT,PSR,CGO Version 1.2.0" << std::endl;
 }
 
-
 void SenseHat::FixerCouleur(uint16_t _couleur)
+{
+  couleur = _couleur;
+}
+
+void SenseHat::SetColor(uint16_t _couleur)
 {
    couleur = _couleur;
 }
 
-
 void SenseHat::FixerRotation(uint16_t _rotation)
+{
+   rotation = _rotation;
+}
+
+void SenseHat::SetRotation(uint16_t _rotation)
 {
    rotation = _rotation;
 }
@@ -199,9 +260,16 @@ void SenseHat::FixerRotation(uint16_t _rotation)
 
 void SenseHat::AfficherLettre(char lettre, uint16_t couleurTexte, uint16_t couleurFond)
 {
+  ViewLetter(lettre, couleurTexte,  couleurFond);
+}
+
+void SenseHat::ViewLetter(char lettre, uint16_t couleurTexte, uint16_t couleurFond)
+{
 	uint16_t chr[8][8];
-	ConvertirCaractereEnMotif(lettre,chr,couleurTexte,couleurFond);
-	AfficherMotif(chr);
+//	ConvertirCaractereEnMotif(lettre,chr,couleurTexte,couleurFond);
+  ConvertCharacterToPattern(lettre,chr,couleurTexte,couleurFond);
+//	AfficherMotif(chr);
+  ViewPattern(chr);
 }
 
 /**
@@ -213,12 +281,17 @@ void SenseHat::AfficherLettre(char lettre, uint16_t couleurTexte, uint16_t coule
  */
 void SenseHat::AllumerPixel(int ligne, int colonne, uint16_t couleur)
 {
-    if(ligne < 0)
-	ligne = 0;
-    if(colonne < 0)
-	colonne = 0;
+  LightPixel(ligne, colonne, couleur);
+}
 
-    fb->pixel[ligne%8][colonne%8] = couleur;
+void SenseHat::LightPixel(int row, int column, uint16_t color)
+{
+    if(row < 0)
+	row = 0;
+    if(column < 0)
+	column = 0;
+
+    fb->pixel[row%8][column%8] = color;
 }
 
 
@@ -232,12 +305,17 @@ void SenseHat::AllumerPixel(int ligne, int colonne, uint16_t couleur)
  */
 uint16_t SenseHat::ObtenirPixel(int ligne, int colonne)
 {
-    if(ligne < 0)
-        ligne = 0;
-    if(colonne < 0)
-        colonne = 0;
+  return (GetPixel(ligne, colonne));
+}
 
-    return fb->pixel[ligne%8][colonne%8] ;
+uint16_t SenseHat::GetPixel(int row, int column)
+{
+    if(row < 0)
+        row = 0;
+    if(column < 0)
+        column = 0;
+
+    return fb->pixel[row%8][column%8] ;
 }
 
 /**
@@ -247,6 +325,12 @@ uint16_t SenseHat::ObtenirPixel(int ligne, int colonne)
  *          en tenant compte de l'angle de rotation
  */
 void SenseHat::AfficherMotif(uint16_t motif[][8])
+{
+
+  ViewPattern(motif);
+}
+
+void SenseHat::ViewPattern(uint16_t motif[][8])
 {
     for(int ligne=0; ligne <8 ; ligne++)
     {
@@ -283,6 +367,11 @@ void SenseHat::AfficherMotif(uint16_t motif[][8])
 
 void SenseHat::PivoterMotif(int angle)
 {
+  RotatePattern(angle);
+}
+
+void SenseHat::RotatePattern(int angle)
+{
 
     uint16_t tabAux[8][8];
 
@@ -310,7 +399,8 @@ void SenseHat::PivoterMotif(int angle)
         }
     }
 
-    AfficherMotif(tabAux);
+//    AfficherMotif(tabAux);
+    ViewPattern(tabAux);
 }
 
 /**
@@ -324,12 +414,22 @@ void SenseHat::Effacer(uint16_t couleur)
     memset(fb, couleur, 128);
 }
 
+void SenseHat::WipeScreen(uint16_t couleur)
+{
+    memset(fb, couleur, 128);
+}
+
 /**
  * @brief SenseHat::ScannerJoystick
  * @return le code équivalent aux touches du clavier enter,
  * fleche droite, gauche, haut et bas.
  */
 char SenseHat::ScannerJoystick()
+{
+    return handle_events(joystick);
+}
+
+char SenseHat::ScanJoystick()
 {
     return handle_events(joystick);
 }
@@ -402,10 +502,77 @@ COULEUR SenseHat::ConvertirRGB565(std::string hexCode)
 
 float SenseHat::ObtenirTemperature()
 {
-    RTIMU_DATA data;
-    pressure->pressureRead(data);
-    return data.temperature;;
+  return (GetTemperature());
 }
+
+float SenseHat::GetTemperature()
+{
+    float cpuTemp;
+    float correctedTemp;
+    float senseHatTemp;
+
+    senseHatTemp = getRawTemperature();
+    cpuTemp = getCpuTemperature();
+
+    //temp_calibrated = temp - ((cpu_temp - temp)/FACTOR)
+    correctedTemp = correctTemperature(senseHatTemp, cpuTemp);
+    return (correctedTemp);
+}
+
+
+
+float SenseHat::correctTemperature(float senseHatTemp, float cpuTemp)
+{
+    float correctedTemp;
+    float TEMPERATUREFACTOR = 1.2;
+
+    //temp_calibrated = temp - ((cpu_temp - temp)/FACTOR)
+    correctedTemp = senseHatTemp - ((cpuTemp - senseHatTemp)/TEMPERATUREFACTOR);
+    return (correctedTemp);
+}
+
+
+
+/**
+ * @brief SenseHat::getRawTemperature
+ * @return float la valeur de la température exprimée en °C,
+ */
+
+
+float SenseHat::getRawTemperature()
+{
+    RTIMU_DATA data;
+    float senseHatTemp;
+
+    pressure->pressureRead(data);
+    senseHatTemp = data.temperature;
+    return (senseHatTemp);
+}
+
+
+/**
+ * @brief SenseHat::getCoreTemperature
+ * @return float la valeur de la température exprimée en °C,
+ */
+
+
+float SenseHat::getCpuTemperature()
+{
+    FILE *temperatureFile;
+    double T;
+    temperatureFile = fopen ("/sys/class/thermal/thermal_zone0/temp", "r");
+    if (temperatureFile == NULL)
+    {
+//      printf ("Error getting Core Temperature!")  ; //print some message
+      return (0);
+    }
+    fscanf (temperatureFile, "%lf", &T);
+    T /= 1000;
+//    printf ("The temperature is %6.3f C.\n", T);
+    fclose (temperatureFile);
+    return(T);
+}
+
 
 /**
  * @brief SenseHat::ObtenirPression
@@ -414,6 +581,11 @@ float SenseHat::ObtenirTemperature()
  *         elle doit donc être convertie pour être ramenée au niveau de la mer
  */
 float SenseHat::ObtenirPression()
+{
+  return(GetPressure());
+}
+
+float SenseHat::GetPressure()
 {
     RTIMU_DATA data;
     float pression = nan("");  // initialise la valeur à Not-A-Number
@@ -430,6 +602,11 @@ float SenseHat::ObtenirPression()
  * @return float la valeur de l'humidité relative exprimée en %,
  */
 float SenseHat::ObtenirHumidite()
+{
+  return(GetHumidity());
+}
+
+float SenseHat::GetHumidity()
 {
     RTIMU_DATA data;
     float humidi = nan("");  // initialise la valeur à Not-A-Number
@@ -449,6 +626,11 @@ float SenseHat::ObtenirHumidite()
  */
 void SenseHat::ObtenirOrientation(float &pitch, float &roll, float &yaw)
 {
+  GetOrientation(pitch, roll, yaw);
+}
+void SenseHat::GetOrientation(float &pitch, float &roll, float &yaw)
+
+{
     while (imu->IMURead()){
 	RTIMU_DATA imuData = imu->getIMUData();
 	pitch = imuData.gyro.x();
@@ -465,6 +647,10 @@ void SenseHat::ObtenirOrientation(float &pitch, float &roll, float &yaw)
  */
 void SenseHat::ObtenirAcceleration(float &x, float &y, float &z)
 {
+  GetAcceleration(x, y, z);
+}
+void SenseHat::GetAcceleration(float &x, float &y, float &z)
+{
     while (imu->IMURead()){
 	RTIMU_DATA imuData = imu->getIMUData();
 	x = imuData.accel.x();
@@ -475,12 +661,17 @@ void SenseHat::ObtenirAcceleration(float &x, float &y, float &z)
 
 /**
  * @brief SenseHat::ObtenirMagnétisme
- * @return float la valeur du champ magnétique terrestre suivant X,Y,Z 
+ * @return float la valeur du champ magnétique terrestre suivant X,Y,Z
  * @detail la valeur est exprimée en micro Tesla
  *
  */
 
 void SenseHat::ObtenirMagnetisme(float &x, float &y, float &z)
+{
+  GetMagnetism(x, y, z);
+}
+
+void SenseHat::GetMagnetism(float &x, float &y, float &z)
 {
     while (imu->IMURead()){
         RTIMU_DATA imuData = imu->getIMUData();
@@ -499,9 +690,16 @@ void SenseHat::ObtenirMagnetisme(float &x, float &y, float &z)
  */
 void SenseHat::ObtenirMagnetismeSpherique(float &ro, float &teta, float &delta)
 {
+  GetSphericalMagnetism(ro, teta, delta);
+}
+
+void SenseHat::GetSphericalMagnetism(float &ro, float &teta, float &delta)
+
+{
     float x,y,z;
 
-    ObtenirMagnetisme(x,y,z);
+ //   ObtenirMagnetisme(x,y,z);
+    GetMagnetism(x,y,z);
     teta = atan2 (y,x) * 180/PI;
     ro   = sqrt(x*x + y*y + z*z);
     delta =  atan2 (z,sqrt(x*x + y*y)) * 180/PI;
@@ -511,38 +709,72 @@ void SenseHat::ObtenirMagnetismeSpherique(float &ro, float &teta, float &delta)
  * @brief  SenseHat::InitialiserLeds
  * @detail initialise de framebuffer
  */
-
 void SenseHat::InitialiserLeds()
 {
+  InitializeLeds();
+}
+
+void SenseHat::InitializeLeds()
+{
     int fbfd ;
+    int tries;
+    int tries2;
 
-    fbfd = open_fbdev("RPi-Sense FB");
-    if (fbfd > 0)
+    tries = 0;
+    tries2 = 0;
+    while(true)
     {
-        fb = (struct fb_t*)mmap(0, 128, PROT_READ | PROT_WRITE, MAP_SHARED, fbfd, 0);
-        if (!fb)
-        {
-            printf("Failed to mmap.\n");
-            exit(EXIT_FAILURE);
-        }
-    }
-    else
-    {
-        printf("Error: cannot open framebuffer device.\n");
+      fbfd = open_fbdev("RPi-Sense FB");
+      if (fbfd > 0)
+      {
+          while (true)
+          {
+            fb = (struct fb_t*)mmap(0, 128, PROT_READ | PROT_WRITE, MAP_SHARED, fbfd, 0);
+            if (!fb)
+            {
+                tries2++;
+                usleep(100);
+                if (tries2 > NUMBER_OF_TRIES_BEFORE_FAILURE)
+                {
+                  printf("Failed to mmap.\n");
+                  exit(EXIT_FAILURE);
+                }
+            }
+            else
+            {
+
+              memset(fb, 0, 128);
+              return;
+            }
+
+          }
+      }
+      else
+      {
         close(fbfd);
-        exit(EXIT_FAILURE);
+        tries++;
+        usleep(100);
+        if (tries > NUMBER_OF_TRIES_BEFORE_FAILURE)
+        {
+          printf("Error: cannot open framebuffer device.\n");
+          exit (EXIT_FAILURE);
+        }
+      }
 
     }
 
-    memset(fb, 0, 128);
 }
 
 /**
  * @brief  SenseHat::InitialiserJoystik
  * @detail initialise le Joystick
  */
-
 void SenseHat::InitialiserJoystik()
+{
+  InitializeJoystick();
+}
+
+void SenseHat::InitializeJoystick()
 {
     joystick = open_evdev("Raspberry Pi Sense HAT Joystick");
 }
@@ -554,39 +786,86 @@ void SenseHat::InitialiserJoystik()
 
 void SenseHat::InitialiserPression()
 {
+  InitializePressure();
+}
+
+void SenseHat::InitializePressure()
+{
+  int tries;
+
+  tries = 0;
+  while(true)
+  {
     pressure = RTPressure::createPressure(settings);
     if (pressure == NULL)
     {
-        printf("Pas de mesure de pression/température \n");
-        exit(1);
-
+      tries++;
+      usleep(100);
     }
-    pressure->pressureInit();
+    else
+    {
+      break;
+    }
+    if (tries > NUMBER_OF_TRIES_BEFORE_FAILURE)
+    {
+      printf("Pas de mesure de pression/température \n");
+      exit (EXIT_FAILURE);
+    }
+  }
+  pressure->pressureInit();
 }
 
 /**
  * @brief  SenseHat::InitialiserHumidite
  * @detail initialise le capteur d'humidité
  */
-
 void SenseHat::InitialiserHumidite()
 {
-    humidite = RTHumidity::createHumidity(settings);
-    if(humidite == NULL)
+  InitializeHumidity();
+}
+
+void SenseHat::InitializeHumidity()
+{
+  int tries;
+
+    tries = 0;
+    while(true)
     {
-        printf("Pas de mesure d'humidité\n");
-        exit(1);
+      humidite = RTHumidity::createHumidity(settings);
+      if(humidite == NULL)
+      {
+        tries++;
+        usleep(100);
+      }
+      else
+      {
+        break;
+      }
+      if (tries > NUMBER_OF_TRIES_BEFORE_FAILURE)
+      {
+        printf("Pas de mesure de pression/température \n");
+        exit (EXIT_FAILURE);
+      }
     }
     humidite->humidityInit();
-
 }
 
 void SenseHat::InitialiserOrientation()
+{
+  InitializeOrientation();
+}
+
+void SenseHat::InitializeOrientation()
 {
 
 }
 
 void SenseHat::InitialiserAcceleration()
+{
+  imu->setAccelEnable(true);
+}
+
+void SenseHat::InitializeAcceleration()
 {
     imu->setAccelEnable(true);
 }
@@ -598,6 +877,11 @@ void SenseHat::InitialiserAcceleration()
  * - Fait par Grilo Christophe
  */
 void SenseHat::ConvertirCaractereEnMotif(char c,uint16_t image[8][8],uint16_t couleurTexte, uint16_t couleurFond)
+{
+  ConvertCharacterToPattern(c, image, couleurTexte, couleurFond);
+}
+
+void SenseHat::ConvertCharacterToPattern(char c, uint16_t image[8][8], uint16_t couleurTexte, uint16_t couleurFond)
 {
     int i=0;
     int j,k;
@@ -622,11 +906,16 @@ void SenseHat::ConvertirCaractereEnMotif(char c,uint16_t image[8][8],uint16_t co
 	}
     }
     else // caractère inexistant on le remplace par un glyphe inconnu
-	ConvertirCaractereEnMotif(255,image,couleurTexte,couleurFond);
+//	ConvertirCaractereEnMotif(255,image,couleurTexte,couleurFond);
+    ConvertCharacterToPattern(255,image,couleurTexte,couleurFond);
 }
 
 
 bool SenseHat::ColonneVide(int numColonne,uint16_t image[8][8],uint16_t couleurFond)
+{
+  return (EmptyColumn(numColonne,image,couleurFond));
+}
+bool SenseHat::EmptyColumn(int numColonne,uint16_t image[8][8],uint16_t couleurFond)
 {
     int i=0;
     for(i=0;i<8;i++)
@@ -637,6 +926,11 @@ bool SenseHat::ColonneVide(int numColonne,uint16_t image[8][8],uint16_t couleurF
 
 
 void SenseHat::TassementDeLimage(int numColonne,uint16_t image[][8][8], int taille)
+{
+  ImageContainment(numColonne, image, taille);
+}
+
+void SenseHat::ImageContainment(int numColonne,uint16_t image[][8][8], int taille)
 {
     int i=0,j=0,k=0,l=0,isuivant,ksuivant;
     int nombredecolonnes=taille*8; //8 colonnes par motif
@@ -652,8 +946,12 @@ void SenseHat::TassementDeLimage(int numColonne,uint16_t image[][8][8], int tail
     }
 }
 
-
 void SenseHat::AfficherMessage(const std::string message, int vitesseDefilement, uint16_t couleurTexte, uint16_t couleurFond)
+{
+  ViewMessage( message, vitesseDefilement,  couleurTexte,  couleurFond);
+}
+
+void SenseHat::ViewMessage(const std::string message, int vitesseDefilement, uint16_t couleurTexte, uint16_t couleurFond)
 {
     int taille=message.length();
     uint16_t chaine[taille][8][8]; /* Le tableau de motif (image/caractère) à afficher */
@@ -673,7 +971,8 @@ void SenseHat::AfficherMessage(const std::string message, int vitesseDefilement,
 	}
   	// ligne suivante à décommenter pour obtenir le code des caractères UTF8
 	// std::cout << "code : " << (int)message[i] << std::endl;
-	ConvertirCaractereEnMotif(message[i],chaine[j],couleurTexte,couleurFond);
+//	ConvertirCaractereEnMotif(message[i],chaine[j],couleurTexte,couleurFond);
+	ConvertCharacterToPattern(message[i],chaine[j],couleurTexte,couleurFond);
     }
 	taille = taille - k;
 	nombreDeColonnes=(taille)*8-2;
@@ -686,7 +985,9 @@ void SenseHat::AfficherMessage(const std::string message, int vitesseDefilement,
 		i=l/8;
 		k=l%8;
 
-		if(ColonneVide(k,chaine[i],couleurFond)) // Une colonne Vide avant chaque caractère à ne pas supprimer
+//		if(ColonneVide(k,chaine[i],couleurFond)) // Une colonne Vide avant chaque caractère à ne pas supprimer
+		if(EmptyColumn(k,chaine[i],couleurFond)) // Une colonne Vide avant chaque caractère à ne pas supprimer
+
 		{
 			isuivant=(++l)/8;
 			ksuivant=(l)%8;
@@ -694,9 +995,11 @@ void SenseHat::AfficherMessage(const std::string message, int vitesseDefilement,
 
 			// compter les colonnes vide après la première afin de les supprimer
 			// si plus de 4 c'est le caractère espace que l'on doit garder
-			while(ColonneVide(ksuivant,chaine[isuivant],couleurFond) && nombreDeColonneVide++ < 6)
+//			while(ColonneVide(ksuivant,chaine[isuivant],couleurFond) && nombreDeColonneVide++ < 6)
+			while(EmptyColumn(ksuivant,chaine[isuivant],couleurFond) && nombreDeColonneVide++ < 6)
 			{
-				TassementDeLimage(l,chaine,taille);
+//				TassementDeLimage(l,chaine,taille);
+				ImageContainment(l,chaine,taille);
 				nombreDeColonnes--;
 			}
 
@@ -722,7 +1025,8 @@ void SenseHat::AfficherMessage(const std::string message, int vitesseDefilement,
 				chaine[i][j][7]=chaine[i+1][j][0];
 		}
 		usleep(1000*vitesseDefilement);
-		AfficherMotif(chaine[0]);
+//		AfficherMotif(chaine[0]);
+		ViewPattern(chaine[0]);
 	}
 
 }
@@ -769,7 +1073,8 @@ SenseHat& SenseHat::operator<<(const bool valeur)
 void SenseHat::Flush()
 {
     buffer += "  ";
-    AfficherMessage(buffer, 80, couleur);
+ //   AfficherMessage(buffer, 80, couleur);
+    ViewMessage(buffer, 80, couleur);
     buffer = " ";
 }
 
@@ -797,7 +1102,8 @@ _SetCouleur setcouleur(int n)
 
 SenseHat&  operator<<(SenseHat& os, _SetCouleur couleur)
 {
-    os.FixerCouleur(couleur.val);
+//    os.FixerCouleur(couleur.val);
+    os.SetColor(couleur.val);
     return os;
 }
 
@@ -809,6 +1115,7 @@ _SetRotation setrotation(int n)
 
 SenseHat&  operator<<(SenseHat& os, _SetRotation rotation)
 {
-    os.FixerRotation(rotation.val);
+//    os.FixerRotation(rotation.val);
+    os.SetRotation(rotation.val);
     return os;
 }
