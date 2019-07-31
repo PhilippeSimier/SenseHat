@@ -98,8 +98,11 @@ public:
     char ScanJoystick();
 
     COULEUR ConvertirRGB565(uint8_t rouge, uint8_t vert,uint8_t bleu);
+    COLOR_SENSEHAT ConvertRGB565(uint8_t red, uint8_t green,uint8_t blue);
     COULEUR ConvertirRGB565(uint8_t couleur[]);
+		COLOR_SENSEHAT ConvertRGB565(uint8_t color[]);
     COULEUR ConvertirRGB565(std::string couleur);
+		COLOR_SENSEHAT ConvertRGB565(std::string color);
 
     void Effacer(uint16_t couleur=NOIR);
 		void WipeScreen(uint16_t couleur=NOIR);

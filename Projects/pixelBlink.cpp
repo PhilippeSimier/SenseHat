@@ -60,8 +60,8 @@ int main(int argc, char *argv[])
 			redIntensity = minimum + std::rand()%(maximum - minimum); // random intensity for red
 			greenIntensity = minimum + std::rand()%(maximum - minimum);  // random intensity for green
 			blueIntensity = minimum + std::rand()%(maximum - minimum); // random intensity for blue
-			color = senseHAT.ConvertirRGB565(redIntensity,greenIntensity,blueIntensity); //create color with red, green and blue filiments
-			senseHAT.AllumerPixel(row, column, color);
+			color = senseHAT.ConvertRGB565(redIntensity,greenIntensity,blueIntensity); //create color with red, green and blue filiments
+			senseHAT.LightPixel(row, column, color);
 			sleep(1); //sleep for 1 second
 		}
 	}
