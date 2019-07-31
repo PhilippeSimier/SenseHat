@@ -87,7 +87,9 @@ The **setrotation** manipulator is used to rotate the display at 90 °, 180 ° o
  **09/03/2018 : ** Ajout de la gestion du flux de sortie  via l'opérateur <<
 
  **30/07/2019 (June 30): ** Translation to English and bug fixes started by Jon Dellaria <<
+
  **31/07/2019 (June 31): ** Adding Projects folder including measurements database, pixelBlink and SparkelContainer by Jon Dellaria <<
+ 
 > **Notes :**
 
 
