@@ -1,10 +1,10 @@
 /*
- * measureToDB.cpp
+ * pixelBlink.cpp
  *
  * Created on: July 31 2019
  *      Author: Jon Dellaria
  *			jdellaria@gmail.com
- *      Store all SenseHat measurements to a mysql Database
+ *      make a pixel blink on the 8x8 display martix of the SenseHat for the raspberry pi
  */
 
 #include <SenseHat.h>
