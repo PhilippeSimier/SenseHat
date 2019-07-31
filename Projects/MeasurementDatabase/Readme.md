@@ -1,0 +1,4 @@
+measureToDB
+
+command:
+./measureToDB
