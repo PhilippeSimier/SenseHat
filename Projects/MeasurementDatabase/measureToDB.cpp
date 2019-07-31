@@ -45,19 +45,19 @@ using namespace std;
 
 int main(){
 
-    SenseHat carte;
+    SenseHat senseHat;
 
-    float pression;
+    float pressure;
     float temperature;
     float cpuTemperature;
     float hatTemperature;
-    float humidite;
+    float humidity;
     float xa,ya,za,xm,ym,zm;
     float pitch,roll,yaw;
 
-    carte.Effacer();
-    COULEUR vert  = carte.ConvertirRGB565("#009900");
-    COULEUR rouge = carte.ConvertirRGB565(255,0,0);
+    senseHat.WipeScreen();
+    COLOR_SENSEHAT vert  = senseHat.ConvertRGB565("#009900");
+    COLOR_SENSEHAT rouge = senseHat.ConvertRGB565(255,0,0);
     int i=0;
     COULEUR pix0 = rouge;
     COULEUR pix1 = vert;
@@ -66,49 +66,49 @@ int main(){
     SenseHatMeasurementsDB myDB;
 
     for (i=0; i<8; i++){
-      carte.AllumerPixel(0, i, vert);
-     	carte.AllumerPixel(1, i, vert);
-     	carte.AllumerPixel(2, i, vert);
+      senseHat.LightPixel(0, i, vert);
+     	senseHat.LightPixel(1, i, vert);
+     	senseHat.LightPixel(2, i, vert);
    	sleep(1);
     }
 
     while(1)
     {
-      pression    = carte.ObtenirPression();
-      hatTemperature = carte.getRawTemperature();
-      cpuTemperature = carte.getCpuTemperature();
-      temperature = carte.correctTemperature(hatTemperature, cpuTemperature);
-      humidite    = carte.ObtenirHumidite();
+      pressure    = senseHat.GetPressure();
+      hatTemperature = senseHat.getRawTemperature();
+      cpuTemperature = senseHat.getCpuTemperature();
+      temperature = senseHat.correctTemperature(hatTemperature, cpuTemperature);
+      humidity    = senseHat.GetHumidity();
 
       usleep(20*1000);
-      carte.ObtenirAcceleration(xa,ya,za);
+      senseHat.GetAcceleration(xa,ya,za);
 
       usleep(20*1000);
-      carte.ObtenirOrientation(pitch,roll,yaw);
+      senseHat.GetOrientation(pitch,roll,yaw);
 
       usleep(20*1000);
-      carte.ObtenirMagnetisme(xm,ym,zm);
+      senseHat.GetMagnetism(xm,ym,zm);
 
       system("clear");
-      std::cout << "Barometric Pressure: " << pression << " hPa"<< std::endl;
+      std::cout << "Barometric Pressure: " << pressure << " hPa"<< std::endl;
       std::cout << "Temperature: " << temperature << " C" << std::endl;
-      std::cout << "Humidity: " << humidite << " %" << std::endl;
+      std::cout << "Humidity: " << humidity << " %" << std::endl;
       std::cout << "Acceleration x: " << xa << "(g) y : " << ya << "(g) z : " << za << "(g)" << std::endl;
       std::cout << "Orientation Pitch: " << pitch << " roll : " << roll << " yaw : " << yaw << std::endl;
       std::cout << "Magnetism x: " << xm << "(T) y : " << ym << "(T) z : " << zm << "(T)" << std::endl;
       std::cout << "pix0: " << pix0 << " pix1: " << pix1 << " pix2: " << pix2 << "" << std::endl;
-     	carte.AllumerPixel(0, i, pix0);
-      carte.AllumerPixel(1, i, pix1);
-     	carte.AllumerPixel(2, i, pix2);
+     	senseHat.LightPixel(0, i, pix0);
+      senseHat.LightPixel(1, i, pix1);
+     	senseHat.LightPixel(2, i, pix2);
       myDB.setTemperature(temperature);
       myDB.setCpuTemperature(cpuTemperature);
       myDB.setHatTemperature(hatTemperature);
-      myDB.setPressure(pression);
-      myDB.setHumidity(humidite);
+      myDB.setPressure(pressure);
+      myDB.setHumidity(humidity);
       myDB.setOrientation(pitch, roll, yaw);
       myDB.setAcceleration(xa, ya, za);
       myDB.setMagnetism(xm, ym, zm);
-      myDB.setMagnetismSpherica(0, 0, 0);
+      myDB.setMagnetismSpherical(0, 0, 0);
 
       myDB.addMeasurements();
       i++;
@@ -116,7 +116,7 @@ int main(){
       {
         i = 0;
         std::cout << "in if : " << std::endl;
-//        carte.Effacer();
+//        senseHat.Effacer();
         if(pix0 == rouge)
         {
           std::cout << "pix0 == rouge: " << std::endl;
@@ -232,7 +232,7 @@ void SenseHatMeasurementsDB::setMagnetism(float x, float y, float z)
  	magnetismZ = z;
 }
 
-void SenseHatMeasurementsDB::setMagnetismSpherica(float Ro, float Teta, float Delta)
+void SenseHatMeasurementsDB::setMagnetismSpherical(float Ro, float Teta, float Delta)
 {
  	magnetismSphericalRo = Ro;
  	magnetismSphericalTeta = Teta;

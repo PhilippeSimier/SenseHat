@@ -57,7 +57,7 @@ public:
 	void	setOrientation(float pitch, float Roll, float Yaw);
 	void	setAcceleration(float x, float y, float z);
 	void	setMagnetism(float x, float y, float z);
-	void	setMagnetismSpherica(float Ro, float Teta, float Delta);
+	void	setMagnetismSpherical(float Ro, float Teta, float Delta);
 
 
 };
