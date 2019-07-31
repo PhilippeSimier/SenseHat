@@ -54,7 +54,7 @@ The output stream of the SenseHat class makes it possible to perform display ope
 
  **string**  **double**  **int**  **char** et **bool**
 
- In addition, SenseHat defines so-called flow manipulators to perform simple operations.
+ In addition, SenseHat defines flow manipulators to perform simple operations.
 
  **endl** **flush** **setcouleur** **setrotation**
 
@@ -70,22 +70,9 @@ As can be seen, it is possible to make several outputs successively on the same 
 
 The **endl**  or **flush** manipulator must be inserted at the end of the flow to get the output. The class stores what is passed to it in a buffer and actually writes only during a call to flush or endl.
 
-Le manipulateur **setcouleur** permet de définir la couleur du text.
 The **setcouleur** manipulator is used to set the color of the text.
 
 The **setrotation** manipulator is used to rotate the display at 90 °, 180 ° or 270 °.
-
-To start the measureToDB application automatically from boot. copy measureDB script from the Examples directory to /etc/init.d
-
-> - sudo cp measureDB /etc/init.d
-
-> - sudo cd /etc/rc3.d
-
-> - sudo ln -s /etc/init.d/measureDB S99measureDB
-
-> - sudo cd /etc/rc5.d
-
-> - sudo ln -s /etc/init.d/measureDB S99measureDB
 
 # Changelog
 
@@ -99,7 +86,8 @@ To start the measureToDB application automatically from boot. copy measureDB scr
 
  **09/03/2018 : ** Ajout de la gestion du flux de sortie  via l'opérateur <<
 
- **30/07/2019 : ** Translation to English and bug fixes started by Jon Dellaria <<
+ **30/07/2019 (June 30): ** Translation to English and bug fixes started by Jon Dellaria <<
+ **31/07/2019 (June 31): ** Adding Projects folder including measurements database, pixelBlink and SparkelContainer by Jon Dellaria <<
 > **Notes :**
 
 
