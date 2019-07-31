@@ -185,6 +185,7 @@ int callChildContainer(int row, int column)
 //		std::cout << "----working on file " << originalFileName << " programID:" << myContainerPtr[currentlyActiveContainer].programID << "\n" ;
 
 //		myLog.print(logDebug, message);
+
 		if ( myContainerPtr[currentlyActiveContainer].programID == 0)
 		{
 			myContainerPtr[currentlyActiveContainer].OpenChild(darg);
@@ -197,6 +198,8 @@ int callChildContainer(int row, int column)
 			sprintf(intbuffer,"%d",myContainerPtr[currentlyActiveContainer].programID);
 			message.append(intbuffer);
 			cout << message << endl;
+//#define JONDEBUGMESSAGES
+#ifdef JONDEBUGMESSAGES // comment this out to get all messages(error and otherwise) from the Child Containers
 			if(myContainerPtr[currentlyActiveContainer].errorMessage.length() > 0)
 			{
 				message.clear();
@@ -224,6 +227,7 @@ int callChildContainer(int row, int column)
 				message.append(myContainerPtr[currentlyActiveContainer].outgoingMessage);
 				cout << message << endl;
 			}
+#endif // JONDEBUGMESSAGES
 			incrementCurrentlyActiveContainer();
 			break;
 		}
