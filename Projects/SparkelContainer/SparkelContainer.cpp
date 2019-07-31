@@ -1,9 +1,9 @@
 //============================================================================
-// Name        : piSensehatSparkelContainer.cpp
+// Name        : SparkelContainer.cpp
 // Author      : Jon Dellaria
-// Version     :
-// Copyright   : Your copyright notice
-// Description : Hello World in C++, Ansi-style
+// Version     : 1.0
+// Description : Is an application that runs 64 containers of the pixelBlink application. 
+// Each pixelBlink container is focused on blinking 1 pixel on the 8x8 display matrix on the SenseHat.
 //============================================================================
 
 #ifdef HAVE_CONFIG_H
@@ -33,6 +33,7 @@
 #include "IsolatedContainer.h"
 
 #define CHILDCONTAINERNAME "/home/pi/Desktop/SenseHat/Projects/pixelBlink"
+
 //#define CHILDCONTAINERNAME "/Users/dellj/eclipse-workspace/piSenseClock/Debug/piSenseClock"
 
 int main_event_handler();
@@ -148,9 +149,9 @@ int main(int argc, char* argv[])
 	message.append(" seconds.");
 	cout << message << endl;
 //	myLog.print(logInformation, message);
-	message = "piSensehatSparkelContainer.cpp :";
+	message = "SparkelContainer.cpp :";
 	message.append(__func__);
-	message.append(": piSensehatSparkelContainer exiting Normally");
+	message.append(": SparkelContainer exiting Normally");
 	cout << message << endl;
 //	myLog.print(logInformation, message);
 }
