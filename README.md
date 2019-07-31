@@ -11,7 +11,7 @@ This repository offers a C ++ class for the SenseHat on Raspberry pi.
 
  ![description](https://img.shields.io/badge/build-passing-green.svg) the installation has been tested on  **Raspbian Stretch**  version Novembre 2017
 
-**Prérequis** : Clone the Repository
+**Prerequisites** : Clone the Repository
 ```bash
     pi@raspberry:~ $ git clone https://github.com/jdellaria/SenseHat.git
     pi@raspberry:~ $ cd SenseHat/

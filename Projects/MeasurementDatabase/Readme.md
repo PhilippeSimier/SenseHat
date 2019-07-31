@@ -1,14 +1,9 @@
-measureToDB
-
-command:
-./measureToDB
-
 # measureToDB
 
 # Description
 **measureToDB** is an application that runs 64 containers of the PixelBlink application. Each PixelBlink container is focused on blinking 1 pixel on the 8x8 display matrix on the SenseHat.
 
-# Dependanceies
+# Dependencies
 **measureToDB** requires that the SensHat library, a mysql database and the mysql client library are installed on the raspberry pi. The table configuration file (database definition (DDL)) is SensHat.sql
 
 **To Install mySQL**
@@ -19,12 +14,12 @@ command:
 
 **Compilation** : measureDB application
 ```bash
-    pi@raspberry:~/SenseHat $ make
+    pi@raspberry:~/SensHat/Projects/MeasurementDatabase $ make
 ```
 
 **To start the measureToDB simply type the following at the command line**
 ```bash
-    pi@raspberry:~ $ ./measureDB
+    pi@raspberry:~/SensHat/Projects/MeasurementDatabase $ ./measureDB
 ```
 
 
