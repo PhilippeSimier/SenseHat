@@ -56,19 +56,19 @@ int main(){
     float pitch,roll,yaw;
 
     senseHat.WipeScreen();
-    COLOR_SENSEHAT vert  = senseHat.ConvertRGB565("#009900");
-    COLOR_SENSEHAT rouge = senseHat.ConvertRGB565(255,0,0);
+    COLOR_SENSEHAT green  = senseHat.ConvertRGB565("#009900");
+    COLOR_SENSEHAT red = senseHat.ConvertRGB565(255,0,0);
     int i=0;
-    COULEUR pix0 = rouge;
-    COULEUR pix1 = vert;
-    COULEUR pix2 = BLEU;
+    COLOR_SENSEHAT pix0 = red;
+    COLOR_SENSEHAT pix1 = green;
+    COLOR_SENSEHAT pix2 = BLUE;
     sleep(5); // wait for mysql to get up and running .. assuming we are being executed from boot
     SenseHatMeasurementsDB myDB;
 
     for (i=0; i<8; i++){
-      senseHat.LightPixel(0, i, vert);
-     	senseHat.LightPixel(1, i, vert);
-     	senseHat.LightPixel(2, i, vert);
+      senseHat.LightPixel(0, i, green);
+     	senseHat.LightPixel(1, i, green);
+     	senseHat.LightPixel(2, i, green);
    	sleep(1);
     }
 
@@ -117,26 +117,26 @@ int main(){
         i = 0;
         std::cout << "in if : " << std::endl;
 //        senseHat.Effacer();
-        if(pix0 == rouge)
+        if(pix0 == red)
         {
-          std::cout << "pix0 == rouge: " << std::endl;
-          pix0 = BLEU;
-          pix1 = rouge;
-          pix2 = vert;
+          std::cout << "pix0 == red: " << std::endl;
+          pix0 = BLUE;
+          pix1 = red;
+          pix2 = green;
         }
-        else if(pix0 == BLEU)
+        else if(pix0 == BLUE)
         {
-          std::cout << "pix0 == BLEU: " << std::endl;
-          pix0 = vert;
+          std::cout << "pix0 == blue: " << std::endl;
+          pix0 = green;
           pix1 = BLEU;
-          pix2 = rouge;
+          pix2 = red;
         }
         else if(pix0 == vert)
         {
-          std::cout << "pix0 == vert: " << std::endl;
-          pix0 = rouge;
-          pix1 = vert;
-          pix2 = BLEU;
+          std::cout << "pix0 == green: " << std::endl;
+          pix0 = red;
+          pix1 = green;
+          pix2 = BLUE;
         }
 
       }
