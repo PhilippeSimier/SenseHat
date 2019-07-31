@@ -13,4 +13,4 @@
     pi@raspberry:~/SensHat/Project $ ./pixelBlink 1 1
 ```
 
-Once the application has started, you will see the pixel (defined by ./pixelBlink **row** **column** command line options) on the 8x8 display matrix begin to blink for approximately 1 minute with random colors.
+Once the application has started, you will see the pixel (defined by ./pixelBlink **row(0-7)** **column(0-7)** command line options) on the 8x8 display matrix begin to blink for approximately 1 minute with random colors.
