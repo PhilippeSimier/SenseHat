@@ -31,7 +31,7 @@ int main(int argc, char *argv[])
 	int blueIntensity;
 	int minimum = 0;
 	int maximum = 255;
-  COULEUR color;
+  COLOR_SENSEHAT color;
 
 	cout << "Light a Pixel on Pi with a random color" << endl; // prints !!!Hello World!!!
 	std::srand(std::time(nullptr) + getpid()); // use current time as seed for random generator
@@ -42,7 +42,7 @@ int main(int argc, char *argv[])
 	std::cout << "redIntensity: " << redIntensity << endl;
 	std::cout << "greenIntensity: " << greenIntensity << endl;
 	std::cout << "blueIntensity: " << blueIntensity << endl;
-  COULEUR color = senseHAT.ConvertirRGB565(redIntensity,greenIntensity,blueIntensity);
+  COLOR_SENSEHAT color = senseHAT.ConvertRGB565(redIntensity,greenIntensity,blueIntensity);
 	printf ("argc: %d.\n",argc);
 	*/
 	if (argc != 3)

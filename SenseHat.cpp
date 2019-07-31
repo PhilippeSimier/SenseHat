@@ -448,11 +448,18 @@ char SenseHat::ScanJoystick()
 uint16_t SenseHat::ConvertirRGB565(uint8_t rouge, uint8_t vert, uint8_t bleu)
 {
 
-   bleu  &= 0xF8;
-   vert  &= 0xFC;
-   rouge &= 0xF8;
+return (ConvertRGB565(rouge, vert, bleu));
+}
 
-   return ((rouge<<8) + (vert<<3) + (bleu>>3));
+
+uint16_t SenseHat::ConvertRGB565(uint8_t red, uint8_t green, uint8_t blue)
+{
+
+   blue &= 0xF8;
+   green &= 0xFC;
+   red &= 0xF8;
+
+   return ((red<<8) + (green<<3) + (blue>>3));
 }
 
 /**
@@ -469,6 +476,11 @@ uint16_t SenseHat::ConvertirRGB565(uint8_t couleur[])
     return ConvertirRGB565(couleur[1],couleur[2],couleur[3]);
 }
 
+uint16_t SenseHat::ConvertRGB565(uint8_t color[])
+{
+    return ConvertRGB565(color[1],color[2],color[3]);
+}
+
 /**
  * @brief surcharge de SenseHat::ConvertirRGB565
  * @param string chaine de caratère représentant une couleur au format hexa
@@ -479,6 +491,11 @@ uint16_t SenseHat::ConvertirRGB565(uint8_t couleur[])
  */
 
 COULEUR SenseHat::ConvertirRGB565(std::string hexCode)
+{
+  return ConvertRGB565(hexCode);
+}
+
+COLOR_SENSEHAT SenseHat::ConvertRGB565(std::string hexCode)
 {
    int r, g, b;
 
@@ -491,7 +508,7 @@ COULEUR SenseHat::ConvertirRGB565(std::string hexCode)
    std::istringstream(hexCode.substr(2,2)) >> std::hex >> g;
    std::istringstream(hexCode.substr(4,2)) >> std::hex >> b;
 
-   return ConvertirRGB565(r,g,b);
+   return ConvertRGB565(r,g,b);
 }
 
 /**
