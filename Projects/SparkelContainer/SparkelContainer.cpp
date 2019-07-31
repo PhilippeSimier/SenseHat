@@ -2,7 +2,7 @@
 // Name        : SparkelContainer.cpp
 // Author      : Jon Dellaria
 // Version     : 1.0
-// Description : Is an application that runs 64 containers of the pixelBlink application. 
+// Description : Is an application that runs 64 containers of the pixelBlink application.
 // Each pixelBlink container is focused on blinking 1 pixel on the 8x8 display matrix on the SenseHat.
 //============================================================================
 
@@ -130,14 +130,11 @@ int main(int argc, char* argv[])
 			callChildContainer(row,column);
 		}
 	}
-
-	waitForAllChildContainersToClose();
-	message.clear();
-	message.append("Deleting empty directories");
+  message.clear();
+	message.append("Waiting For All Child Containers To Close");
 	cout << message << endl;
-//	myLog.print(logWarning, message);
+	waitForAllChildContainersToClose();
 
-//	myDirectory.Recurse("/home/jdellaria/Desktop/doFiles", doRemoveEmptyDirectories);
 	End_t = time(NULL);    //record time that task 1 ends
 	time_task1 = difftime(End_t, Start_t);    //compute elapsed time of task 1
 
@@ -148,12 +145,12 @@ int main(int argc, char* argv[])
 	message.append(intbuffer);
 	message.append(" seconds.");
 	cout << message << endl;
-//	myLog.print(logInformation, message);
+
 	message = "SparkelContainer.cpp :";
 	message.append(__func__);
 	message.append(": SparkelContainer exiting Normally");
 	cout << message << endl;
-//	myLog.print(logInformation, message);
+
 }
 
 #define MAIN_EVENT_TIMEOUT 3 // sec unit
