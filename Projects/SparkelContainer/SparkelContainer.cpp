@@ -198,36 +198,7 @@ int callChildContainer(int row, int column)
 			sprintf(intbuffer,"%d",myContainerPtr[currentlyActiveContainer].programID);
 			message.append(intbuffer);
 			cout << message << endl;
-//#define JONDEBUGMESSAGES
-#ifdef JONDEBUGMESSAGES // comment this out to get all messages(error and otherwise) from the Child Containers
-			if(myContainerPtr[currentlyActiveContainer].errorMessage.length() > 0)
-			{
-				message.clear();
-				message.append("Error:");
-				message.append(intbuffer);
-				message.append(" ");
-				message.append(myContainerPtr[currentlyActiveContainer].errorMessage);
-				cout << message << endl;
-			}
-			if(myContainerPtr[currentlyActiveContainer].incomingMessage.length() > 0)
-			{
-				message.clear();
-				message.append("Incoming Message:");
-				message.append(intbuffer);
-				message.append(" ");
-				message.append(myContainerPtr[currentlyActiveContainer].incomingMessage);
-				cout << message << endl;
-			}
-			if(myContainerPtr[currentlyActiveContainer].outgoingMessage.length() > 0)
-			{
-				message.clear();
-				message.append("Outgoing Message:");
-				message.append(intbuffer);
-				message.append(" ");
-				message.append(myContainerPtr[currentlyActiveContainer].outgoingMessage);
-				cout << message << endl;
-			}
-#endif // JONDEBUGMESSAGES
+
 			incrementCurrentlyActiveContainer();
 			break;
 		}
@@ -287,6 +258,9 @@ int waitForAllChildContainersToClose()
 				if ( myContainerPtr[x].hasChildCompleted() > 0)
 				{
 					myContainerPtr[x].CloseChild();
+// #define JONDEBUGMESSAGES
+#ifdef JONDEBUGMESSAGES // comment this out to get all messages(error and otherwise) from the Child Containers
+
 					if(myContainerPtr[x].errorMessage.length() > 0)
 					{
 						message.clear();
@@ -314,6 +288,7 @@ int waitForAllChildContainersToClose()
 						message.append(myContainerPtr[x].outgoingMessage);
 						cout << message << endl;
 					}
+#endif     // JONDEBUGMESSAGES     
 //					std::cout << "----waitForAllChildContainersToClose x=" << x << " has closed \n" ;
 				}
 			}
