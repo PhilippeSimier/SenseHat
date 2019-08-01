@@ -13,7 +13,7 @@
 #include <ctime>
 #include <sstream>
 #include <string>
-#include <iomanip> 
+#include <iomanip>
 #include <time.h>
 
 using namespace std;
@@ -184,6 +184,8 @@ int main()
 	float x,y,z;
 	int angle;
 	COLOR_SENSEHAT  green  = senseHat.ConvertRGB565("#009900");
+	COLOR_SENSEHAT  black  = senseHat.ConvertRGB565("#000000");
+
 	senseHat.WipeScreen();
 	senseHat << setcouleur(senseHat.ConvertRGB565(64,84,0));
 
@@ -199,6 +201,10 @@ int main()
 		    {
 		      senseHat.LightPixel(row, column, green);
 		    }
+				if (display_image[column + (row * 8)] == 0)
+				{
+					senseHat.LightPixel(row, column, black);
+				}
 		  }
 		}
 
