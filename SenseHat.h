@@ -26,17 +26,23 @@
 
 #define ROUGE   0xF800
 #define RED 	  0xF800
+
 #define BLEU    0x001F
 #define BLUE    0x001F
+
 #define VERT    0x07E0
 #define GREEN   0x07E0
+
 #define BLANC   0xFFFF
 #define WHITE   0xFFFF
+
 #define NOIR    0x0000
 #define BLACK   0x0000
+
 #define ORANGE  0xFC00
 #define CYAN    0x87FF
 #define MAGENTA 0xF81F
+
 #define JAUNE   0xFFE0
 #define YELLOW  0xFFE0
 
@@ -88,12 +94,16 @@ public:
 
     void AllumerPixel(int ligne, int colonne, uint16_t couleur);
 		void LightPixel(int ligne, int colonne, uint16_t couleur);
+
     uint16_t ObtenirPixel(int ligne, int colonne);
 		uint16_t GetPixel(int ligne, int colonne);
+
     void AfficherMotif(uint16_t motif[][8]);
 		void ViewPattern(uint16_t motif[][8]);
+
     void PivoterMotif(int rotation);
 		void RotatePattern(int rotation);
+
     char ScannerJoystick();
     char ScanJoystick();
 
@@ -111,44 +121,56 @@ public:
 
     float ObtenirTemperature();
 		float GetTemperature();
+
 		float correctTemperature(float senseHatTemp, float cpuTemp);
 		float getRawTemperature();
 		float getCpuTemperature();
+
     float ObtenirPression();
 		float GetPressure();
+
     float ObtenirHumidite();
 		float GetHumidity();
+
     void  ObtenirOrientation(float &pitch, float &roll, float & yaw);
 		void  GetOrientation(float &pitch, float &roll, float & yaw);
 
-
     void  ObtenirAcceleration(float &x, float &y, float &z);
 		void  GetAcceleration(float &x, float &y, float &z);
+
     void  ObtenirMagnetisme(float &x, float &y, float &z);
 		void  GetMagnetism(float &x, float &y, float &z);
+
     void  ObtenirMagnetismeSpherique(float &ro, float &teta, float &delta);
 		void  GetSphericalMagnetism(float &ro, float &teta, float &delta);
+
     void  Version();
     void  Flush();
+
     void  FixerCouleur(uint16_t);
 		void  SetColor(uint16_t);
+
     void  FixerRotation(uint16_t);
 		void  SetRotation(uint16_t);
 
 private:
     void  InitialiserLeds();
 		void  InitializeLeds();
+
     void  InitialiserJoystik();
 		void  InitializeJoystick();
+
     void  InitialiserPression();
 		void  InitializePressure();
+
     void  InitialiserHumidite();
 		void  InitializeHumidity();
+
     void  InitialiserOrientation();
 		void  InitializeOrientation();
+
     void  InitialiserAcceleration();
 		void  InitializeAcceleration();
-
 
     void ConvertirCaractereEnMotif(char c, uint16_t image[8][8], uint16_t couleurTexte, uint16_t couleurFond);
 		void ConvertCharacterToPattern(char c, uint16_t image[8][8], uint16_t couleurTexte, uint16_t couleurFond);

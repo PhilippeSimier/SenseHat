@@ -8,7 +8,7 @@ HEADERS_PATH = /usr/include
 LIBRARY_PATH = /usr/lib
 
 # List of source files
-SOURCES += pixelBlink.cpp
+SOURCES += pixelBlink.cpp digitalClock.cpp
 
 #List of object files
 OBJECTS += $(SOURCES:.cpp=.o)
@@ -21,17 +21,21 @@ all: pixelBlink
 	g++ -I $(HEADERS_PATH) -std=c++0x -c $^ -o $@
 	@echo
 
-
-
-#Building compass executable
+#Building  pixelBlink executable
 pixelBlink: pixelBlink.o
+	@echo Building target file: $@.
+	g++ -L$(LIBRARY_PATH) -o $@ $^ -l SenseHat -l RTIMULib
+	@echo
+
+#Building  pixelBlink executable
+digitalClock: digitalClock.o
 	@echo Building target file: $@.
 	g++ -L$(LIBRARY_PATH) -o $@ $^ -l SenseHat -l RTIMULib
 	@echo
 
 # Uninstall the exemples from the system
 uninstall:
-	rm -f  pixelBlink
+	rm -f  pixelBlink digitalClock
 
 
 
