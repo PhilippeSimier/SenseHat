@@ -1,7 +1,10 @@
-# pixelBlink
+# Project Folder
 
-# Description
-**pixelBlink** is an application that blinks 1 pixel of the SensHat's 64 pixels with a random color
+**pixelBlink** is an application that blinks 1 pixel of the SenseHat's 64 pixels with a random color
+**digitalClock** is an application that displays the complete time in hour and minute format on the SenseHat display matrix
+
+The **MeasurementDatabase** folder contains the **measureToDB** application which takes all the measurements of the SenseHat and records them in a mySQL database table.
+The **SparkelContainer** folder contains the **SparkelContainer** application which runs 64 individual executable containers of the **pixelBlink** application located in this folder.
 
 **Compilation** : pixelBlink and digitalClock applications
 ```bash
