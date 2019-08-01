@@ -111,8 +111,8 @@ int setClockDisplay()
   lowHour = myTime->tm_hour%10;
   hiMinute = myTime->tm_min/10;
   lowMinute = myTime->tm_min%10;
-  cout << "hiHour: " << hiHour << " lowHour: " << lowHour << endl;
-  cout << "hiMinute: " << hiMinute << " lowMinute: " << lowMinute << endl;
+  //cout << "hiHour: " << hiHour << " lowHour: " << lowHour << endl;
+  //cout << "hiMinute: " << hiMinute << " lowMinute: " << lowMinute << endl;
 
 	for(int quadrant = 0; quadrant < 4;quadrant++)
 	{
@@ -177,6 +177,77 @@ int printClock()
 	printf("%d %d %d %d %d %d %d %d\n",display_image[56],display_image[57],display_image[58],display_image[59],display_image[60],display_image[61],display_image[62],display_image[63]);
 }
 
+
+int setTemperatureDisplay(float myTemp)
+{
+// Map digits to the clock_image array
+	int pixel_offset = 0;
+	int index = 0;
+  int hiTemp;
+  int lowTemp;
+  int hiMinute = 0;
+  int lowMinute = 0;
+	int roundedTemp;
+
+	roundedTemp = myTemp;
+  cout << "myTemp: " << myTemp << " roundedTemp: " << roundedTemp << endl;
+
+  hiTemp = roundedTemp/10;
+  lowTemp = roundedTemp%10;
+
+  cout << "hiTemp: " << hiTemp << " lowTemp: " << lowTemp << endl;
+
+	for(int quadrant = 0; quadrant < 4;quadrant++)
+	{
+		int row = 0;
+		int column = 0;
+		int characterOffset = hour * 16;
+		int rowOffset = 0;
+		int columnOffset = 0;
+		if (quadrant == 0) // Hi Temperature
+		{
+			rowOffset = 0;
+			columnOffset = 0;
+      characterOffset = hiTemp * 16;
+		}
+		if (quadrant == 1) // Hi Minute
+		{
+			rowOffset = 0;
+			columnOffset = 4;
+      characterOffset = hiMinute * 16;
+		}
+		if (quadrant == 2) // Low Temperature
+		{
+			rowOffset = 4;
+			columnOffset = 0;
+      characterOffset = lowTemp * 16;
+		}
+
+		if (quadrant == 3) // Low Minute
+		{
+			rowOffset = 4;
+			columnOffset = 4;
+      characterOffset = lowMinute * 16;
+		}
+		setRawDisplay( 0 + rowOffset, 0 + columnOffset,  piDisplayCharacter[(characterOffset)]);
+		setRawDisplay( 1 + rowOffset, 0 + columnOffset,  piDisplayCharacter[(characterOffset + 1)]);
+		setRawDisplay( 2 + rowOffset, 0 + columnOffset,  piDisplayCharacter[(characterOffset + 2)]);
+		setRawDisplay( 3 + rowOffset, 0 + columnOffset,  piDisplayCharacter[(characterOffset + 3)]);
+		setRawDisplay( 0 + rowOffset, 1 + columnOffset,  piDisplayCharacter[(characterOffset + 4)]);
+		setRawDisplay( 1 + rowOffset, 1 + columnOffset,  piDisplayCharacter[(characterOffset + 5)]);
+		setRawDisplay( 2 + rowOffset, 1 + columnOffset,  piDisplayCharacter[(characterOffset + 6)]);
+		setRawDisplay( 3 + rowOffset, 1 + columnOffset,  piDisplayCharacter[(characterOffset + 7)]);
+		setRawDisplay( 0 + rowOffset, 2 + columnOffset,  piDisplayCharacter[(characterOffset + 8)]);
+		setRawDisplay( 1 + rowOffset, 2 + columnOffset,  piDisplayCharacter[(characterOffset + 9)]);
+		setRawDisplay( 2 + rowOffset, 2 + columnOffset,  piDisplayCharacter[(characterOffset + 10)]);
+		setRawDisplay( 3 + rowOffset, 2 + columnOffset,  piDisplayCharacter[(characterOffset + 11)]);
+		setRawDisplay( 0 + rowOffset, 3 + columnOffset,  piDisplayCharacter[(characterOffset + 12)]);
+		setRawDisplay( 1 + rowOffset, 3 + columnOffset,  piDisplayCharacter[(characterOffset + 13)]);
+		setRawDisplay( 2 + rowOffset, 3 + columnOffset,  piDisplayCharacter[(characterOffset + 14)]);
+		setRawDisplay( 3 + rowOffset, 3 + columnOffset,  piDisplayCharacter[(characterOffset + 15)]);
+	}
+}
+
 int main()
 {
 
@@ -185,13 +256,16 @@ int main()
 	int angle;
 	COLOR_SENSEHAT  green  = senseHat.ConvertRGB565("#009900");
 	COLOR_SENSEHAT  black  = senseHat.ConvertRGB565("#000000");
+	float temperature;
 
 	senseHat.WipeScreen();
 	senseHat << setcouleur(senseHat.ConvertRGB565(64,84,0));
 
 	do
 	{
-		setClockDisplay();
+//		setClockDisplay();
+		temperature = senseHat.GetTemperature();
+		setTemperatureDisplay(temperature);
 
 		for (int column = 0; column < 8; column++)
 		{
