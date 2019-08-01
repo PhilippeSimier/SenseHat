@@ -13,7 +13,7 @@ SOURCES += pixelBlink.cpp digitalClock.cpp
 #List of object files
 OBJECTS += $(SOURCES:.cpp=.o)
 
-all: pixelBlink
+all: pixelBlink digitalClock
 
 #Compile all of the source files
 %.o: %.cpp
