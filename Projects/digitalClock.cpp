@@ -58,7 +58,11 @@ int piDisplayCharacter[] = {
 		0,1,1,1, // Nine
 		0,1,0,1,
 		0,1,1,1,
-		0,0,0,1
+		0,0,0,1,
+		0,0,0,0, // Blank
+		0,0,0,0,
+		0,0,0,0,
+		0,0,0,0,
 };
 
 
@@ -214,7 +218,7 @@ int setTemperatureDisplay(float myTemp)
 		{
 			rowOffset = 0;
 			columnOffset = 4;
-      characterOffset = hiMinute * 16;
+      characterOffset = 10 * 16; // Blank
 		}
 		if (quadrant == 2) // Low Temperature
 		{
@@ -227,7 +231,7 @@ int setTemperatureDisplay(float myTemp)
 		{
 			rowOffset = 4;
 			columnOffset = 4;
-      characterOffset = lowMinute * 16;
+      characterOffset = 10 * 16;// Blank
 		}
 		setRawDisplay( 0 + rowOffset, 0 + columnOffset,  piDisplayCharacter[(characterOffset)]);
 		setRawDisplay( 1 + rowOffset, 0 + columnOffset,  piDisplayCharacter[(characterOffset + 1)]);
