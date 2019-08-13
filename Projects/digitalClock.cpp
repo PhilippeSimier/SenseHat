@@ -267,6 +267,8 @@ int main()
 //		setClockDisplay();
 		temperature = senseHat.GetTemperature();
 		//convert to Fahrenheit
+		cout << "Celcius: " << temperature << endl;
+
 		temperatureF = (temperature*9/5) + 32;
 		setTemperatureDisplay(temperatureF);
 
