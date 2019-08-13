@@ -257,6 +257,7 @@ int main()
 	COLOR_SENSEHAT  green  = senseHat.ConvertRGB565("#009900");
 	COLOR_SENSEHAT  black  = senseHat.ConvertRGB565("#000000");
 	float temperature;
+	float temperatureF;
 
 	senseHat.WipeScreen();
 	senseHat << setcouleur(senseHat.ConvertRGB565(64,84,0));
@@ -265,7 +266,9 @@ int main()
 	{
 //		setClockDisplay();
 		temperature = senseHat.GetTemperature();
-		setTemperatureDisplay(temperature);
+		//convert to Fahrenheit
+		temperatureF = (temperature*9/5) + 32;
+		setTemperatureDisplay(temperatureF);
 
 		for (int column = 0; column < 8; column++)
 		{
