@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ## Fill in name of program here.
-PROG="PlayMusic"
+PROG="measureToDB"
 PROG_PATH="/home/jdellaria/Desktop/SenseHat/Projects/MeasurementDatabase" ## Not need, but sometimes helpful (if $PROG resides in /opt for example).
 PROG_ARGS="10000000" 
 PID_PATH="/var/run/"
