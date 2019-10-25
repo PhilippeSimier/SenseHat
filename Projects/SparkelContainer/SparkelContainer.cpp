@@ -32,7 +32,7 @@
 
 #include "IsolatedContainer.h"
 
-#define CHILDCONTAINERNAME "/home/pi/Desktop/SenseHat/Projects/pixelBlink"
+#define CHILDCONTAINERNAME "/home/jdellaria/Desktop/SenseHat/Projects/pixelBlink"
 
 //#define CHILDCONTAINERNAME "/Users/dellj/eclipse-workspace/piSenseClock/Debug/piSenseClock"
 
