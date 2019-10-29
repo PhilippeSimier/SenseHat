@@ -11,7 +11,6 @@ start() {
 if pgrep $PROG > /dev/null
 then
 	echo "$PROG is already Running"
-	echo "Hello There"
 else
 	echo "$PROG is starting"
 	cd $PROG_PATH
