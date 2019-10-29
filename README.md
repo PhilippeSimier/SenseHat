@@ -13,7 +13,7 @@ This repository offers a C ++ class for the SenseHat on Raspberry pi.
 
 **Prerequisites** : Clone the Repository
 ```bash
-    pi@raspberry:~ $ git clone https://github.com/jdellaria/SenseHat.git
+    pi@raspberry:~ $ git clone https://github.com/PhilippeSimier/SenseHat.git
     pi@raspberry:~ $ cd SenseHat/
 ```
 **Compilation & installation** : SenseHat Library
