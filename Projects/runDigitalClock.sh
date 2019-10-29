@@ -2,7 +2,7 @@
 
 ## Fill in name of program here.
 PROG="digitalClock"
-PROG_PATH="/home/jdellaria/Desktop/SensHat/Projects" ## Not need, but sometimes helpful (if $PROG resides in /opt for example).
+PROG_PATH="/home/jdellaria/Desktop/SenseHat/Projects" ## Not need, but sometimes helpful (if $PROG resides in /opt for example).
 PROG_ARGS="10000000" 
 PID_PATH="/var/run/"
 
@@ -11,14 +11,11 @@ start() {
 if pgrep $PROG > /dev/null
 then
 	echo "$PROG is already Running"
+	echo "Hello There"
 else
 	echo "$PROG is starting"
 	cd $PROG_PATH
-##	$PROG_PATH/startMusicServer.sh
-	nohup $PROG_PATH/digitalClock &
-##	sleep 5
-## 	$PROG_PATH/playauto.sh
-## 	echo "$PROG started with autoplay"
+	nohup $PROG_PATH/$PROG &
 fi
 }
 
